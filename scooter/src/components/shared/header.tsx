@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ShoppingCart, User } from 'lucide-react'; // <-- Import the User icon
 import {
   DropdownMenu,
@@ -25,21 +26,21 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
-            <div className="container flex h-16 items-center justify-between">
+            <div className="container flex h-16 items-center justify-around ">
                 
                 {/* 1. Logo/Branding (Left) */}
-                <Link href="/" className="flex items-center gap-2">
-                    <div className="text-2xl font-extrabold tracking-wider">SKOOTER</div>
+                <Link href="/" className="flex items-center gap-5 bg-gray-100   "> 
+                    <div className="text-2xl font-extrabold tracking-wider"> <Image src='/images/logo.png' alt='logo' width='300' height='300'></Image></div>
                 </Link>
 
                 {/* 2. Primary Navigation (Center) */}
-                <nav className="hidden md:flex items-center gap-6">
+                <nav className="hidden md:flex items-center gap-6  hover:text-emerald-800 hover:underline-offset-2">
                     {/* Main Links */}
                     {primaryNavLinks.map((link) => (
                         <Link 
                             key={link.href} 
                             href={link.href} 
-                            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            className="text-sm font-medium text-muted-foreground "
                         >
                             {link.label}
                         </Link>
@@ -49,20 +50,20 @@ export default function Header() {
                    
                     <DropdownMenu >
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                            <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-foreground  ">
                                 Categories
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start">
+                        <DropdownMenuContent align="start" className="w-50  min-w-[200px] py-10  z-50   ">
                             <DropdownMenuLabel>Product Types</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem className='py-4'>
                                 <Link href="/category/electric-scooters">Electric Scooters</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem className='py-4'>
                                 <Link href="/category/kick-scooters">Kick Scooters</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem className='py-4'>
                                 <Link href="/category/accessories">Accessories & Parts</Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -71,13 +72,13 @@ export default function Header() {
                 </nav>
 
                 {/* 3. Utility Icons (Right) */}
-                <div className='flex items-center gap-2 md:gap-4 m-10'>
+                <div className='flex items-center gap-2 md:gap-4 m-50'>
                     
                     {/* User Account / Login Button */}
                     {isAuthenticated ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant='ghost' size='icon' aria-label="Account">
+                                <Button variant='secondary' size='icon' aria-label="Account">
                                     <User className='h-5 w-5' />
                                 </Button>
                             </DropdownMenuTrigger>
@@ -92,14 +93,14 @@ export default function Header() {
                     ) : (
                         // Login button for logged-out users
                         <Link href="/login" passHref legacyBehavior>
-                           <Button variant='ghost' className="text-sm font-medium hover:text-foreground p-2 h-9 md:px-4">Login / Sign Up</Button>
+                           <Button variant='secondary' className="text-sm font-medium hover:text-foreground p-2 h-9 md:px-4">Login / Sign Up</Button>
                         </Link>
                     )}
 
 
                     {/* Shopping Cart Button */}
-                    <Link href="/cart" passHref legacyBehavior>
-                        <Button variant='ghost' size='icon' className='relative' aria-label={`View ${cartItemCount} items in cart`}>
+                    <Link href="/cart" passHref >
+                        <Button variant='secondary' size='icon' className='relative' aria-label={`View ${cartItemCount} items in cart`}>
                             <ShoppingCart className='h-5 w-5'/>
                             {cartItemCount > 0 && (
                                 <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 p-1 text-xs font-bold text-white leading-none">
