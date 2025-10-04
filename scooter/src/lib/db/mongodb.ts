@@ -22,7 +22,7 @@ if (!cached) {
   cached = (global as GlobalWithMongoose).mongoose;
 }
 
-export async function connectDB() {
+export default async function connectDB() {
   if (!cached) {
     throw new Error("Cached mongoose connection is not initialized.");
   }

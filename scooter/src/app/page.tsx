@@ -1,4 +1,4 @@
-import Header from '@/components/shared/header'
+import Header from '@/components/header'
 import {Button} from '@/components/ui/button'
 import { ArrowRight, ShoppingCart,Shield,Leaf,Zap } from 'lucide-react'
 import Image from 'next/image'
