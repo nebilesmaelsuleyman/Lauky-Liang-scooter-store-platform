@@ -1,6 +1,6 @@
 import {SiteHeader} from '@/components/site-header'
 import {Button} from '@/components/ui/button'
-import { ArrowRight, ShoppingCart,Shield,Leaf,Zap } from 'lucide-react'
+import { ArrowRight, ShoppingCart,Shield,Leaf,Zap ,Truck} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import {DiscountBanner} from '@/components/discount-banner'
@@ -17,11 +17,11 @@ export default function Home() {
     />
       <SiteHeader />
 
-      <main className="flex-1">
+      <main className="flex-1 ">
          {/* Hero Section */}
-        <section className="relative bg-primary text-primary-foreground">
+        <section className="relative bg-primary text-primary-foreground min-h-[82vh] ">
           <div className="container py-24 md:py-32">
-            <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto max-w-xl text-center">
               <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 text-balance">
                <span className='text-green-700'>Ride the Future</span>  of Urban Mobility
               </h1>
@@ -49,7 +49,49 @@ export default function Home() {
             </div>
           </div>
         </section>
-       
+
+         {/* Features Section */}
+        <section className="py-20 bg-muted/30 min-h-[60vh] items-center ">
+          <div className="container">
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="border-none shadow-none bg-transparent">
+                <CardContent className="pt-6 text-center space-y-4">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-green-700" />
+                  </div>
+                  <h3 className="text-xl font-semibold">High <span className='text-green-700'>Performance</span> </h3>
+                  <p className="text-muted-foreground">
+                    Powerful motors delivering speeds up to 40 mph with exceptional range.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-none bg-transparent">
+                <CardContent className="pt-6 text-center space-y-4">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Shield className="h-6 w-6 text-green-700" />
+                  </div>
+                  <h3 className="text-xl font-semibold"><span className='text-green-700'>Built to</span> Last</h3>
+                  <p className="text-muted-foreground">
+                    Premium materials and rigorous testing ensure durability and safety.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-none shadow-none bg-transparent">
+                <CardContent className="pt-6 text-center space-y-4">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Leaf className="h-6 w-6 text-green-700" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Eco <span className='text-green-700'>Friendly</span> </h3>
+                  <p className="text-muted-foreground">
+                    Zero emissions and energy-efficient design for a greener tomorrow.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
         </main>
         </div>
     
