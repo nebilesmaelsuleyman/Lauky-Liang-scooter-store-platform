@@ -5,6 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {DiscountBanner} from '@/components/discount-banner'
 import { Card, CardContent } from '@/components/ui/card'
+import {ProductCard} from '@/components/product-card'
+
 export default function Home() {
   
   return (
@@ -15,7 +17,7 @@ export default function Home() {
       description='limited time offer'
       discountPercentage='10'
     />
-      <SiteHeader />
+      <SiteHeader/>
 
       <main className="flex-1 ">
          {/* Hero Section */}
@@ -91,6 +93,32 @@ export default function Home() {
               </Card>
             </div>
           </div>
+        </section>
+        <section className='py-16'>
+          <div className='container'>
+            <div className='flex items-center justify-between mb-8'>
+              <div>
+                <h2 className='font-serif text-3xl md:text-4xl font-bold mb-2'>featured scooter</h2>
+                <p className="text-muted-foreground">Our most popular models loved by riders</p>
+                </div>
+                <Link href='#'> 
+                <Button variant='ghost'> view All</Button>
+                 <ArrowRight className="ml-2 h-4 w-4" />
+                 </Link>
+
+            </div>
+            <div  className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              <ProductCard/>
+              <ProductCard/>
+              <ProductCard/>
+              <ProductCard/>
+              <ProductCard/>
+              <ProductCard/>
+            </div>
+
+          </div>
+
+
         </section>
         </main>
         </div>
