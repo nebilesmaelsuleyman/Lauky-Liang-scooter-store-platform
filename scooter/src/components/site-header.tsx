@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {Input} from '@/components/ui/input';
 export function SiteHeader(){
 
-    const [isLogedIn , setIsLoggedIn]= useState(false);
+    const [isLogedIn , setIsLoggedIn]= useState(true);
      
 
     return (
@@ -17,13 +17,13 @@ export function SiteHeader(){
                 <span className="font-serif text-2xl font-bold">ScootHub</span>
                 </Link>
                 <nav className="hidden md:flex items-center space-x-8">
-                <Link  href='/' className="text-sm font-medium  transition-colors  hover:text-accent">HOme</Link>
+                <Link  href='/' className="text-sm font-medium  transition-colors  hover:text-accent">Home</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">All Products</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">  Categories</Link>
                 <Link href='/aboutus' className="text-sm font-medium  transition-colors hover:text-accent"> About us </Link>
 
                 {isLogedIn &&(<>
-                <Link href='#' className='text-sm font-medium transition-color hover:text-accent'>Order</Link>
+                
                 <Link href='#' className='text-sm font-medium transition-color hover:text-accent'>Account</Link>
                 
                 </>)}
@@ -46,11 +46,15 @@ export function SiteHeader(){
                             </Button>
                         </Link>
                         {isLogedIn ? (
+                          <div>
                             <Link href='/account'>
                                 <Button variant='default' size='sm' >
                                     <User className='h-5 w-5'/>
                                 </Button>
                             </Link>
+                            <Link href='#' className='text-sm font-medium transition-color hover:text-accent'><Button variant='ghost' size='sm'> Order</Button></Link>
+                            </div>
+                            
                         ):(
                             <div className='flex items-center gap-2'>
                             <Link href='/auth/login'>
