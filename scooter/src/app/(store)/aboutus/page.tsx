@@ -78,39 +78,38 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Company Story */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-4 text-gray-900">
-              About LuckyLiang
-            </h2>
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              We want green mobility to be accessible to everyone. LuckyLiang is a group of
-              passionate cycle enthusiasts and experts obsessed with creating a greener,
-              more sustainable world through a community of e-bikers.
-            </p>
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              Headquartered in the UAE, we manage a vertically integrated manufacturing and
-              supply chain that keeps us at the heart of every process. After our successful
-              2021 crowdfunding campaign, the first LuckyLiang model rolled onto the streets
-              around the globe — and a global family of riders was born.
-            </p>
-            <p className="text-gray-700 mb-4 leading-relaxed">
-              Together, we celebrate more than ten ways to live and ride. We’re constantly
-              exploring how we can make our world a better place — one e-bike at a time.
-            </p>
-          </div>
-          <div className="relative h-[350px] w-full rounded-xl overflow-hidden shadow-lg">
-            <Image
-              src="/images/blackscooter.webp"
-              alt="LuckyLiang factory and riders"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
+    {/* Company Story */}
+<section className="py-20 bg-gradient-to-b from-white to-green-50">
+  <div className="max-w-8xl px-6 grid grid-cols-1 lg:grid-cols-2 gap-12  items-center">
+    {/* Text Content */}
+    <div className="bg-white/30 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-white/20 transition-all duration-500 hover:bg-gradient-to-b hover:from-white hover:to-green-200/40 hover:scale-[1.02]">
+      <h2 className="text-4xl font-extrabold mb-4 text-gray-900 tracking-tight">
+        About <span className="text-green-600">LuckyLiang</span>
+      </h2>
+      <p className="text-gray-700 mb-3 leading-relaxed text-[15px]">
+        At LuckyLiang, we believe green mobility should be effortless, fun, and within everyone’s reach.
+      </p>
+      <p className="text-gray-700 mb-3 leading-relaxed text-[15px]">
+        Born from a team of passionate riders and innovators, we build e-scooters that turn everyday rides into eco-friendly adventures.
+      </p>
+      <p className="text-gray-700 leading-relaxed text-[15px]">
+        From our UAE headquarters, we design, craft, and deliver scooters that redefine modern movement — one ride at a time.
+      </p>
+    </div>
+
+    {/* Image Side */}
+    <div className="relative h-[350px] w-full rounded-2xl overflow-hidden shadow-2xl hover:scale-[1.03] transition-transform duration-500">
+      <Image
+        src="/images/blackscooter.webp"
+        alt="LuckyLiang factory and riders"
+        fill
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+    </div>
+  </div>
+</section>
+
 
       {/* Why Choose LuckyLiang */}
       <section className="py-20 bg-white">

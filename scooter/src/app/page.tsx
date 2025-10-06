@@ -23,7 +23,7 @@ export default function Home() {
           <div className="container py-24 md:py-32">
             <div className="mx-auto max-w-3xl text-center">
               <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 text-balance">
-                Ride the Future of Urban Mobility
+               <span className='text-green-700'>Ride the Future</span>  of Urban Mobility
               </h1>
               <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 text-pretty">
                 Discover premium electric scooters designed for the modern commuter. Performance meets elegance in every
@@ -31,7 +31,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="#">
-                  <Button size="lg" variant="secondary" className="w-full sm:w-auto">
+                  <Button size="lg" variant="secondary" className="w-full sm:w-auto bg-green-700 hover:bg-green-600 ">
                     Shop Now
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>

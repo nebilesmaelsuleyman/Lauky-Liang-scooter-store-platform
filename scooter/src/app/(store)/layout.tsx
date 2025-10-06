@@ -1,3 +1,5 @@
+import {SiteHeader} from '@/components/site-header'
+
 export default function productDetailsLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function productDetailsLayout({
 }>) {
   return (
     <div className="min-h-screen flex flex-col">
-      <h2>featured products</h2>
+     <SiteHeader/>
       {children}
     </div>
   );

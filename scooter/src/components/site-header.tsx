@@ -17,7 +17,7 @@ export function SiteHeader(){
                 <span className="font-serif text-2xl font-bold">ScootHub</span>
                 </Link>
                 <nav className="hidden md:flex items-center space-x-8">
-                <Link  href='#' className="text-sm font-medium  transition-colors  hover:text-accent">HOme</Link>
+                <Link  href='/' className="text-sm font-medium  transition-colors  hover:text-accent">HOme</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">All Products</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">  Categories</Link>
                 <Link href='/aboutus' className="text-sm font-medium  transition-colors hover:text-accent"> About us </Link>
