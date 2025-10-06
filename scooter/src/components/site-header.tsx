@@ -20,7 +20,7 @@ export function SiteHeader(){
                 <Link  href='#' className="text-sm font-medium  transition-colors  hover:text-accent">HOme</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">All Products</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">  Categories</Link>
-                <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">  </Link>
+                <Link href='/aboutus' className="text-sm font-medium  transition-colors hover:text-accent"> About us </Link>
 
                 {isLogedIn &&(<>
                 <Link href='#' className='text-sm font-medium transition-color hover:text-accent'>Order</Link>

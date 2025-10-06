@@ -18,6 +18,37 @@ export default function Home() {
       <SiteHeader />
 
       <main className="flex-1">
+         {/* Hero Section */}
+        <section className="relative bg-primary text-primary-foreground">
+          <div className="container py-24 md:py-32">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 text-balance">
+                Ride the Future of Urban Mobility
+              </h1>
+              <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 text-pretty">
+                Discover premium electric scooters designed for the modern commuter. Performance meets elegance in every
+                ride.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="#">
+                  <Button size="lg" variant="secondary" className="w-full sm:w-auto">
+                    Shop Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="#">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full sm:w-auto bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  >
+                    Browse Categories
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
        
         </main>
         </div>
