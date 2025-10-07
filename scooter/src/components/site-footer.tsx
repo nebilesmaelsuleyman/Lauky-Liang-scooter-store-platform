@@ -5,7 +5,7 @@ import type React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Facebook, Instagram, Twitter, Mail } from "lucide-react"
+import { Facebook, Instagram, Twitter, Mail,Youtube ,PhoneCall} from "lucide-react"
 import { useState } from "react"
 
 export function SiteFooter() {
@@ -24,7 +24,7 @@ export function SiteFooter() {
       <div className="border-b bg-accent/10">
         <div className="container py-12">
           <div className="mx-auto max-w-2xl text-center">
-            <Mail className="mx-auto h-10 w-10 mb-4 text-accent" />
+            <Mail className="mx-auto h-10 w-10 mb-4 text-green-700" />
             <h3 className="font-serif text-2xl font-bold mb-2">Subscribe to Our Newsletter</h3>
             <p className="text-muted-foreground mb-6">Get exclusive deals and updates on the latest scooters</p>
             <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md mx-auto">
@@ -45,7 +45,7 @@ export function SiteFooter() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container py-12">
+      <div className="container py-12 bg-[#3C467B] text-[#D4D8FF]">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
@@ -56,13 +56,16 @@ export function SiteFooter() {
               Premium electric scooters for modern urban living. Quality, performance, and style.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
+              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Youtube className="h-5 w-5" />
+              </Link>
+              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
+              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
+              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                 <Twitter className="h-5 w-5" />
               </Link>
             </div>
@@ -73,25 +76,25 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/products" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="/products"  className="text-gray-200 hover:text-[#FFD580] transition-colors">
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="/categories" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                   Categories
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products?featured=true"
-                  className="text-muted-foreground hover:text-accent transition-colors"
-                >
+                  className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                
                   Featured
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                   Sale
                 </Link>
               </li>
@@ -100,26 +103,26 @@ export function SiteFooter() {
 
           {/* Support */}
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
+            <h4 className="font-semibold mb-4">Service</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-accent transition-colors">
-                  Contact Us
+                <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                Customer Support
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-accent transition-colors">
-                  FAQ
+                <Link href="/faq" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                  Service Center
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-muted-foreground hover:text-accent transition-colors">
-                  Shipping Info
+                <Link href="/shipping" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                  Find A Store
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-muted-foreground hover:text-accent transition-colors">
-                  Returns
+                <Link href="/returns" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                Returns
                 </Link>
               </li>
             </ul>
@@ -130,22 +133,21 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-accent transition-colors">
-                  About Us
+                <Link href="/about" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-muted-foreground hover:text-accent transition-colors">
-                  Careers
+                <Link href="/aboutus" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                  About us
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="/privacy" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-muted-foreground hover:text-accent transition-colors">
+                <Link href="/terms" className="text-gray-200 hover:text-[#FFD580] transition-colors">
                   Terms of Service
                 </Link>
               </li>
@@ -155,7 +157,7 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t">
+      <div className="border-t bg-[#3C467B]">
         <div className="container py-6">
           <p className="text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} ScootHub. All rights reserved.

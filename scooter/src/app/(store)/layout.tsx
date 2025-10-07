@@ -1,4 +1,3 @@
-import {SiteHeader} from '@/components/site-header'
 
 export default function productDetailsLayout({
   children,
@@ -7,7 +6,7 @@ export default function productDetailsLayout({
 }>) {
   return (
     <div className="min-h-screen flex flex-col">
-     <SiteHeader/>
+     
       {children}
     </div>
   );
