@@ -7,7 +7,19 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ShoppingCart } from "lucide-react"
 
-export function ProductCard() {
+interface ProductCardProps {
+  id: string
+  name: string
+  slug: string
+  price: number
+  compareAtPrice?: number
+  image: string
+  category: string
+  isFeatured?: boolean
+}
+
+
+export function ProductCard({ id, name, slug, price, compareAtPrice, image, category, isFeatured }: ProductCardProps) {
   return (
     <Card className="group relative overflow-hidden border border-gray-200 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       
@@ -15,7 +27,7 @@ export function ProductCard() {
       <div className="relative aspect-square overflow-hidden">
         <Image
           src="/images/blackscooter.webp"
-          alt="Electric Scooter Dd1"
+          alt={name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
@@ -30,14 +42,12 @@ export function ProductCard() {
 
       {/* Product Info */}
       <CardContent className="p-4">
-        <Link href="#">
-          <p className="text-xs text-muted-foreground mb-1">Model J2</p>
-          <h3 className="font-semibold text-lg mb-2 line-clamp-1 transition-colors group-hover:text-accent">
-            Electric Scooter Dd1
-          </h3>
+        <Link href={`/products/${slug}`}>
+          <p className="text-xs text-muted-foreground mb-1">{category}</p>
+          <h3 className="font-semibold text-lg mb-2 line-clamp-1 group-hover:text-accent transition-colors">{name}</h3>
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold">$234</span>
-            <span className="text-sm text-muted-foreground line-through">$289</span>
+            <span className="text-xl font-bold">${price}</span>
+            {compareAtPrice && <span className="text-sm text-muted-foreground line-through">${compareAtPrice}</span>}
           </div>
         </Link>
       </CardContent>

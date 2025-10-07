@@ -7,17 +7,16 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {Input} from '@/components/ui/input';
 export function SiteHeader(){
 
-    const [isLogedIn , setIsLoggedIn]= useState(true);
+    const [isLogedIn , setIsLoggedIn]= useState(false);
      
 
     return (
         <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
             <div className='container flex h-16 items-center justify-between'>
-                <Link href='/' className="flex items-center space-x-2">          
-                <span className="font-serif text-2xl font-bold">ScootHub</span>
+                <Link href='/' className="flex items-center space-x-8">          
+                <span className="font-serif text-2xl font-bold space-x-8">Logo</span>
                 </Link>
                 <nav className="hidden md:flex items-center space-x-8">
-                <Link  href='/' className="text-sm font-medium  transition-colors  hover:text-accent">Home</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">All Products</Link>
                 <Link href='#' className="text-sm font-medium  transition-colors hover:text-accent">  Categories</Link>
                 <Link href='/aboutus' className="text-sm font-medium  transition-colors hover:text-accent"> About us </Link>
@@ -29,13 +28,12 @@ export function SiteHeader(){
                 </>)}
                 </nav>
                         {/* search Bar -Desktip */}
-                    <div className="hidden md:flex items-center flex-1 mx-w-md  mx-8">
-                        <div className="relative w-full">
-                            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"></Search>
-                            <input type="text" placeholder="Search Scooters..." className="w-full border bg-transparent pl-10 pr-4 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"/>
-                        </div>
-
-                    </div>
+                    <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input type="search" placeholder="Search scooters..." className="pl-10 w-full" />
+          </div>
+        </div>
 
                     {/* {actions} */}
                     <div className="  flex items-center space-x-4">

@@ -6,9 +6,14 @@ import Link from 'next/link'
 import {DiscountBanner} from '@/components/discount-banner'
 import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
+import { mockProducts, mockCategories, } from "@/lib/db/placeholders"
+import {CategoryCard} from '@/components/category-card'
 
 export default function Home() {
+   const featuredProducts = mockProducts.filter((p) => p.isFeatured).slice(0, 3)
+  const displayCategories = mockCategories.slice(0, 4)
   
+
   return (
     <div className="min-h-screen flex flex-col">
 
@@ -24,8 +29,8 @@ export default function Home() {
         <section className="relative bg-primary text-primary-foreground min-h-[82vh] ">
           <div className="container py-24 md:py-32">
             <div className="mx-auto max-w-xl text-center">
-              <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 text-balance">
-               <span className='text-green-700'>Ride the Future</span>  of Urban Mobility
+              <h1 className="font-sanserif text-4xl md:text-6xl font-bold mb-6 text-balance">
+               <span className='text-green-700  '>Ride the Future </span>  of Urban Mobility
               </h1>
               <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 text-pretty">
                 Discover premium electric scooters designed for the modern commuter. Performance meets elegance in every
@@ -94,32 +99,61 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='py-16'>
-          <div className='container'>
-            <div className='flex items-center justify-between mb-8'>
+
+         {/* Featured Products */}
+        <section className="py-16">
+          <div className="container">
+            <div className="flex items-center justify-between mb-8">
               <div>
-                <h2 className='font-serif text-3xl md:text-4xl font-bold mb-2'>featured scooter</h2>
+                <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">Featured Scooters</h2>
                 <p className="text-muted-foreground">Our most popular models loved by riders</p>
-                </div>
-                <Link href='#'> 
-                <Button variant='ghost'> view All</Button>
-                 <ArrowRight className="ml-2 h-4 w-4" />
-                 </Link>
-
+              </div>
+              <Link href="/products">
+                <Button variant="ghost">
+                  View All
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
-            <div  className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              <ProductCard/>
-              <ProductCard/>
-              <ProductCard/>
-              <ProductCard/>
-              <ProductCard/>
-              <ProductCard/>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredProducts.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  id={product._id}
+                  name={product.name}
+                  slug={product.slug}
+                  price={product.price}
+                  compareAtPrice={product.compareAtPrice}
+                  image={product.images[0]}
+                  category={mockCategories.find((c) => c._id === product.category)?.name || ""}
+                  isFeatured={product.isFeatured}
+                />
+              ))}
             </div>
-
           </div>
-
-
         </section>
+
+        {/* Categories Grid */}
+        <section className="py-16 bg-muted/30">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2">Shop by Category</h2>
+              <p className="text-muted-foreground">Find the perfect scooter for your lifestyle</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {displayCategories.map((category) => (
+                <CategoryCard
+                  key={category._id}
+                  name={category.name}
+                  slug={category.slug}
+                  description={category.description}
+                  image={category.image}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+                
         </main>
         </div>
     
