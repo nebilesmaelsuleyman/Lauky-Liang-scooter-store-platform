@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ShoppingCart } from "lucide-react"
-
+import {useCart} from '@/contexts/cart-context'
 interface ProductCardProps {
   id: string
   name: string
@@ -20,6 +20,11 @@ interface ProductCardProps {
 
 
 export function ProductCard({ id, name, slug, price, compareAtPrice, image, category, isFeatured }: ProductCardProps) {
+  const {addItem}= useCart()
+  const handleAddToCart =(e:React.MouseEvent)=>{
+    e.preventDefault()
+    addItem({productId:id, name, price,image})
+  }
   return (
     <Card className="group relative overflow-hidden border border-gray-200 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       
@@ -51,14 +56,15 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
           </div>
         </Link>
       </CardContent>
-
-      {/* Add to Cart (Slide Up Effect) */}
-      <CardFooter className="absolute bottom-0 left-0 w-full translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 bg-background/90 backdrop-blur-sm p-4">
-        <Button className="w-full" size="sm">
-          <ShoppingCart className="mr-2 h-4 w-4" />
+      <CardFooter className='p-4 pt-0'>
+        <Button className='w-full ' size="sm" onClick={handleAddToCart}>
+          <ShoppingCart className='mr-2 h-4 w-4'/>
           Add to Cart
         </Button>
+
       </CardFooter>
-    </Card>
+      </Card>
+      
+    
   )
 }

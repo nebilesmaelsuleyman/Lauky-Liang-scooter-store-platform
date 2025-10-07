@@ -5,10 +5,12 @@ import {Search, ShoppingCart, User } from "lucide-react";
 import {Button} from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import {Input} from '@/components/ui/input';
+import {useCart} from '@/contexts/cart-context'
+
 export function SiteHeader(){
 
     const [isLogedIn , setIsLoggedIn]= useState(false);
-     
+     const {itemCount} =useCart()
 
     return (
         <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
@@ -40,7 +42,7 @@ export function SiteHeader(){
                         <Link href='#'>
                             <Button variant='ghost' size='icon' className='relative'>
                                 <ShoppingCart className='h-5 w-5'/>
-                                <span className='absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold  text-white bg-red-600 rounded-full'>3</span>
+                                <span className='absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold  text-white bg-red-600 rounded-full'>{itemCount}</span>
                             </Button>
                         </Link>
                         {isLogedIn ? (

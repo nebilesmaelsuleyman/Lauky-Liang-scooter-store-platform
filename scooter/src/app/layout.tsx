@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import {DiscountBanner} from '@/components/discount-banner'
+import {SiteFooter} from '@/components/site-footer'
+import {SiteHeader} from '@/components/site-header'
+import { Toaster } from 'sonner'
+import { CartProvider } from "@/contexts/cart-context"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,7 +29,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+         <DiscountBanner
+      title='spring sales'
+      description='limited time offer'
+      discountPercentage='10'
+    /> <CartProvider>
+      <SiteHeader/>
         {children}
+        <Toaster richColors position="top-right" />
+        <SiteFooter/>
+    </CartProvider>
+        
       </body>
     </html>
   );

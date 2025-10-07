@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/button'
 import { ArrowRight, ShoppingCart,Shield,Leaf,Zap ,Truck} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {DiscountBanner} from '@/components/discount-banner'
+
 import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
 import { mockProducts, mockCategories, } from "@/lib/db/placeholders"
@@ -16,13 +16,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-
-    <DiscountBanner
-      title='spring sales'
-      description='limited time offer'
-      discountPercentage='10'
-    />
-      <SiteHeader/>
 
       <main className="flex-1 ">
          {/* Hero Section */}
@@ -153,7 +146,24 @@ export default function Home() {
             </div>
           </div>
         </section>
-                
+        
+            {/* CTA Section */}
+        <section className="py-20 bg-primary text-primary-foreground">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Commute?</h2>
+              <p className="text-lg mb-8 text-primary-foreground/90">
+                Join thousands of satisfied riders who have upgraded their daily travel
+              </p>
+              <Link href="/products">
+                <Button size="lg" variant="secondary">
+                  Start Shopping
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>    
         </main>
         </div>
     
