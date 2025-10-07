@@ -5,6 +5,18 @@
 
 import { type Product, type Category, } from "./schema"
 
+export interface DiscountBanner {
+  _id: string
+  title: string
+  description: string
+  discountPercentage: number
+  isActive: boolean
+  startDate: Date
+  endDate: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
 export const mockCategories: Category[] = [
   {
     _id: "cat_1",
@@ -221,7 +233,17 @@ export const mockProducts: Product[] = [
     createdBy: "admin_1",
   },
 ]
-
+export const mockDiscountBanner: DiscountBanner = {
+  _id: "banner_1",
+  title: "Spring Sale",
+  description: "Get 10% off on all scooters",
+  discountPercentage: 10,
+  isActive: true,
+  startDate: new Date("2024-03-01"),
+  endDate: new Date("2024-04-30"),
+  createdAt: new Date("2024-02-25"),
+  updatedAt: new Date("2024-02-25"),
+}
 
 
    
