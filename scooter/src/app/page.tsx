@@ -10,7 +10,7 @@ import { mockProducts, mockCategories, } from "@/lib/db/placeholders"
 import {CategoryCard} from '@/components/category-card'
 
 export default function Home() {
-   const featuredProducts = mockProducts.filter((p) => p.isFeatured).slice(0, 3)
+   const featuredProducts = mockProducts.filter((p) => p.isFeatured).slice(0, 6)
   const displayCategories = mockCategories.slice(0, 4)
   
 

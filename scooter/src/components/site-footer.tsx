@@ -45,7 +45,7 @@ export function SiteFooter() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container py-12 bg-[#3C467B] text-[#D4D8FF]">
+      <div className="container py-12 ">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
@@ -56,16 +56,16 @@ export function SiteFooter() {
               Premium electric scooters for modern urban living. Quality, performance, and style.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                 <Youtube className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                 <Twitter className="h-5 w-5" />
               </Link>
             </div>
@@ -76,25 +76,25 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/products"  className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/products"  className="text-muted-foreground hover:text-accent transition-colors">
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/categories" className="text-muted-foreground hover:text-accent transition-colors">
                   Categories
                 </Link>
               </li>
               <li>
                 <Link
                   href="/products?featured=true"
-                  className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                 className="text-muted-foreground hover:text-accent transition-colors">
                 
                   Featured
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                   Sale
                 </Link>
               </li>
@@ -106,22 +106,22 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Service</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="#" className="text-muted-foreground hover:text-accent transition-colors">
                 Customer Support
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/faq" className="text-muted-foreground hover:text-accent transition-colors">
                   Service Center
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/shipping" className="text-muted-foreground hover:text-accent transition-colors">
                   Find A Store
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/returns" className="text-muted-foreground hover:text-accent transition-colors">
                 Returns
                 </Link>
               </li>
@@ -133,21 +133,20 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/about"className="text-muted-foreground hover:text-accent transition-colors">
                 </Link>
               </li>
               <li>
-                <Link href="/aboutus" className="text-gray-200 hover:text-[#FFD580] transition-colors">
-                  About us
+                <Link href="/aboutus" className="text-muted-foreground hover:text-accent transition-colors">About Us
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/privacy" className="text-muted-foreground hover:text-accent transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-200 hover:text-[#FFD580] transition-colors">
+                <Link href="/terms" className="text-muted-foreground hover:text-accent transition-colors">
                   Terms of Service
                 </Link>
               </li>
@@ -157,7 +156,7 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t bg-[#3C467B]">
+      <div className="border-t">
         <div className="container py-6">
           <p className="text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} ScootHub. All rights reserved.

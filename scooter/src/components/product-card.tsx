@@ -1,4 +1,6 @@
-'use client'
+"use client"
+
+import type React from "react"
 
 import Link from "next/link"
 import Image from "next/image"
@@ -6,7 +8,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ShoppingCart } from "lucide-react"
-import {useCart} from '@/contexts/cart-context'
+import { useCart } from "@/contexts/cart-context"
+
 interface ProductCardProps {
   id: string
   name: string
@@ -18,34 +21,38 @@ interface ProductCardProps {
   isFeatured?: boolean
 }
 
-
 export function ProductCard({ id, name, slug, price, compareAtPrice, image, category, isFeatured }: ProductCardProps) {
-  const {addItem}= useCart()
-  const handleAddToCart =(e:React.MouseEvent)=>{
-    e.preventDefault()
-    addItem({productId:id, name, price,image})
-  }
-  return (
-    <Card className="group relative overflow-hidden border border-gray-200 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      
-      {/* Product Image */}
-      <div className="relative aspect-square overflow-hidden">
-        <Image
-          src="/images/blackscooter.webp"
-          alt={name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        {/* Badges */}
-        <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground shadow-sm">
-          -10%
-        </Badge>
-        <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground shadow-sm">
-          Featured
-        </Badge>
-      </div>
+  const discountPercentage = compareAtPrice ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100) : 0
+  const { addItem } = useCart()
 
-      {/* Product Info */}
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault()
+    addItem({
+      productId: id,
+      name,
+      price,
+      image,
+    })
+  }
+
+  return (
+    <Card className="group overflow-hidden transition-all hover:shadow-lg">
+      <Link href={`/products/${slug}`}>
+        <div className="relative aspect-square overflow-hidden bg-muted">
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={name}
+            fill
+            className="object-cover transition-transform group-hover:scale-105"
+          />
+          {discountPercentage > 0 && (
+            <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground">
+              -{discountPercentage}%
+            </Badge>
+          )}
+          {isFeatured && <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">Featured</Badge>}
+        </div>
+      </Link>
       <CardContent className="p-4">
         <Link href={`/products/${slug}`}>
           <p className="text-xs text-muted-foreground mb-1">{category}</p>
@@ -56,15 +63,12 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
           </div>
         </Link>
       </CardContent>
-      <CardFooter className='p-4 pt-0'>
-        <Button className='w-full ' size="sm" onClick={handleAddToCart}>
-          <ShoppingCart className='mr-2 h-4 w-4'/>
+      <CardFooter className="p-4 pt-0">
+        <Button className="w-full" size="sm" onClick={handleAddToCart}>
+          <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart
         </Button>
-
       </CardFooter>
-      </Card>
-      
-    
+    </Card>
   )
 }
