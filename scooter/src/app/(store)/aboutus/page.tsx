@@ -11,7 +11,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center bg-gray-700 text-white overflow-hidden">
         <Image
-          src="/images/blackscooter.webp"
+          src="/images/commuter-electric-scooter-city.jpg"
           alt="LuckyLiang E-Bikes"
           fill
           className="object-cover opacity-70"
@@ -100,7 +100,7 @@ export default function AboutPage() {
     {/* Image Side */}
     <div className="relative h-[350px] w-full rounded-2xl overflow-hidden shadow-2xl hover:scale-[1.03] transition-transform duration-500">
       <Image
-        src="/images/blackscooter.webp"
+        src="/images/fast-performance-electric-scooter.jpg"
         alt="LuckyLiang factory and riders"
         fill
         className="object-cover"
