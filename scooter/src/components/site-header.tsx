@@ -13,7 +13,7 @@ export function SiteHeader(){
      const {itemCount} =useCart()
 
     return (
-        <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+        <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 container'>
             <div className='container flex h-16 items-center justify-between p-8'>
                 <Link href='/' className="flex items-center space-x-8">          
                 <span className="font-serif text-2xl font-bold space-x-8">Logo</span>

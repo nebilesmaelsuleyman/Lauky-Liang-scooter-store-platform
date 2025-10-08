@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
 
-      <main className="flex-1 ">
+      <main className="flex-1  container items-center">
          {/* Hero Section */}
         <section className="relative bg-primary text-primary-foreground min-h-[82vh] ">
           <div className="container py-24 md:py-32">

@@ -242,7 +242,7 @@ export const mockProducts: Product[] = [
     shortDescription: "Off-road beast with all-terrain capability",
     price: 1799,
     compareAtPrice: 2099,
-    images: ["/images/cycle.webp", "/images/all-terrain-electric-scooter.jpg"],
+    images: ["/images/cyle.webp", "/images/all-terrain-electric-scooter.jpg"],
     category: "cat_4",
     specifications: {
       maxSpeed: "30 mph",

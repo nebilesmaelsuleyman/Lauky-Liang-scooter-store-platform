@@ -19,7 +19,7 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t bg-muted/30">
+    <footer className="border-t bg-muted/30 container items-conter">
       {/* Newsletter Section */}
       <div className="border-b bg-accent/10">
         <div className="container py-12">
