@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Image from 'next/image'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,7 +19,7 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t bg-muted/30 container items-conter">
+    <footer className="border-t bg-muted/30  items-conter">
       {/* Newsletter Section */}
       <div className="border-b bg-accent/10">
         <div className="container py-12">
@@ -50,7 +50,14 @@ export function SiteFooter() {
           {/* Brand */}
           <div>
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <span className="font-serif text-2xl font-bold">Logo</span>
+             <Image
+                                   src="/images/Logo (Lucky liang)-2.png" 
+                                   alt="Company Logo"
+                                   width={180}
+                                   height={4}
+                                   
+                                   priority
+                                 />
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               Premium electric scooters for modern urban living. Quality, performance, and style.

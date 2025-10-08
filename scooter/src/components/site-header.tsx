@@ -1,5 +1,6 @@
 'use client'
 import  Link  from "next/link";
+import Image from "next/image";
 import {useState} from "react";
 import {Search, ShoppingCart, User } from "lucide-react";
 import {Button} from '@/components/ui/button';
@@ -13,10 +14,17 @@ export function SiteHeader(){
      const {itemCount} =useCart()
 
     return (
-        <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 container'>
-            <div className='container flex h-16 items-center justify-between p-8'>
-                <Link href='/' className="flex items-center space-x-8">          
-                <span className="font-serif text-2xl font-bold space-x-8">Logo</span>
+        <header className='sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60  items-center'>
+            <div className='container flex h-16 items-center justify-between px-6 md:px-10 gap-8'>
+                <Link href='/' className="flex items-center space-x-8 ">          
+                     <Image
+                      src="/images/luckylianglogo.webp" 
+                      alt="Company Logo"
+                      width={40}
+                      height={44}
+                      className="h-16 w-auto  "
+                      priority
+                    />
                 </Link>
                 <nav className="hidden md:flex items-center space-x-8">
                 <Link href='/products' className="text-sm font-medium  transition-colors hover:text-accent">All Products</Link>
@@ -30,15 +38,20 @@ export function SiteHeader(){
                 </>)}
                 </nav>
                         {/* search Bar -Desktip */}
-                    <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input type="search" placeholder="Search scooters..." className="pl-10 w-full" />
-          </div>
-        </div>
+                   <div className="hidden md:flex items-center flex-1 max-w-[600px] lg:max-w-[500px] mx-6">
+                          <div className="relative w-full">
+                            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                            <Input
+                              type="search"
+                              placeholder="Search scooters..."
+                              className="pl-10 w-full"
+                            />
+                          </div>
+                        </div>
+
 
                     {/* {actions} */}
-                    <div className="  flex items-center space-x-4">
+                    <div className=" hidden  md:flex items-center space-x-4">
                         <Link href='/cart'>
                             <Button variant='ghost' size='icon' className='relative'>
                                 <ShoppingCart className='h-5 w-5'/>
@@ -56,7 +69,7 @@ export function SiteHeader(){
                             </div>
                             
                         ):(
-                            <div className='flex items-center gap-2'>
+                            <div className=' hidden  md:flex items-center gap-2'>
                             <Link href='/auth/login'>
                                 <Button variant='default' size='sm' >
                                     Sign In
@@ -81,7 +94,7 @@ export function SiteHeader(){
                                <menu className="h-5 w-5"/>
                             </Button>
                              </SheetTrigger>
-                             <SheetContent side='right' className='w-[250px] p-0'>
+                             <SheetContent side='right' className='w-[250px] items-center py-8 bg-blue-100'>
                                 <nav className='flex flex-col space-y-4 mt-8'>
                                     <Link href="/" className="text-lg font-medium">
                                         Home

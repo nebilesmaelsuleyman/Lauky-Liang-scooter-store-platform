@@ -15,13 +15,13 @@ export default function Home() {
   
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col  items-center">
 
-      <main className="flex-1  container items-center">
+      <main className="flex-1  container">
          {/* Hero Section */}
-        <section className="relative bg-primary text-primary-foreground min-h-[82vh] ">
+        <section className="relative bg-primary text-primary-foreground min-h-[80vh] md:min-h-[60vh] sm:min-h-[20vh] items-center">
           <div className="container py-24 md:py-32">
-            <div className="mx-auto max-w-xl text-center">
+            <div className="mx-auto max-w-xl text-center ">
               <h1 className="font-sanserif text-4xl md:text-6xl font-bold mb-6 text-balance">
                <span className='text-green-700  '>Ride the Future </span>  of Urban Mobility
               </h1>
@@ -51,7 +51,7 @@ export default function Home() {
         </section>
 
          {/* Features Section */}
-        <section className="py-20 bg-muted/30 min-h-[60vh] items-center ">
+        <section className="py-20 bg-muted/30 min-h-[60vh] md:min-h-[35vh] sm:min-h-[27vh] items-center ">
           <div className="container">
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="border-none shadow-none bg-transparent">
