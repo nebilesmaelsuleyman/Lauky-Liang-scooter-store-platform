@@ -1,0 +1,1 @@
+import Product ,{Product as ProductType } from '@/lib/models/productModel'

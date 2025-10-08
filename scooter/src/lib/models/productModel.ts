@@ -1,33 +1,61 @@
-// lib/models/product.ts
-import mongoose, { Schema, models, model } from 'mongoose';
+// /models/product.model.ts
+import mongoose, { Schema, Document, model, Types } from "mongoose"
 
-export interface IProduct {
-  _id?: string;
-  name: string;
-  slug: string; // for SEO-friendly URLs
-  description: string;
-  price: number;
-  stock: number;
-  category: string;
-  imageUrl: string;
-  status: 'published' | 'draft' | 'archived';
-  createdAt?: Date;
-  updatedAt?: Date;
+export interface Product extends Document {
+  name: string
+  slug: string
+  description: string
+  shortDescription: string
+  price: number
+  compareAtPrice?: number
+  images: string[]
+  category: Types.ObjectId
+  specifications: {
+    maxSpeed: string
+    range: string
+    weight: string
+    maxLoad: string
+    batteryCapacity: string
+    chargingTime: string
+    motor: string
+  }
+  stock: number
+  sku: string
+  isActive: boolean
+  isFeatured: boolean
+  tags: string[]
+  createdAt: Date
+  updatedAt: Date
+  createdBy: Types.ObjectId
 }
 
-const productSchema = new Schema<IProduct>(
+const ProductSchema = new Schema<Product>(
   {
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    price: { type: Number, required: true, min: 0 },
-    stock: { type: Number, required: true, min: 0 },
-    category: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    status: { type: String, enum: ['published', 'draft', 'archived'], default: 'draft' },
+    shortDescription: { type: String },
+    price: { type: Number, required: true },
+    compareAtPrice: { type: Number },
+    images: [{ type: String }],
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+    specifications: {
+      maxSpeed: String,
+      range: String,
+      weight: String,
+      maxLoad: String,
+      batteryCapacity: String,
+      chargingTime: String,
+      motor: String,
+    },
+    stock: { type: Number, default: 0 },
+    sku: { type: String, required: true, unique: true },
+    isActive: { type: Boolean, default: true },
+    isFeatured: { type: Boolean, default: false },
+    tags: [{ type: String }],
+    createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
-);
+)
 
-const Product = models.Product || model<IProduct>('Product', productSchema);
-export default Product;
+export default mongoose.models.Product || model<Product>("Product", ProductSchema)
