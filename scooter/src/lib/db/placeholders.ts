@@ -3,24 +3,25 @@
  * This simulates MongoDB data without actual database connection
  */
 
-import { type Product, type Category, } from "./schema"
+import { type Product, type Category,type  DiscountBanner  } from "./schema"
 
-export interface DiscountBanner {
-  _id: string
-  title: string
-  description: string
-  discountPercentage: number
-  isActive: boolean
-  startDate: Date
-  endDate: Date
-  createdAt: Date
-  updatedAt: Date
+export const mockDiscountBanner: DiscountBanner = {
+  _id: "banner_1",
+  title: "Spring Sale",
+  description: "Get 10% off on all scooters",
+  discountPercentage: 10,
+  isActive: true,
+  startDate: new Date("2024-03-01"),
+  endDate: new Date("2024-04-30"),
+  createdAt: new Date("2024-02-25"),
+  updatedAt: new Date("2024-02-25"),
 }
+
 
 export const mockCategories: Category[] = [
   {
     _id: "cat_1",
-    name: "Electric Scooters",
+    name: " E-Scooters",
     slug: "electric-scooters",
     description: "High-performance electric scooters for urban commuting",
     image: "/images/modern-electric-scooter.png",
@@ -30,30 +31,30 @@ export const mockCategories: Category[] = [
   },
   {
     _id: "cat_2",
-    name: "Commuter Series",
+    name: "E-Bikes",
     slug: "commuter-series",
     description: "Perfect for daily commutes and city travel",
-    image: "/images/commuter-electric-scooter-city.jpg",
+    image: "/images/off-road-electric-scooter-terrain.jpg",
     isActive: true,
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01"),
   },
   {
     _id: "cat_3",
-    name: "Performance Series",
+    name: "E-Dirt Bike",
     slug: "performance-series",
     description: "High-speed scooters for thrill seekers",
-    image: "/images/fast-performance-electric-scooter.jpg",
+    image: "/images/Natike.png",
     isActive: true,
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01"),
   },
   {
     _id: "cat_4",
-    name: "Off-Road Series",
+    name: "E-crussiers",
     slug: "off-road-series",
     description: "Rugged scooters built for any terrain",
-    image: "/images/off-road-electric-scooter-terrain.jpg",
+    image: "/images/engwe.webp",
     isActive: true,
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01"),
@@ -62,44 +63,15 @@ export const mockCategories: Category[] = [
 
 export const mockProducts: Product[] = [
   {
-    _id: "prod_1",
-    name: "Urban Glide Pro",
-    slug: "urban-glide-pro",
-    description:
-      "The Urban Glide Pro combines sleek design with powerful performance. Perfect for daily commutes with its long-range battery and smooth ride quality.",
-    shortDescription: "Premium commuter scooter with 40-mile range",
-    price: 899,
-    compareAtPrice: 1099,
-    images: ["/images/sleek-black-electric-scooter-urban.jpg", "/images/electric-scooter-side-view.jpg"],
-    category: "cat_2",
-    specifications: {
-      maxSpeed: "25 mph",
-      range: "40 miles",
-      weight: "35 lbs",
-      maxLoad: "265 lbs",
-      batteryCapacity: "48V 15Ah",
-      chargingTime: "6-8 hours",
-      motor: "500W Brushless",
-    },
-    stock: 45,
-    sku: "UGP-001",
-    isActive: true,
-    isFeatured: true,
-    tags: ["commuter", "long-range", "bestseller"],
-    createdAt: new Date("2024-01-15"),
-    updatedAt: new Date("2024-01-15"),
-    createdBy: "admin_1",
-  },
-  {
     _id: "prod_2",
-    name: "Velocity X1",
+    name: "Natike",
     slug: "velocity-x1",
     description:
       "Experience unmatched speed and power with the Velocity X1. Built for performance enthusiasts who demand the best.",
     shortDescription: "High-performance scooter reaching 35 mph",
     price: 1499,
     compareAtPrice: 1799,
-    images: ["/images/red-performance-electric-scooter-fast.jpg", "/images/sport-electric-scooter.jpg"],
+    images: ["/images/Natike.png", "/images/sport-electric-scooter.jpg"],
     category: "cat_3",
     specifications: {
       maxSpeed: "35 mph",
@@ -119,6 +91,8 @@ export const mockProducts: Product[] = [
     updatedAt: new Date("2024-01-20"),
     createdBy: "admin_1",
   },
+  
+  
   {
     _id: "prod_3",
     name: "EcoRide Lite",
@@ -128,7 +102,7 @@ export const mockProducts: Product[] = [
     price: 499,
     compareAtPrice: 599,
     images: ["/images/white-compact-electric-scooter-affordable.jpg", "/images/lightweight-electric-scooter.png"],
-    category: "cat_2",
+    category: "cat_1",
     specifications: {
       maxSpeed: "18 mph",
       range: "20 miles",
@@ -148,14 +122,43 @@ export const mockProducts: Product[] = [
     createdBy: "admin_1",
   },
   {
+    _id: "prod_1",
+    name: "Urban Glide Pro",
+    slug: "urban-glide-pro",
+    description:
+      "The Urban Glide Pro combines sleek design with powerful performance. Perfect for daily commutes with its long-range battery and smooth ride quality.",
+    shortDescription: "Premium commuter scooter with 40-mile range",
+    price: 899,
+    compareAtPrice: 1099,
+    images: ["/images/sleek-black-electric-scooter-urban.jpg", "/images/electric-scooter-side-view.jpg"],
+    category: "cat_1",
+    specifications: {
+      maxSpeed: "25 mph",
+      range: "40 miles",
+      weight: "35 lbs",
+      maxLoad: "265 lbs",
+      batteryCapacity: "48V 15Ah",
+      chargingTime: "6-8 hours",
+      motor: "500W Brushless",
+    },
+    stock: 45,
+    sku: "UGP-001",
+    isActive: true,
+    isFeatured: true,
+    tags: ["commuter", "long-range", "bestseller"],
+    createdAt: new Date("2024-01-15"),
+    updatedAt: new Date("2024-01-15"),
+    createdBy: "admin_1",
+  },
+  {
     _id: "prod_4",
-    name: "TrailBlazer Max",
+    name: "L6 Pro",
     slug: "trailblazer-max",
     description: "Conquer any terrain with the TrailBlazer Max. Features all-terrain tires and superior suspension.",
     shortDescription: "Off-road beast with all-terrain capability",
     price: 1799,
     compareAtPrice: 2099,
-    images: ["/images/rugged-off-road-electric-scooter-terrain.jpg", "/images/all-terrain-electric-scooter.jpg"],
+    images: ["/images/l6pro.webp", "/images/all-terrain-electric-scooter.jpg"],
     category: "cat_4",
     specifications: {
       maxSpeed: "30 mph",
@@ -177,14 +180,14 @@ export const mockProducts: Product[] = [
   },
   {
     _id: "prod_5",
-    name: "City Cruiser",
+    name: "L3 pro",
     slug: "city-cruiser",
     description:
       "Navigate city streets with ease. The City Cruiser offers the perfect balance of portability and performance.",
     shortDescription: "Portable and powerful city scooter",
     price: 699,
     compareAtPrice: 849,
-    images: ["/images/blue-electric-scooter-city-portable.jpg", "/images/foldable-electric-scooter.jpg"],
+    images: ["/images/l3pro.webp", "/images/foldable-electric-scooter.jpg"],
     category: "cat_2",
     specifications: {
       maxSpeed: "22 mph",
@@ -206,13 +209,13 @@ export const mockProducts: Product[] = [
   },
   {
     _id: "prod_6",
-    name: "Thunder Pro",
+    name: "J1",
     slug: "thunder-pro",
     description: "Unleash the thunder with this powerhouse scooter. Maximum speed and range for serious riders.",
     shortDescription: "Ultimate performance with 50-mile range",
     price: 1999,
     compareAtPrice: 2399,
-    images: ["/images/black-premium-electric-scooter-powerful.jpg", "/images/high-end-electric-scooter.jpg"],
+    images: ["/images/j1.webp", "/images/high-end-electric-scooter.jpg"],
     category: "cat_3",
     specifications: {
       maxSpeed: "40 mph",
@@ -233,18 +236,10 @@ export const mockProducts: Product[] = [
     createdBy: "admin_1",
   },
 ]
-export const mockDiscountBanner: DiscountBanner = {
-  _id: "banner_1",
-  title: "Spring Sale",
-  description: "Get 10% off on all scooters",
-  discountPercentage: 10,
-  isActive: true,
-  startDate: new Date("2024-03-01"),
-  endDate: new Date("2024-04-30"),
-  createdAt: new Date("2024-02-25"),
-  updatedAt: new Date("2024-02-25"),
-}
 
 
-   
+
+
+
+
 export const PLACEHOLDER_PRODUCTS = mockProducts

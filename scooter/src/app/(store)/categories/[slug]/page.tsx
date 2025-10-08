@@ -16,10 +16,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DiscountBanner
-        title={mockDiscountBanner.title}
-        description={mockDiscountBanner.description}
-        discountPercentage='10' />
+    
       
 
       <main className="flex-1">

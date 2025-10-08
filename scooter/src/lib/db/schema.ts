@@ -8,7 +8,17 @@ export interface Category {
   createdAt: Date
   updatedAt: Date
 }
-
+export interface DiscountBanner {
+  _id: string
+  title: string
+  description: string
+  discountPercentage: number
+  isActive: boolean
+  startDate: Date
+  endDate: Date
+  createdAt: Date
+  updatedAt: Date
+}
 // Product Category Schema
 export interface Category {
   _id: string
@@ -21,6 +31,14 @@ export interface Category {
   updatedAt: Date
 }
 
+export enum OrderStatus {
+  PENDING = "pending",
+  PROCESSING = "processing",
+  SHIPPED = "shipped",
+  DELIVERED = "delivered",
+  CANCELLED = "cancelled",
+  REFUNDED = "refunded",
+}
 // Product Schema
 export interface Product {
   _id: string
