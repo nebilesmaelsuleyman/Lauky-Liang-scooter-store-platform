@@ -9,7 +9,7 @@ export interface Product extends Document {
   price: number
   compareAtPrice?: number
   images: string[]
-  category: Types.ObjectId
+  category: string
   specifications: {
     maxSpeed: string
     range: string
@@ -38,7 +38,7 @@ const ProductSchema = new Schema<Product>(
     price: { type: Number, required: true },
     compareAtPrice: { type: Number },
     images: [{ type: String }],
-    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
+    category:{type:String, required:true},
     specifications: {
       maxSpeed: String,
       range: String,
@@ -49,7 +49,6 @@ const ProductSchema = new Schema<Product>(
       motor: String,
     },
     stock: { type: Number, default: 0 },
-    sku: { type: String, required: true, unique: true },
     isActive: { type: Boolean, default: true },
     isFeatured: { type: Boolean, default: false },
     tags: [{ type: String }],

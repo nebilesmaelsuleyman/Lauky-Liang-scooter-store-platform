@@ -10,12 +10,13 @@ if (!MONGODB_URI) {
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
  */
-// Extend global type to include mongoose property
 type GlobalWithMongoose = typeof globalThis & {
-  mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null }
+  mongoose?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
 };
 
-let cached = (global as GlobalWithMongoose).mongoose as { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } | undefined;
+let cached = (global as GlobalWithMongoose).mongoose as
+  | { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null }
+  | undefined;
 
 if (!cached) {
   (global as GlobalWithMongoose).mongoose = { conn: null, promise: null };
@@ -26,21 +27,26 @@ export default async function connectDB() {
   if (!cached) {
     throw new Error("Cached mongoose connection is not initialized.");
   }
+
+  // ✅ If already connected
   if (cached.conn) {
+    console.log("🟢 MongoDB already connected");
     return cached.conn;
   }
 
+  // ✅ If not connected, start connecting
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, {
-      dbName: "ecommerce", // change to your DB name
-    });
+    console.log("🔌 Connecting using URI:", MONGODB_URI);
+    cached.promise = mongoose.connect(MONGODB_URI);
   }
 
   try {
     cached.conn = await cached.promise;
-  } catch (e) {
+    console.log("MongoDB connected successfully to database:", mongoose.connection.name);
+  } catch (error) {
     cached.promise = null;
-    throw e;
+    console.error(" MongoDB connection failed:", error);
+    throw error;
   }
 
   return cached.conn;

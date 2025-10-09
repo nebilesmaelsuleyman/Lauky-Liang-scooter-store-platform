@@ -1,12 +1,20 @@
+
 import Product ,{Product as ProductType } from '@/lib/models/productModel'
+import { uploadImages } from "@/lib/cloudinary";
 
 // get all products
 export async function getAllproducts():Promise<ProductType[]>{
     return await Product.find({isActive:true})
 }
 
-export async function createProduct(data: Partial<ProductType>): Promise<ProductType> {
-  const product = new Product(data)
+export async function createProduct(
+  data: Partial<ProductType>
+): Promise<ProductType> {
+  const product = new Product({
+    ...data,
+    images: data.images || [], // ensure images field exists
+  })
+
   return await product.save()
 }
 export async function updateProduct(id: string, data: Partial<ProductType>): Promise<ProductType | null> {

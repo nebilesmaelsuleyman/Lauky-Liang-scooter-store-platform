@@ -1,8 +1,12 @@
 import {NextResponse} from 'next/server'
 import {getProductById, updateProduct,deleteProduct} from '@/lib/services/product.service'
+import connectDB from "@/lib/db/connectDB";
+
+
 
 export async function Get(request:Request,{params}:{params:{id:string}}){
     try{
+      await connectDB()
         const product = await getProductById(params.id)
         if(!product){
             return NextResponse.json({error:"product not found"},{status:404})  
@@ -14,6 +18,7 @@ export async function Get(request:Request,{params}:{params:{id:string}}){
 }
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
+    await connectDB()
     const body = await request.json()
     const product = await updateProduct(params.id, body)
     if (!product) {
@@ -28,6 +33,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
+    await connectDB()
     const success = await deleteProduct(params.id)
     if (!success) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 })
