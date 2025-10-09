@@ -33,11 +33,12 @@ export default function RootLayout({
       title='spring sales'
       description='limited time offer'
       discountPercentage='10'
-    /> <CartProvider>
-      <SiteHeader/>
+    />
+     <CartProvider>
+     
         {children}
         <Toaster richColors position="top-right" />
-        <SiteFooter/>
+        
     </CartProvider>
         
       </body>

@@ -1,12 +1,13 @@
 import {SiteHeader} from '@/components/site-header'
+import {SiteFooter} from '@/components/site-footer'
 import {Button} from '@/components/ui/button'
 import { ArrowRight, ShoppingCart,Shield,Leaf,Zap ,Truck} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import { DiscountBanner } from "@/components/discount-banner"
 import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
-import { mockProducts, mockCategories, } from "@/lib/db/placeholders"
+import { mockProducts, mockCategories,mockDiscountBanner } from "@/lib/db/placeholders"
 import {CategoryCard} from '@/components/category-card'
 
 export default function Home() {
@@ -15,8 +16,15 @@ export default function Home() {
   
 
   return (
+     
     <div className="min-h-screen flex flex-col  items-center">
 
+        <DiscountBanner
+                title={mockDiscountBanner.title}
+                description={mockDiscountBanner.description}
+                discountPercentage="10"
+              />
+      <SiteHeader />
       <main className="flex-1  container">
          {/* Hero Section */}
         <section className="relative bg-primary text-primary-foreground min-h-[80vh] md:min-h-[60vh] sm:min-h-[20vh] items-center">
@@ -165,6 +173,7 @@ export default function Home() {
           </div>
         </section>    
         </main>
+        <SiteFooter/>
         </div>
     
   )
