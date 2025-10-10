@@ -17,6 +17,7 @@ export async function createProduct(
 
   return await product.save()
 }
+
 export async function updateProduct(id: string, data: Partial<ProductType>): Promise<ProductType | null> {
   return await Product.findByIdAndUpdate(id, data, { new: true }).exec()
 }

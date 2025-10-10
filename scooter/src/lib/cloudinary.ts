@@ -1,16 +1,27 @@
-import { v2 as cloudinary } from "cloudinary";
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-export async function uploadImages(filePaths: string[]) {
+// src/lib/uploadToCloudinary.ts
+export async function uploadToCloudinary(files: File[]): Promise<string[]> {
   const urls: string[] = [];
-  for (const path of filePaths) {
-    const result = await cloudinary.uploader.upload(path, { folder: "products" });
-    urls.push(result.secure_url);
+
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "YOUR_UPLOAD_PRESET"); // must match preset in Cloudinary dashboard
+    formData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!);
+
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    console.log("🌤️ Cloudinary upload result:", data);
+
+    if (!res.ok || !data.secure_url) {
+      throw new Error(`Cloudinary upload failed for ${file.name}: ${data.error?.message}`);
+    }
+
+    urls.push(data.secure_url);
   }
+
   return urls;
 }

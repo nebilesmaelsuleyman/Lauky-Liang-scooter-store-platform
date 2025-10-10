@@ -70,51 +70,49 @@ export default function NewProductPage() {
     isFeatured: false,
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    console.log("🚀 Submitting new product:", formData)
 
-    try {
-      // Step 1: Upload images
-      console.log("📦 Files to upload:", imageFiles)
-      const uploadedUrls = await uploadToCloudinary(imageFiles)
-      console.log("📤 Uploaded image URLs:", uploadedUrls)
+   const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsSubmitting(true)
+  console.log("🚀 Submitting new product:", formData)
+
+  try {
+    const imageUrls = await uploadToCloudinary(imageFiles)
+    console.log("🖼️ Uploaded image URLs:", imageUrls)
+
+    const payload = { ...formData, images: imageUrls }
+
+    console.log("📦 Sending JSON payload:", payload)
+
+    const response = await fetch("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+
+    const result = await response.json()
+    console.log("📨 API response:", response.status, result)
+
+    if (!response.ok) {
+      console.error("❌ API call failed", result)
+      throw new Error("Failed to create product")
+    }
+
+    toast.success("✅ Product created successfully")
+    router.push("/admin/products")
+  } catch (error) {
+    console.error("🔥 Error during product creation:", error)
+    toast.error("Failed to create product")
+  } finally {
+    setIsSubmitting(false)
+  }
+}
 
       // Step 2: POST to API
-      const payload = {
-        ...formData,
-        images: uploadedUrls,
-        price: Number.parseFloat(formData.price),
-        compareAtPrice: formData.compareAtPrice ? Number.parseFloat(formData.compareAtPrice) : undefined,
-        stock: Number.parseInt(formData.stock),
-      }
+      
 
-      console.log("🌐 Sending payload to /api/products:", payload)
 
-      const response = await fetch("/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-
-      const responseData = await response.json()
-      console.log("📨 API response:", response.status, responseData)
-
-      if (!response.ok) {
-        console.error("❌ API call failed", responseData)
-        throw new Error("Failed to create product")
-      }
-
-      toast.success("Product created successfully")
-      router.push("/admin/products")
-    } catch (error) {
-      console.error("🔥 Error during product creation:", error)
-      toast.error("Failed to create product")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+    
 
   const handleNameChange = (name: string) => {
     setFormData({

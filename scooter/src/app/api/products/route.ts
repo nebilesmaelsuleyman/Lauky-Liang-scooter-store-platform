@@ -3,69 +3,47 @@ import { NextResponse } from "next/server"
 import { v2 as cloudinary } from "cloudinary"
 import  connectDB  from "@/lib/db/connectDB"
 import { createProduct } from "@/lib/services/product.service"
+import Product from "@/lib/models/productModel"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
   api_key: process.env.CLOUDINARY_API_KEY!,
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 })
-
 export async function POST(request: Request) {
   try {
     console.log("🧭 POST /api/products hit")
 
     await connectDB()
-    console.log("✅ Database connected")
 
-    const formData = await request.formData()
-    console.log("📦 Received form data")
+    const body = await request.json()
+    console.log("📦 Received JSON body:", body)
 
-    // Extract text fields
-    const fields: Record<string, any> = {}
-    for (const [key, value] of formData.entries()) {
-      if (key !== "images") {
-        fields[key] = value
-      }
-    }
+    const product = new Product({
+      name: body.name,
+      slug: body.slug,
+      description: body.description,
+      price: body.price,
+      compareAtPrice: body.compareAtPrice,
+      category: body.category,
+      stock: body.stock,
+      isActive: body.isActive,
+      isFeatured: body.isFeatured,
+      images: body.images, // already uploaded to Cloudinary
+      specifications: body.specifications || {},
+    })
 
-    console.log("🧩 Fields parsed:", fields)
+    await product.save()
 
-    // Handle image uploads
-    const files = formData.getAll("images") as File[]
-    const uploadedUrls: string[] = []
-
-    for (const file of files) {
-      console.log("🚀 Uploading:", file.name)
-      const arrayBuffer = await file.arrayBuffer()
-      const buffer = Buffer.from(arrayBuffer)
-
-      const uploadResult = await new Promise<any>((resolve, reject) => {
-        cloudinary.uploader
-          .upload_stream({ folder: "products" }, (err, result) => {
-            if (err) reject(err)
-            else resolve(result)
-          })
-          .end(buffer)
-      })
-
-      console.log("✅ Uploaded to Cloudinary:", uploadResult.secure_url)
-      uploadedUrls.push(uploadResult.secure_url)
-    }
-
-    // Save product to MongoDB
-    const productData = {
-      ...fields,
-      images: uploadedUrls,
-    }
-
-    console.log("💾 Saving product:", productData)
-
-    const product = await createProduct(productData)
-    console.log("✅ Product created successfully:", product._id)
-
-    return NextResponse.json(product, { status: 201 })
+    return NextResponse.json(
+      { message: "Product created successfully", product },
+      { status: 201 }
+    )
   } catch (error) {
     console.error("❌ Error creating product:", error)
-    return NextResponse.json({ error: "Failed to create product" }, { status: 500 })
+    return NextResponse.json(
+      { message: "Failed to create product", error },
+    { status: 500 }
+    )
   }
 }
