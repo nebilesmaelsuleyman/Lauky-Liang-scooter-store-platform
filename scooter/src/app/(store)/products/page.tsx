@@ -18,8 +18,8 @@ import { Category } from "@/lib/models/categoryModel"
 
 export default function ProductsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [priceRange, setPriceRange] = useState([0, 2500])
-  const [sortBy, setSortBy] = useState("featured")
+  const [priceRange, setPriceRange] = useState([0, 10000])
+  const [sortBy, setSortBy] = useState("All")
 
  const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories((prev) =>
@@ -43,6 +43,16 @@ const [categories, setCategories] = useState<Category[]>([])
   fetchData();
  },[])
 
+
+ useEffect(() => {
+  const fetchCategories = async () => {
+    const res = await fetch("/api/categories")
+    const data = await res.json()
+    setCategories(data)
+  }
+  fetchCategories()
+}, [])
+
   // Filter products
  let filteredProducts = products.filter((product) => {
   const categoryMatch =
@@ -63,11 +73,13 @@ const [categories, setCategories] = useState<Category[]>([])
     case "name":
       return a.name.localeCompare(b.name)
     case "featured":
-    default:
       // Featured: put featured items first
       if (a.isFeatured && !b.isFeatured) return -1
       if (!a.isFeatured && b.isFeatured) return 1
       return 0
+    case 'All':
+      default:
+        return 0
   }
 })
 
@@ -78,18 +90,19 @@ const [categories, setCategories] = useState<Category[]>([])
       <div>
         <h3 className="font-semibold mb-4">Categories</h3>
         <div className="space-y-3">
-          {mockCategories.map((category) => (
-            <div key={category._id} className="flex items-center space-x-2">
-              <Checkbox
-                id={category._id}
-                checked={selectedCategories.includes(category._id)}
-                onCheckedChange={() => handleCategoryToggle(category._id)}
-              />
-              <Label htmlFor={category._id} className="text-sm cursor-pointer">
-                {category.name}
-              </Label>
-            </div>
-          ))}
+          {categories.map((category) => (
+        <div key={category._id} className="flex items-center space-x-2">
+          <Checkbox
+            id={category._id.toString()}
+            checked={selectedCategories.includes(category._id.toString())}
+            onCheckedChange={() => handleCategoryToggle(category._id.toString())}
+          />
+          <Label htmlFor={category._id.toString()} className="text-sm cursor-pointer">
+            {category.name}
+          </Label>
+        </div>
+))}
+
         </div>
       </div>
 
@@ -155,6 +168,7 @@ const [categories, setCategories] = useState<Category[]>([])
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="All">All Products </SelectItem>
                       <SelectItem value="featured">Featured</SelectItem>
                       <SelectItem value="price-low">Price: Low to High</SelectItem>
                       <SelectItem value="price-high">Price: High to Low</SelectItem>

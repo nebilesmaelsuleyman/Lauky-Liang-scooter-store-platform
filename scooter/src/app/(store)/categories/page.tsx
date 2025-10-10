@@ -2,9 +2,11 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { DiscountBanner } from "@/components/discount-banner"
 import { CategoryCard } from "@/components/category-card"
-import { mockCategories, mockDiscountBanner } from "@/lib/db/placeholders"
+import {getAllCategories} from '@/lib/services/catogories.service'
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const categories = await getAllCategories()
+
   return (
     <div className="flex min-h-screen flex-col">
      
@@ -18,20 +20,29 @@ export default function CategoriesPage() {
           </div>
 
           {/* Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockCategories.map((category) => (
-              <CategoryCard
-                key={category._id}
-                name={category.name}
-                slug={category.slug}
-                description={category.description}
-                image={category.image}
-              />
-            ))}
-          </div>
+         {/* Categories Grid */}
+          {categories.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {categories.map((category) => (
+                <CategoryCard
+                  // The _id is now guaranteed to be a serializable string/number after JSON.stringify
+                  key={category._id as string} 
+                  name={category.name}
+                  slug={category.slug}
+                  description={category.description}
+                  image={category.image}
+                />
+              ))}
+            </div>
+          ) : (
+             <div className="text-center py-12">
+              <p className="text-muted-foreground">No categories available</p>
+            </div>
+          )}
         </div>
       </main>
 
+      {/* <SiteFooter /> */}
     </div>
   )
 }

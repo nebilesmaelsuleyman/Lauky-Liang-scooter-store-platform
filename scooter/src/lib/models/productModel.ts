@@ -9,7 +9,11 @@ export interface Product extends Document {
   price: number
   compareAtPrice?: number
   images: string[]
-  category: string
+  category:  {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Category",
+  required: true,
+},
   specifications: {
     maxSpeed: string
     range: string
