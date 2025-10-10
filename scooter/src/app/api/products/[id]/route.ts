@@ -1,13 +1,11 @@
 import {NextResponse} from 'next/server'
-import {getProductById, updateProduct,deleteProduct} from '@/lib/services/product.service'
+import {getProductBySlug, updateProduct,deleteProduct} from '@/lib/services/product.service'
 import connectDB from "@/lib/db/connectDB";
 
-
-
-export async function Get(request:Request,{params}:{params:{id:string}}){
+export async function Get(request:Request,{params}:{params:{slug:string}}){
     try{
       await connectDB()
-        const product = await getProductById(params.id)
+        const product = await getProductBySlug(params.slug)
         if(!product){
             return NextResponse.json({error:"product not found"},{status:404})  
         }

@@ -42,6 +42,7 @@ async function uploadToCloudinary(files: File[]) {
   return urls
 }
 
+
 export default function NewProductPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)

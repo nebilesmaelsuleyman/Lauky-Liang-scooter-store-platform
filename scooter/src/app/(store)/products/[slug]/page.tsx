@@ -2,9 +2,7 @@
 
 import { notFound } from "next/navigation"
 import Image from "next/image"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { DiscountBanner } from "@/components/discount-banner"
+
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -13,33 +11,63 @@ import { ProductCard } from "@/components/product-card"
 import { ShoppingCart, Heart, Share2, Zap, Battery, Gauge, Weight } from "lucide-react"
 import { mockProducts, mockCategories, mockDiscountBanner } from "@/lib/db/placeholders"
 import { useCart } from "@/contexts/cart-context"
+import Product from '@/lib/models/productModel'
+import { getProductBySlug } from "@/lib/services/product.service"
 
-export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = mockProducts.find((p) => p.slug === params.slug)
-  const { addItem } = useCart()
+interface Props {
+  params: { slug: string }
+}
 
-  if (!product) {
-    notFound()
-  }
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  compareAtPrice?: number;
+  images: string[];
+  category: string;
+  isFeatured?: boolean;
+  description: string;
+  specifications: {
+    maxSpeed: string;
+    range: string;
+    motorPower?: string;
+    weight: string;
+  };
+  stock: number;
+  slug: string;
+}
 
-  const category = mockCategories.find((c) => c._id === product.category)
-  const discountPercentage = product.compareAtPrice
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
+
+  const data = await getProductBySlug(params.slug)
+  if(!data) return notFound()
+
+    const {product, category, relatedProduct}= data as unknown as { product: Product; category: any; relatedProduct: any }
+    const {addItem}= useCart()
+
+    const discountPercentage = product.compareAtPrice
     ? Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
     : 0
 
-  // Get related products from same category
-  const relatedProducts = mockProducts
-    .filter((p) => p.category === product.category && p._id !== product._id)
-    .slice(0, 3)
-
-  const handleAddToCart = () => {
+ const handleAddToCart = () => {
     addItem({
-      productId: product._id,
+      productId: product._id.toString(),
       name: product.name,
       price: product.price,
       image: product.images[0],
     })
   }
+
+
+  // Get related products from same category
+  const relatedProducts = await Product.find({
+  category: product.category,        // same category
+  _id: { $ne: product._id },         // exclude current product
+  isActive: true                     // optional: only active products
+})
+  .limit(3)                           // get only 3 products
+  .lean()
+  
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -214,8 +242,8 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedProducts.map((relatedProduct) => (
                   <ProductCard
-                    key={relatedProduct._id}
-                    id={relatedProduct._id}
+                    key={String(relatedProduct._id)}
+                    id={String(relatedProduct._id)}
                     name={relatedProduct.name}
                     slug={relatedProduct.slug}
                     price={relatedProduct.price}

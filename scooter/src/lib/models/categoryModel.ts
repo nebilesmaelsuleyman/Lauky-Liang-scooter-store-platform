@@ -19,7 +19,7 @@ const CategorySchema = new Schema<Category>(
     image: { type: String },
     isActive: { type: Boolean, default: true },
   },
-  { timestamps: true } // automatically adds createdAt & updatedAt
+  { timestamps: true } 
 )
 
 export default mongoose.models.Category || model<Category>("Category", CategorySchema)

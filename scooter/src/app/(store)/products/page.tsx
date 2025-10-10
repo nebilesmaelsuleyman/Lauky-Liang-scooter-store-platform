@@ -11,41 +11,66 @@ import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { SlidersHorizontal } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { mockProducts, mockCategories, mockDiscountBanner } from "@/lib/db/placeholders"
+import { Product } from "@/lib/models/productModel"
+import { Category } from "@/lib/models/categoryModel"
 
 export default function ProductsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [priceRange, setPriceRange] = useState([0, 2500])
   const [sortBy, setSortBy] = useState("featured")
 
-  const handleCategoryToggle = (categoryId: string) => {
+ const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId) ? prev.filter((id) => id !== categoryId) : [...prev, categoryId],
     )
   }
 
+
+const [products, setProducts] = useState<Product[]>([])
+const [categories, setCategories] = useState<Category[]>([])
+ useEffect(()=>{
+  const fetchData = async()=>{
+    const resProducts= await fetch('api/products')
+    const dataProducts = await resProducts.json()
+    setProducts(dataProducts);
+
+    const resCategories= await fetch('api/categories')
+    const dataCategories = await resCategories.json()
+    setCategories(dataCategories)
+  };
+  fetchData();
+ },[])
+
   // Filter products
-  let filteredProducts = mockProducts.filter((product) => {
-    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category)
-    const priceMatch = product.price >= priceRange[0] && product.price <= priceRange[1]
-    return categoryMatch && priceMatch
-  })
+ let filteredProducts = products.filter((product) => {
+  const categoryMatch =
+    selectedCategories.length === 0 || selectedCategories.includes(product.category)
+  const priceMatch =
+    product.price >= priceRange[0] && product.price <= priceRange[1]
+  return categoryMatch && priceMatch
+})
+
 
   // Sort products
-  filteredProducts = [...filteredProducts].sort((a, b) => {
-    switch (sortBy) {
-      case "price-low":
-        return a.price - b.price
-      case "price-high":
-        return b.price - a.price
-      case "name":
-        return a.name.localeCompare(b.name)
-      case "featured":
-      default:
-        return b.isFeatured ? 1 : -1
-    }
-  })
+ filteredProducts = [...filteredProducts].sort((a, b) => {
+  switch (sortBy) {
+    case "price-low":
+      return a.price - b.price
+    case "price-high":
+      return b.price - a.price
+    case "name":
+      return a.name.localeCompare(b.name)
+    case "featured":
+    default:
+      // Featured: put featured items first
+      if (a.isFeatured && !b.isFeatured) return -1
+      if (!a.isFeatured && b.isFeatured) return 1
+      return 0
+  }
+})
+
 
   const FilterContent = () => (
     <div className="space-y-6">
@@ -161,8 +186,8 @@ export default function ProductsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProducts.map((product) => (
                     <ProductCard
-                      key={product._id}
-                      id={product._id}
+                      key={String(product._id)}
+                      id={String(product._id)}
                       name={product.name}
                       slug={product.slug}
                       price={product.price}
