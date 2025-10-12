@@ -1,3 +1,5 @@
+"use client"
+
 import {SiteHeader} from '@/components/site-header'
 import {SiteFooter} from '@/components/site-footer'
 import {Button} from '@/components/ui/button'
@@ -7,23 +9,69 @@ import Link from 'next/link'
 import { DiscountBanner } from "@/components/discount-banner"
 import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
-import { mockProducts, mockCategories,mockDiscountBanner } from "@/lib/db/placeholders"
 import {CategoryCard} from '@/components/category-card'
+import { useEffect, useState } from 'react' // <-- Add hooks
+import { Product } from "@/lib/models/productModel" // <-- Add type
+import { Category } from "@/lib/models/categoryModel" // <-- Add type
+
 
 export default function Home() {
-   const featuredProducts = mockProducts.filter((p) => p.isFeatured).slice(0, 6)
-  const displayCategories = mockCategories.slice(0, 4)
+  // 1. State for real data, replacing mock data initialization
+  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
+  const [displayCategories, setDisplayCategories] = useState<Category[]>([])
+  const [allCategories, setAllCategories] = useState<Category[]>([]) // Needed for product card category lookup
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // 2. Data Fetching Effect
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+
+        // A. Fetch Featured Products (using the dedicated API route)
+        const featuredRes = await fetch('/api/products/featured-products')
+        const featuredData = await featuredRes.json()
+        setFeaturedProducts(featuredData)
+
+        // B. Fetch ALL Categories (using the API route)
+        const categoriesRes = await fetch('/api/categories')
+        const categoriesData = await categoriesRes.json()
+        
+        // Store all categories for product card lookup
+        setAllCategories(categoriesData); 
+        // Display only the first 4 for the category grid section, matching the old mock slice
+        setDisplayCategories(categoriesData.slice(0, 4)) 
+
+      } catch (error) {
+        console.error("Failed to fetch homepage data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData()
+  }, [])
+
+  // 3. Loading State
+  if (isLoading) {
+    // Keeping this simple loading state for user feedback while data loads
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="mt-4 text-primary">Loading the store data...</p>
+        </div>
+    );
+  }
   
 
   return (
      
-    <div className="min-h-screen flex flex-col  items-center">
+    <div className="min-h-screen flex flex-col  ">
 
         <DiscountBanner
-                title={mockDiscountBanner.title}
-                description={mockDiscountBanner.description}
-                discountPercentage="10"
-              />
+              title='spring sales'
+              description='limited time offer'
+              discountPercentage='10'
+            />
       <SiteHeader />
       <main className="flex-1  container">
          {/* Hero Section */}
@@ -117,16 +165,18 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Using the fetched featuredProducts state */}
               {featuredProducts.map((product) => (
                 <ProductCard
-                  key={product._id}
-                  id={product._id}
+                  key={String(product._id)}
+                  id={String(product._id)}
                   name={product.name}
                   slug={product.slug}
                   price={product.price}
                   compareAtPrice={product.compareAtPrice}
                   image={product.images[0]}
-                  category={mockCategories.find((c) => c._id === product.category)?.name || ""}
+                  // Lookup category name from the fetched allCategories state
+                  category={allCategories.find((c) => c._id === product.category)?.name || ""}
                   isFeatured={product.isFeatured}
                 />
               ))}
@@ -142,9 +192,10 @@ export default function Home() {
               <p className="text-muted-foreground">Find the perfect scooter for your lifestyle</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Using the fetched displayCategories state */}
               {displayCategories.map((category) => (
                 <CategoryCard
-                  key={category._id}
+                  key={String(category._id)}
                   name={category.name}
                   slug={category.slug}
                   description={category.description}

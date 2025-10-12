@@ -70,6 +70,7 @@ export default function AdminProductsPage() {
 
   const filteredProducts = products
     .filter((product) => {
+      console.log("filter products",product)
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase())
       const matchesCategory = categoryFilter === "all" || product.category === categoryFilter
       const matchesStock =
@@ -166,9 +167,10 @@ export default function AdminProductsPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
-            <SelectItem value="commuter">Commuter</SelectItem>
-            <SelectItem value="performance">Performance</SelectItem>
-            <SelectItem value="off-road">Off-Road</SelectItem>
+            <SelectItem value="commuter">E-Bike</SelectItem>
+            <SelectItem value="performance">E-Dirt Bike</SelectItem>
+            <SelectItem value="off-road">E-scooters</SelectItem>
+            <SelectItem value="off-road">E-Cruisers</SelectItem>
           </SelectContent>
         </Select>
         <Select value={stockFilter} onValueChange={setStockFilter}>

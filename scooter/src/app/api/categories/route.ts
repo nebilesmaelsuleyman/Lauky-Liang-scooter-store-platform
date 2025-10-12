@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 // Assuming you named your services file 'category.service' previously
 import { createCategory, getAllCategories ,CategoryFormInput } from "@/lib/services/catogories.service"; 
-// import { CategoryFormInput } from "@/lib/services/category.service"; // Import the input type
+import connectDB from '@/lib/db/connectDB'
 
-// Handler for POST /api/categories (CREATE CATEGORY)
 export async function POST(request: Request) {
   try {
+    await connectDB()
     const data: CategoryFormInput = await request.json();
 
     // 1. Basic Validation
@@ -53,6 +53,7 @@ export async function POST(request: Request) {
 // Handler for GET /api/categories (FETCH ALL CATEGORIES)
 export async function GET() {
   try {
+     await connectDB();
     // We assume getAllCategories only fetches active/public categories for the storefront
     const categories = await getAllCategories(); 
     return NextResponse.json(categories, { status: 200 });

@@ -2,8 +2,7 @@
 import { NextResponse } from "next/server"
 
 import  connectDB  from "@/lib/db/connectDB"
-import { createProduct } from "@/lib/services/product.service"
-import Product from "@/lib/models/productModel"
+import { createProduct, getAllproducts} from "@/lib/services/product.service"
 
 
 export async function POST(request: Request) {
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
 export async function GET(request:Request){
   await connectDB();
   console.log('get api is triggered ')
-  const products = await Product.find({}).lean()
+  const products = await  getAllproducts()
 
 console.log(products)
   return new Response(JSON.stringify(products),{status:200})

@@ -29,11 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}container items-center` }>
-         <DiscountBanner
-      title='spring sales'
-      description='limited time offer'
-      discountPercentage='10'
-    />
+         
      <CartProvider>
      
         {children}

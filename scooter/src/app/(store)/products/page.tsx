@@ -12,96 +12,131 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { SlidersHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
-import { mockProducts, mockCategories, mockDiscountBanner } from "@/lib/db/placeholders"
+
 import { Product } from "@/lib/models/productModel"
 import { Category } from "@/lib/models/categoryModel"
 
+// Define a max price for the slider and initial range
+
+
 export default function ProductsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [priceRange, setPriceRange] = useState([0, 10000])
+  const [priceRange, setPriceRange] = useState([0, 10000]) // Use MAX_PRICE
   const [sortBy, setSortBy] = useState("All")
+  const [isLoading, setIsLoading] = useState(true); // State to handle loading
 
- const handleCategoryToggle = (categoryId: string) => {
+  // State to hold real data from MongoDB APIs
+  const [products, setProducts] = useState<Product[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
+  const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId) ? prev.filter((id) => id !== categoryId) : [...prev, categoryId],
     )
   }
 
+  // Effect to fetch initial data for products and categories
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch all products
+        const resProducts = await fetch('/api/products')
+        const dataProducts = await resProducts.json()
+        const maxPrice = dataProducts.reduce(
+              (max: number, p: Product) => Math.max(max, p.price || 0)
+          );
 
-const [products, setProducts] = useState<Product[]>([])
-const [categories, setCategories] = useState<Category[]>([])
- useEffect(()=>{
-  const fetchData = async()=>{
-    const resProducts= await fetch('api/products')
-    const dataProducts = await resProducts.json()
-    setProducts(dataProducts);
+        setProducts(dataProducts);
 
-    const resCategories= await fetch('api/categories')
-    const dataCategories = await resCategories.json()
-    setCategories(dataCategories)
-  };
-  fetchData();
- },[])
+        // Fetch all categories
+        const resCategories = await fetch('/api/categories')
+        const dataCategories = await resCategories.json()
+        setCategories(dataCategories)
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+        // Handle error state if necessary
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+    // Removed the redundant second useEffect for categories
+  }, [])
 
+  // Filter products based on categories and price range
+  let filteredProducts = (Array.isArray(products)? products:[]).filter((product)=>{
 
- useEffect(() => {
-  const fetchCategories = async () => {
-    const res = await fetch("/api/categories")
-    const data = await res.json()
-    setCategories(data)
-  }
-  fetchCategories()
-}, [])
+    const categoryId = String(product.category); 
+    
+    // Check if the product's category matches any selected category
+    const categoryMatch =
+      selectedCategories.length === 0 || selectedCategories.includes(categoryId); 
 
-  // Filter products
- let filteredProducts = products.filter((product) => {
-  const categoryMatch =
-    selectedCategories.length === 0 || selectedCategories.includes(product.category)
-  const priceMatch =
-    product.price >= priceRange[0] && product.price <= priceRange[1]
-  return categoryMatch && priceMatch
-})
+    // Check if the product's price is within the selected range
+    const priceMatch =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
+      
+    return categoryMatch && priceMatch;
+  })
 
 
   // Sort products
- filteredProducts = [...filteredProducts].sort((a, b) => {
-  switch (sortBy) {
-    case "price-low":
-      return a.price - b.price
-    case "price-high":
-      return b.price - a.price
-    case "name":
-      return a.name.localeCompare(b.name)
-    case "featured":
-      // Featured: put featured items first
-      if (a.isFeatured && !b.isFeatured) return -1
-      if (!a.isFeatured && b.isFeatured) return 1
-      return 0
-    case 'All':
-      default:
+  filteredProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return a.price - b.price
+      case "price-high":
+        return b.price - a.price
+      case "name":
+        return a.name.localeCompare(b.name)
+      case "featured":
+        // Featured: put featured items first
+        if (a.isFeatured && !b.isFeatured) return -1
+        if (!a.isFeatured && b.isFeatured) return 1
         return 0
-  }
-})
+      case 'All':
+        default:
+          return 0
+    }
+  })
 
+  // Loading State UI
+  if (isLoading) {
+    return (
+        <div className="flex min-h-screen flex-col items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="mt-4 text-primary">Loading products and filters...</p>
+        </div>
+    );
+  }
 
   const FilterContent = () => (
-    <div className="space-y-6">
+     <div className="space-y-6">
       {/* Categories */}
       <div>
         <h3 className="font-semibold mb-4">Categories</h3>
         <div className="space-y-3">
-          {categories.map((category) => (
-        <div key={category._id} className="flex items-center space-x-2">
-          <Checkbox
-            id={category._id.toString()}
-            checked={selectedCategories.includes(category._id.toString())}
-            onCheckedChange={() => handleCategoryToggle(category._id.toString())}
-          />
-          <Label htmlFor={category._id.toString()} className="text-sm cursor-pointer">
-            {category.name}
-          </Label>
-        </div>
-))}
+          {categories.map((category) => {
+            // Category IDs are assumed to be strings after being returned from the API
+            const categoryId = category._id as string;
+            
+            return (
+              <div 
+                key={categoryId} 
+                className="flex items-center space-x-2"
+              >
+                <Checkbox
+                  id={categoryId}
+                  checked={selectedCategories.includes(categoryId)}
+                  onCheckedChange={() => handleCategoryToggle(categoryId)}
+                />
+                <Label htmlFor={categoryId} className="text-sm cursor-pointer">
+                  {category.name}
+                </Label>
+              </div>
+            );
+          })}
 
         </div>
       </div>
@@ -110,7 +145,14 @@ const [categories, setCategories] = useState<Category[]>([])
       <div>
         <h3 className="font-semibold mb-4">Price Range</h3>
         <div className="space-y-4">
-          <Slider min={0} max={2500} step={50} value={priceRange} onValueChange={setPriceRange} className="w-full" />
+          <Slider 
+            min={0} 
+            max={dynamicMaxPrice} // Use constant
+            step={50} 
+            value={priceRange} 
+            onValueChange={setPriceRange} 
+            className="w-full" 
+          />
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <span>${priceRange[0]}</span>
             <span>${priceRange[1]}</span>
@@ -124,7 +166,7 @@ const [categories, setCategories] = useState<Category[]>([])
         className="w-full bg-transparent"
         onClick={() => {
           setSelectedCategories([])
-          setPriceRange([0, 2500])
+          setPriceRange([0, dynamicMaxPrice]) // Use constant
         }}
       >
         Reset Filters
@@ -134,7 +176,8 @@ const [categories, setCategories] = useState<Category[]>([])
 
   return (
     <div className="flex min-h-screen flex-col">
-      
+      <SiteHeader /> 
+      <DiscountBanner />
 
       <main className="flex-1">
         <div className="container py-8">
@@ -207,7 +250,8 @@ const [categories, setCategories] = useState<Category[]>([])
                       price={product.price}
                       compareAtPrice={product.compareAtPrice}
                       image={product.images[0]}
-                      category={mockCategories.find((c) => c._id === product.category)?.name || ""}
+                      // Use the fetched 'categories' state instead of 'mockCategories'
+                      category={categories.find((c) => c._id === product.category)?.name || ""}
                       isFeatured={product.isFeatured}
                     />
                   ))}
@@ -219,7 +263,7 @@ const [categories, setCategories] = useState<Category[]>([])
                     variant="outline"
                     onClick={() => {
                       setSelectedCategories([])
-                      setPriceRange([0, 2500])
+                      setPriceRange([0, dynamicMaxPrice]) // Use constant
                     }}
                   >
                     Clear Filters
@@ -231,6 +275,7 @@ const [categories, setCategories] = useState<Category[]>([])
         </div>
       </main>
 
+      <SiteFooter />
     </div>
   )
 }

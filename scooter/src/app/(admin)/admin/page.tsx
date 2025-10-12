@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { DollarSign, Package, ShoppingCart, Users, TrendingUp, TrendingDown } from "lucide-react"
 import { Line, LineChart, Bar, BarChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import {AdminSidebar} from '@/components/admin-sidebar'
+import { AdminSidebar } from '@/components/admin-sidebar'
+
 const stats = [
   {
     title: "Total Revenue",
@@ -34,25 +35,8 @@ const stats = [
     trend: "up",
     icon: Users,
   },
-]
 
-const revenueData = [
-  { month: "Jan", revenue: 4200 },
-  { month: "Feb", revenue: 3800 },
-  { month: "Mar", revenue: 5100 },
-  { month: "Apr", revenue: 4600 },
-  { month: "May", revenue: 5900 },
-  { month: "Jun", revenue: 6400 },
-]
 
-const ordersData = [
-  { day: "Mon", orders: 45 },
-  { day: "Tue", orders: 52 },
-  { day: "Wed", orders: 48 },
-  { day: "Thu", orders: 61 },
-  { day: "Fri", orders: 55 },
-  { day: "Sat", orders: 67 },
-  { day: "Sun", orders: 43 },
 ]
 
 export default function AdminDashboard() {
@@ -86,112 +70,6 @@ export default function AdminDashboard() {
           </Card>
         ))}
       </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Revenue Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Revenue Overview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                revenue: {
-                  label: "Revenue",
-                  color: "hsl(var(--chart-1))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={revenueData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line type="monotone" dataKey="revenue" stroke="var(--color-revenue)" strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        {/* Orders Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Weekly Orders</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                orders: {
-                  label: "Orders",
-                  color: "hsl(var(--chart-2))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={ordersData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="orders" fill="var(--color-orders)" />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Orders */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Orders</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {[
-              {
-                id: "ORD-2024-356",
-                customer: "John Doe",
-                product: "Urban Glide Pro",
-                amount: "$899",
-                status: "Shipped",
-              },
-              {
-                id: "ORD-2024-355",
-                customer: "Jane Smith",
-                product: "Velocity X1",
-                amount: "$1,499",
-                status: "Processing",
-              },
-              {
-                id: "ORD-2024-354",
-                customer: "Mike Johnson",
-                product: "City Cruiser",
-                amount: "$699",
-                status: "Delivered",
-              },
-            ].map((order) => (
-              <div key={order.id} className="flex items-center justify-between py-3 border-b last:border-0">
-                <div>
-                  <p className="font-medium">{order.id}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {order.customer} • {order.product}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-medium">{order.amount}</p>
-                  <p className="text-sm text-muted-foreground">{order.status}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
     </div>
   )
 }
