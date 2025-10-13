@@ -13,7 +13,7 @@ import {CategoryCard} from '@/components/category-card'
 import { useEffect, useState } from 'react' // <-- Add hooks
 import { Product } from "@/lib/models/productModel" // <-- Add type
 import { Category } from "@/lib/models/categoryModel" // <-- Add type
-
+import AutoImageSlider from '@/components/AuthoImageSlider'
 export default function Home() {
   // 1. State for real data, replacing mock data initialization
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
@@ -114,16 +114,10 @@ export default function Home() {
         </div>
 
         {/* Hero Image */}
-        <div className="flex-1 relative w-full max-w-lg">
-          <Image
-            src="/images/engwe.webp" // Replace with a dark-themed scooter image
-            alt="Electric Scooter"
-            width={1000}
-            height={1000}
-            className="object-contain mx-auto"
-            priority
-          />
+        <div className="md:w-1/2 relative w-full max-w-lg min-h-[400px] md:min-h-[500px]">
+           <AutoImageSlider />
         </div>
+
       </div>
     </section>
   
