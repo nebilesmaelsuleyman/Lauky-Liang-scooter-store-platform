@@ -71,85 +71,127 @@ export default function Home() {
               description='limited time offer'
               discountPercentage='10'
             />
+            
       <SiteHeader />
       <main className="flex-1  container">
          {/* Hero Section */}
-        <section className="relative bg-primary text-primary-foreground min-h-[80vh] md:min-h-[60vh] sm:min-h-[20vh] items-center">
-          <div className="container py-24 md:py-32">
-            <div className="mx-auto max-w-xl text-center ">
-              <h1 className="font-sanserif text-4xl md:text-6xl font-bold mb-6 text-balance">
-               <span className='text-green-700  '>Ride the Future </span>  of Urban Mobility
-              </h1>
-              <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 text-pretty">
-                Discover premium electric scooters designed for the modern commuter. Performance meets elegance in every
-                ride.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="#">
-                  <Button size="lg" variant="secondary" className="w-full sm:w-auto bg-green-700 hover:bg-green-600 ">
-                    Shop Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link href="#">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                  >
-                    Browse Categories
-                  </Button>
-                </Link>
-              </div>
-            </div>
+        <section className="relative bg-[#0D1F3C] text-white min-h-[80vh] flex items-center">
+      {/* Background Gradient for Depth */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0D1F3C]/90 to-[#0D1F3C]/60" />
+
+      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-10 gap-10 py-20">
+        {/* Text Content */}
+        <div className="flex-1 text-center md:text-left space-y-6 max-w-xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+            <span className="text-green-500">Ride the Future</span> <br />
+            of Urban Mobility
+          </h1>
+          <p className="text-lg sm:text-xl text-white/90">
+            Discover premium electric scooters designed for modern commuters. Elegant design meets high performance in every ride.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center md:justify-start">
+            <Link href="/products">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="w-full sm:w-auto bg-green-600 hover:bg-green-500 text-white font-medium"
+              >
+                Shop Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/categories">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-white text-green-700 hover:bg-white hover:text-[#0D1F3C] font-medium"
+              >
+                Browse Categories
+              </Button>
+            </Link>
           </div>
-        </section>
+        </div>
+
+        {/* Hero Image */}
+        <div className="flex-1 relative w-full max-w-lg">
+          <Image
+            src="/images/engwe.webp" // Replace with a dark-themed scooter image
+            alt="Electric Scooter"
+            width={1000}
+            height={1000}
+            className="object-contain mx-auto"
+            priority
+          />
+        </div>
+      </div>
+    </section>
+  
 
          {/* Features Section */}
-        <section className="py-20 bg-muted/30 min-h-[60vh] md:min-h-[35vh] sm:min-h-[27vh] items-center ">
-          <div className="container">
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="border-none shadow-none bg-transparent">
-                <CardContent className="pt-6 text-center space-y-4">
-                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Zap className="h-6 w-6 text-green-700" />
-                  </div>
-                  <h3 className="text-xl font-semibold">High <span className='text-green-700'>Performance</span> </h3>
-                  <p className="text-muted-foreground">
-                    Powerful motors delivering speeds up to 40 mph with exceptional range.
-                  </p>
-                </CardContent>
-              </Card>
+       <section className="py-24 md:py-32 bg-gray-50 dark:bg-zinc-900 min-h-[50vh]">
+  <div className="container px-4 md:px-6">
+    {/* Optional: Add a title/heading for the section if it doesn't already have one */}
+    {/* <div className="text-center mb-16 max-w-3xl mx-auto">
+      <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl">
+        Why Choose Our <span className='text-green-600 dark:text-green-500'>Electric Boards</span>?
+      </h2>
+      <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">
+        Experience the next generation of personal transportation.
+      </p>
+    </div> */}
 
-              <Card className="border-none shadow-none bg-transparent">
-                <CardContent className="pt-6 text-center space-y-4">
-                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Shield className="h-6 w-6 text-green-700" />
-                  </div>
-                  <h3 className="text-xl font-semibold"><span className='text-green-700'>Built to</span> Last</h3>
-                  <p className="text-muted-foreground">
-                    Premium materials and rigorous testing ensure durability and safety.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-none shadow-none bg-transparent">
-                <CardContent className="pt-6 text-center space-y-4">
-                  <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Leaf className="h-6 w-6 text-green-700" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Eco <span className='text-green-700'>Friendly</span> </h3>
-                  <p className="text-muted-foreground">
-                    Zero emissions and energy-efficient design for a greener tomorrow.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+    <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
+      {/* Card 1: High Performance */}
+      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
+        <div className="flex flex-col items-center text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
+            <Zap className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
-        </section>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
+            High <span className='text-green-600 dark:text-green-400'>Performance</span>
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            Powerful motors delivering speeds up to 40 mph with exceptional range. Experience the thrill of power.
+          </p>
+        </div>
+      </div>
+
+      {/* Card 2: Built to Last (Durability) */}
+      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
+        <div className="flex flex-col items-center text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
+            <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
+            <span className='text-green-600 dark:text-green-400'>Built to</span> Last
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            Premium materials and rigorous testing ensure unparalleled durability and safety for every ride.
+          </p>
+        </div>
+      </div>
+
+      {/* Card 3: Eco Friendly */}
+      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
+        <div className="flex flex-col items-center text-center space-y-5">
+          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
+            <Leaf className="h-8 w-8 text-green-600 dark:text-green-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
+            Eco <span className='text-green-600 dark:text-green-400'>Friendly</span>
+          </h3>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            Zero emissions and an energy-efficient design contribute to a cleaner, greener tomorrow.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
          {/* Featured Products */}
-        <section className="py-8 p-8">
+        <section className="py-8 p-8 bg-gradient-to-b">
           <div className="container">
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -206,22 +248,27 @@ export default function Home() {
         </section>
         
             {/* CTA Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="container">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Commute?</h2>
-              <p className="text-lg mb-8 text-primary-foreground/90">
-                Join thousands of satisfied riders who have upgraded their daily travel
-              </p>
-              <Link href="/products">
-                <Button size="lg" variant="secondary">
-                  Start Shopping
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>    
+        <section className="relative py-28">
+  <img
+    src="/images/all-terrain-electric-scooter.jpg"
+    alt="Scooters in city"
+    className="absolute inset-0 w-full h-full object-cover"
+  />
+  <div className="absolute inset-0 bg-black/50"></div>
+  <div className="relative container mx-auto text-center text-white px-4">
+    <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Transform Your Commute?</h2>
+    <p className="text-lg mb-8 text-white/90">
+      Join thousands of satisfied riders who have upgraded their daily travel.
+    </p>
+    <Link href="/products">
+      <Button size="lg" variant="secondary" className="bg-green-600 hover:bg-green-500">
+        Start Shopping
+        <ArrowRight className="ml-2 h-5 w-5" />
+      </Button>
+    </Link>
+  </div>
+</section>
+  
         </main>
         <SiteFooter/>
         </div>

@@ -15,9 +15,9 @@ export function SiteHeader() {
   const { itemCount } = useCart()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-[#0D1F3C]/90 backdrop-blur-md border-b border-white/20">
       <div className="container flex h-16 items-center justify-between px-4 md:px-10">
-        {/* Logo Section */}
+        {/* Logo */}
         {/* <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/images/luckylianglogo.webp"
@@ -26,24 +26,29 @@ export function SiteHeader() {
             height={40}
             priority
             className="h-10 w-auto md:h-12 lg:h-14 object-contain"
-          /> */}
-          <span className="hidden md:inline text-xl font-semibold tracking-tight">Lucky Liang</span>
-        {/* </Link> */}
+          />
+        </Link> */}
+          <span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span>
 
         {/* Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link href="/products" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            All Products
-          </Link>
-          <Link href="/categories" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Categories
-          </Link>
-          <Link href="/aboutus" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            About Us
-          </Link>
-
+          {["/products","/categories","/aboutus"].map((href, idx) => {
+            const label = href === "/products" ? "All Products" : href === "/categories" ? "Categories" : "About Us"
+            return (
+              <Link
+                key={idx}
+                href={href}
+                className="text-white/90 hover:text-green-500 transition-colors font-medium text-sm"
+              >
+                {label}
+              </Link>
+            )
+          })}
           {isLoggedIn && (
-            <Link href="/account" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              href="/account"
+              className="text-white/90 hover:text-green-500 transition-colors font-medium text-sm"
+            >
               Account
             </Link>
           )}
@@ -52,7 +57,7 @@ export function SiteHeader() {
         {/* Right Side Actions */}
         <div className="hidden md:flex items-center space-x-3">
           <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative text-white/90 hover:text-green-500">
               <ShoppingCart className="h-5 w-5" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
@@ -65,7 +70,7 @@ export function SiteHeader() {
           {isLoggedIn ? (
             <div className="flex items-center gap-2">
               <Link href="/account">
-                <Button variant="default" size="sm" className="flex items-center gap-1">
+                <Button variant="default" size="sm" className="flex items-center gap-1 bg-green-600 hover:bg-green-500 text-white">
                   <User className="h-4 w-4" />
                   <span className="hidden lg:inline">Account</span>
                 </Button>
@@ -74,7 +79,7 @@ export function SiteHeader() {
                 variant="outline"
                 size="sm"
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="border-destructive text-destructive hover:bg-destructive/10"
+                className="border-red-600 text-red-600 hover:bg-red-600/10"
               >
                 Logout
               </Button>
@@ -82,12 +87,12 @@ export function SiteHeader() {
           ) : (
             <div className="flex items-center gap-2">
               <Link href="/auth/login">
-                <Button variant="default" size="sm">
+                <Button variant="default" size="sm" className="bg-green-600 hover:bg-green-500 text-white">
                   Sign In
                 </Button>
               </Link>
               <Link href="/auth/signup">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="border-green-600 text-green-600 hover:bg-green-600/10">
                   Sign Up
                 </Button>
               </Link>
@@ -98,32 +103,32 @@ export function SiteHeader() {
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" className="text-white/90 hover:text-green-500">
               <span className="text-2xl">☰</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] py-8 bg-background">
+          <SheetContent side="right" className="w-[250px] py-8 bg-[#0D1F3C] text-white">
             <nav className="flex flex-col space-y-4 mt-8">
-              <Link href="/" className="text-lg font-medium">Home</Link>
-              <Link href="/products" className="text-lg font-medium">All Products</Link>
-              <Link href="/categories" className="text-lg font-medium">Categories</Link>
+              <Link href="/" className="text-lg font-medium hover:text-green-500">Home</Link>
+              <Link href="/products" className="text-lg font-medium hover:text-green-500">All Products</Link>
+              <Link href="/categories" className="text-lg font-medium hover:text-green-500">Categories</Link>
 
               {isLoggedIn ? (
                 <>
-                  <Link href="/orders" className="text-lg font-medium">Orders</Link>
-                  <Link href="/cart" className="text-lg font-medium">Cart</Link>
-                  <Link href="/account" className="text-lg font-medium">Account</Link>
+                  <Link href="/orders" className="text-lg font-medium hover:text-green-500">Orders</Link>
+                  <Link href="/cart" className="text-lg font-medium hover:text-green-500">Cart</Link>
+                  <Link href="/account" className="text-lg font-medium hover:text-green-500">Account</Link>
                   <button
                     onClick={() => signOut({ callbackUrl: "/" })}
-                    className="text-lg font-medium text-red-600 text-left"
+                    className="text-lg font-medium text-red-500 text-left"
                   >
                     Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/auth/login" className="text-lg font-medium">Sign In</Link>
-                  <Link href="/auth/signup" className="text-lg font-medium">Sign Up</Link>
+                  <Link href="/auth/login" className="text-lg font-medium hover:text-green-500">Sign In</Link>
+                  <Link href="/auth/signup" className="text-lg font-medium hover:text-green-500">Sign Up</Link>
                 </>
               )}
             </nav>
@@ -132,10 +137,10 @@ export function SiteHeader() {
       </div>
 
       {/* Mobile search bar */}
-      <div className="md:hidden border-t px-4 py-3 bg-background">
+      <div className="md:hidden border-t px-4 py-3 bg-[#0D1F3C]/90">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input type="search" placeholder="Search products..." className="pl-10 w-full" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
+          <Input type="search" placeholder="Search products..." className="pl-10 w-full text-white placeholder-white/70" />
         </div>
       </div>
     </header>
