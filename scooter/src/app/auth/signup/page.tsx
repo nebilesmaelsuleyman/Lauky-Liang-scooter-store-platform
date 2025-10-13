@@ -26,10 +26,13 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword]= useState(false)
+
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Add basic client-side validation
+   
     if (!formData.name || !formData.email || !formData.password) {
         setError("All fields are required.");
         return;

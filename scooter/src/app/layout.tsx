@@ -6,6 +6,9 @@ import {SiteFooter} from '@/components/site-footer'
 import {SiteHeader} from '@/components/site-header'
 import { Toaster } from 'sonner'
 import { CartProvider } from "@/contexts/cart-context"
+import NextAuthSessionProvider from '@/contexts/session-provider'
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,14 +32,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}container items-center` }>
+         <NextAuthSessionProvider>
+
          
-     <CartProvider>
-     
-        {children}
-        <Toaster richColors position="top-right" />
-        
-    </CartProvider>
-        
+          <CartProvider>
+          
+              {children}
+              <Toaster richColors position="top-right" />
+              
+          </CartProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

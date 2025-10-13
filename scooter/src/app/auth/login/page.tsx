@@ -9,14 +9,44 @@ import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+
+import { signIn } from "next-auth/react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const router = useRouter();
+  const [error ,setError]= useState('')
+  const [loading, setLoading ]= useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Login:", { email, password })
+
+     if ( !email || !password) {
+        setError("All fields are required.");
+        return;
+    }
+
+    console.log("Signin attempt:",)
+    setLoading(true)
+    setError('')
+
+    const res = await signIn('credentials',{
+      redirect:false,
+      email,
+      password
+    })
+      setLoading(false)
+
+      if(res?.error){
+        setError(res.error)
+      }else{
+        router.push('/')
+      }
   }
 
   return (

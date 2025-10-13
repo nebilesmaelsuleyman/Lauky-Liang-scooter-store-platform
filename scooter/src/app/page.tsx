@@ -14,7 +14,6 @@ import { useEffect, useState } from 'react' // <-- Add hooks
 import { Product } from "@/lib/models/productModel" // <-- Add type
 import { Category } from "@/lib/models/categoryModel" // <-- Add type
 
-
 export default function Home() {
   // 1. State for real data, replacing mock data initialization
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
