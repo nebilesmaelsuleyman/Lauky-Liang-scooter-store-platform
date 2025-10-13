@@ -3,6 +3,7 @@ import Category from "@/lib/models/categoryModel"
 import { ProductLean } from "@/lib/types/product"
 
 import connectDB from '@/lib/db/connectDB'
+import { NextResponse } from "next/server"
 
 
 type ProductData = {
@@ -31,7 +32,22 @@ export async function getAllproducts(): Promise<ProductLean[]> {
 }
 
 
-// Create new product
+export async function getProductById(id: string) {
+  try {
+    await connectDB()
+
+    const product = await Product.findById(id).lean()
+    if (!product)
+      return NextResponse.json({ message: "No product with this ID" }, { status: 404 })
+
+    return NextResponse.json(product, { status: 200 })
+  } catch (error) {
+    console.error("Error fetching product:", error)
+    return NextResponse.json({ message: "Server error" }, { status: 500 })
+  }
+}
+
+
 export async function createProduct(data: any) {
   await connectDB()
   const product = new Product({
@@ -101,4 +117,33 @@ export async function getFeaturedProducts(): Promise<ProductLean[]> {
     
     throw new Error("Failed to retrieve featured products from the database.");
   }
+}
+
+
+export async function updateProduct(id:string,data:any){
+  try{
+    await connectDB()
+    const product = await Product.findByIdAndUpdate(id, data ,{new:true}).lean()
+    if(!product)return NextResponse.json({message:"no product with this id"},{status:404})
+
+      return NextResponse.json(product,{status: 200})
+  }catch(error){
+    console.error('Error updating product',error)
+    return NextResponse.json({message:"server error"},{status:500})
+
+  }
+
+}
+
+export async function deleteProduct(id:string){
+  try{
+    const product = await Product.findByIdAndDelete(id).lean();
+  if(!product)return NextResponse.json({message:"no product with this id"})
+    return NextResponse.json(product ,{status:200})
+  }catch(error){
+    console.log("error while deleting this product")
+    return NextResponse.json({message:"failed to delete product"},{status:500})
+
+  }
+  
 }

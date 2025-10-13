@@ -314,6 +314,7 @@ export default function AdminProductsPage() {
                               </DropdownMenuItem>
                               <DropdownMenuItem className="text-destructive" onClick={() => handleDelete(product._id)}>
                                 <Trash2 className="mr-2 h-4 w-4" />
+                                
                                 Delete
                               </DropdownMenuItem>
                             </DropdownMenuContent>

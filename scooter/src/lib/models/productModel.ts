@@ -24,7 +24,7 @@ export interface Product extends Document {
     motor: string
   }
   stock: number
-  sku: string
+  
   isActive: boolean
   isFeatured: boolean
   tags: string[]

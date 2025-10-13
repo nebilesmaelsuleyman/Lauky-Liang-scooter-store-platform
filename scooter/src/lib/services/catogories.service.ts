@@ -44,7 +44,7 @@ export async function createCategory(data: CategoryFormInput): Promise<Category>
 
 export async function getAllCategories(): Promise<Category[]> {
   // 1. Fetch all documents and use .lean() for performance
-  const categories = await CategoryModel.find().lean<Category[]>();
+  const categories = await CategoryModel.find().lean<Category>();
   const serializedCategories = JSON.parse(JSON.stringify(categories));
   
   

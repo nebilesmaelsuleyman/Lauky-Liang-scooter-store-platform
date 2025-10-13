@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import {Category} from  '@/lib/types/category'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,13 +14,20 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import productModel from "@/lib/models/productModel"
 
-export default function EditProductPage({ params }: { params: { id: string } }) {
+interface Props{
+  params:{id:string}
+}
+
+
+export default function EditProductPage({ params }:Props) {
   const router = useRouter()
 
-  const [categories, setCategories] = useState<any[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [specifications, setSpecifications] = useState<Array<{ key: string; value: string }>>([])
   const [loading, setLoading] = useState(true)
+
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -30,45 +37,38 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
     compareAtPrice: "",
     category: "",
     stock: "",
-    sku: "",
     isFeatured: false,
     discount: "0",
   })
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const productRes= await fetch(`/api/products/${params.id}`)
+      const product = await productRes.json()
 
-  useEffect(() => {
-    Promise.all([
-      fetch(`/api/products/${params.id}`).then((res) => res.json()),
-      fetch("/api/categories").then((res) => res.json()),
-    ])
-      .then(([product, categoriesData]) => {
-        setFormData({
-          name: product.name,
-          slug: product.slug,
-          shortDescription: product.shortDescription || "",
-          description: product.description,
-          price: product.price.toString(),
-          compareAtPrice: product.compareAtPrice?.toString() || "",
-          category: product.category,
-          stock: product.stock.toString(),
-          sku: product.sku || "",
-          isFeatured: product.isFeatured,
-          discount: product.discount?.toString() || "0",
-        })
-        setCategories(categoriesData)
-        if (product.specifications) {
-          setSpecifications(
-            Object.entries(product.specifications).map(([key, value]) => ({ key, value: value as string })),
-          )
-        }
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.error("Failed to fetch product:", error)
-        toast.error('Failed to load product')
-        setLoading(false)
-      })
-  }, [params.id])
+      const categoriesRes= await fetch(`/api/categories`)
+      const categoriesData = await categoriesRes.json()
 
+      const categoryList= categoriesData.categories || categoriesData
+      
+      const matchedCategory =
+        categoryList.find(
+          (cat: any) =>
+            cat._id === product.category || cat.slug === product.category
+        )?._id || ""
+          setCategories(categoryList)
+
+          setFormData({
+            ...product,
+            category:matchedCategory,
+            price:product.price.toString(),
+            compareAtPrice:product.compareAtprice.toString() || ""
+          })
+setLoading(false)
+    }
+    fetchData()
+    
+  },[params.id])
+ 
   const addSpecification = () => {
     setSpecifications([...specifications, { key: "", value: "" }])
   }
@@ -96,7 +96,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
         compareAtPrice: formData.compareAtPrice ? Number.parseFloat(formData.compareAtPrice) : undefined,
         category: formData.category,
         stock: Number.parseInt(formData.stock),
-        sku: formData.sku,
+        
         isFeatured: formData.isFeatured,
         discount: Number.parseFloat(formData.discount),
         specifications: specifications.reduce(
@@ -111,7 +111,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
       }
 
       const response = await fetch(`/api/products/${params.id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData),
       })
@@ -277,13 +277,13 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                   <Select
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
-                  >
+                  >gjy5ty
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((category) => (
-                        <SelectItem key={category._id} value={category._id}>
+                        <SelectItem key={category._id} value={category._id || ''}>
                           {category.name}
                         </SelectItem>
                       ))}
@@ -308,14 +308,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                 <CardTitle>Inventory</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="sku">SKU</Label>
-                  <Input
-                    id="sku"
-                    value={formData.sku}
-                    onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
-                  />
-                </div>
+                
                 <div className="space-y-2">
                   <Label htmlFor="stock">Stock Quantity</Label>
                   <Input

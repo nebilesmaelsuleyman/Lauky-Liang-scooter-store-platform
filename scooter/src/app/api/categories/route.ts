@@ -50,12 +50,13 @@ export async function POST(request: Request) {
   }
 }
 
-// Handler for GET /api/categories (FETCH ALL CATEGORIES)
+
 export async function GET() {
   try {
      await connectDB();
-    // We assume getAllCategories only fetches active/public categories for the storefront
+    
     const categories = await getAllCategories(); 
+    console.log("list of categories",categories)
     return NextResponse.json(categories, { status: 200 });
   } catch (error) {
     console.error("❌ Error fetching categories:", error);
