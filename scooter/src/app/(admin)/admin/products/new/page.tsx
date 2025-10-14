@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,16 +10,26 @@ import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ImageUpload } from "@/components/image-upload"
-import { ArrowLeft, Save } from "lucide-react"
+import { ArrowLeft, Save, Loader2 } from "lucide-react" // Added Loader2
 import Link from "next/link"
 import { toast } from "sonner"
+
+// ----------------------------------------------------------------
+// 1. DATA INTERFACE & CLOUDINARY HELPER (Unchanged)
+// ----------------------------------------------------------------
+
+// Define the Category interface based on your expected API response
+interface Category {
+  _id: string;
+  name: string;
+  slug: string;
+}
 
 // --- Cloudinary Upload Helper ---
 async function uploadToCloudinary(files: File[]) {
   const urls: string[] = []
 
   for (const file of files) {
-    console.log("🔹 Uploading file:", file.name)
     const formData = new FormData()
     formData.append("file", file)
     formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!)
@@ -30,15 +40,13 @@ async function uploadToCloudinary(files: File[]) {
     )
 
     if (!res.ok) {
-      console.error("❌ Cloudinary upload failed for file:", file.name)
+      console.error("Cloudinary upload failed for file:", file.name)
       throw new Error("Failed to upload image")
     }
 
     const data = await res.json()
-    console.log("✅ Uploaded to Cloudinary:", data.secure_url)
     urls.push(data.secure_url)
   }
-
   return urls
 }
 
@@ -47,6 +55,10 @@ export default function NewProductPage() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [imageFiles, setImageFiles] = useState<File[]>([])
+  
+  // New State for Categories
+  const [categories, setCategories] = useState<Category[]>([])
+  const [isCategoriesLoading, setIsCategoriesLoading] = useState(true) // New Loading State
 
   const [formData, setFormData] = useState({
     name: "",
@@ -54,7 +66,7 @@ export default function NewProductPage() {
     description: "",
     price: "",
     compareAtPrice: "",
-    category: "",
+    category: "", // Holds Category _id
     stock: "",
     images: [] as string[],
     specifications: {
@@ -72,57 +84,99 @@ export default function NewProductPage() {
   })
 
 
-   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setIsSubmitting(true)
-  console.log("🚀 Submitting new product:", formData)
+  // ----------------------------------------------------------------
+  // 2. DATA FETCHING (ADDED)
+  // ----------------------------------------------------------------
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories')
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories.')
+        }
 
-  try {
-    const imageUrls = await uploadToCloudinary(imageFiles)
-    console.log("🖼️ Uploaded image URLs:", imageUrls)
-
-    const payload = { ...formData, images: imageUrls }
-
-    console.log("📦 Sending JSON payload:", payload)
-
-    const response = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-
-    const result = await response.json()
-    console.log("📨 API response:", response.status, result)
-
-    if (!response.ok) {
-      console.error("❌ API call failed", result)
-      throw new Error("Failed to create product")
+        const data: Category[] = await response.json()
+        setCategories(data)
+      } catch (error) {
+        console.error('Category Fetch Error:', error)
+        toast.error('Could not load categories.')
+      } finally {
+        setIsCategoriesLoading(false)
+      }
     }
 
-    toast.success("✅ Product created successfully")
-    router.push("/admin/products")
-  } catch (error) {
-    console.error("🔥 Error during product creation:", error)
-    toast.error("Failed to create product")
-  } finally {
-    setIsSubmitting(false)
-  }
-}
-
-      // Step 2: POST to API
-      
+    fetchCategories()
+  }, [])
 
 
-    
-
+  // ----------------------------------------------------------------
+  // 3. HANDLERS
+  // ----------------------------------------------------------------
   const handleNameChange = (name: string) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       name,
+      // Automatic slug generation logic moved here
       slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
-    })
+    }))
   }
 
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Basic Validation (ensure category is selected)
+    if (!formData.category) {
+        toast.error("Please select a category.")
+        setIsSubmitting(false)
+        return
+    }
+
+    let loadingToastId: string | number = toast.loading("Uploading images and submitting product...")
+
+    try {
+      // 1. Upload Images
+      const imageUrls = await uploadToCloudinary(imageFiles)
+
+      // 2. Prepare Payload
+      const payload = { 
+        ...formData, 
+        images: imageUrls,
+        // Convert string numbers to actual numbers for API if needed
+        price: parseFloat(formData.price),
+        compareAtPrice: formData.compareAtPrice ? parseFloat(formData.compareAtPrice) : undefined,
+        stock: parseInt(formData.stock, 10),
+      }
+
+      // 3. POST to API
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        console.error("API call failed", result)
+        throw new Error(result.message || "Failed to create product")
+      }
+
+      toast.success("Product created successfully!", { id: loadingToastId })
+      router.push("/admin/products")
+    } catch (error) {
+      console.error("Error during product creation:", error)
+      toast.error(`Creation failed: ${(error as Error).message}`, { id: loadingToastId })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // ----------------------------------------------------------------
+  // 4. RENDER
+  // ----------------------------------------------------------------
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
@@ -142,7 +196,7 @@ export default function NewProductPage() {
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Basic Information */}
+            {/* Basic Information Cards... (unchanged) */}
             <Card>
               <CardHeader>
                 <CardTitle>Basic Information</CardTitle>
@@ -183,7 +237,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Product Images */}
+            {/* Product Images Card... (unchanged) */}
             <Card>
               <CardHeader>
                 <CardTitle>Product Images</CardTitle>
@@ -194,12 +248,12 @@ export default function NewProductPage() {
                   value={formData.images}
                   onChange={(images) => setFormData({ ...formData, images })}
                   maxImages={5}
-                  setFiles={setImageFiles} // Track original File[] for Cloudinary
+                  setFiles={setImageFiles}
                 />
               </CardContent>
             </Card>
 
-            {/* Specifications */}
+            {/* Specifications Card... (unchanged) */}
             <Card>
               <CardHeader>
                 <CardTitle>Specifications</CardTitle>
@@ -228,7 +282,7 @@ export default function NewProductPage() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Pricing */}
+            
             <Card>
               <CardHeader>
                 <CardTitle>Pricing</CardTitle>
@@ -261,7 +315,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Organization */}
+            {/* Organization Card (MODIFIED) */}
             <Card>
               <CardHeader>
                 <CardTitle>Organization</CardTitle>
@@ -272,17 +326,35 @@ export default function NewProductPage() {
                   <Select
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
+                    disabled={isCategoriesLoading || categories.length === 0 || isSubmitting} // Disable when loading or submitting
+                    required
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
+                      <SelectValue 
+                          placeholder={
+                              isCategoriesLoading 
+                              ? "Loading categories..." 
+                              : categories.length === 0 
+                              ? "No categories found" 
+                              : "Select category"
+                          } 
+                      />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="commuter">Commuter</SelectItem>
-                      <SelectItem value="performance">Performance</SelectItem>
-                      <SelectItem value="off-road">Off-Road</SelectItem>
-                      <SelectItem value="budget">Budget</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
+                  {/* Optional loading indicator */}
+                  {isCategoriesLoading && (
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Loading...
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="stock">Stock Quantity *</Label>
@@ -298,7 +370,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Status */}
+            {/* Status Card... (unchanged) */}
             <Card>
               <CardHeader>
                 <CardTitle>Status</CardTitle>
@@ -330,8 +402,17 @@ export default function NewProductPage() {
             {/* Actions */}
             <div className="flex flex-col gap-2">
               <Button type="submit" disabled={isSubmitting} className="w-full">
-                <Save className="mr-2 h-4 w-4" />
-                {isSubmitting ? "Creating..." : "Create Product"}
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    Create Product
+                  </>
+                )}
               </Button>
               <Link href="/admin/products">
                 <Button type="button" variant="outline" className="w-full bg-transparent">

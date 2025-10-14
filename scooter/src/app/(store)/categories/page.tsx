@@ -3,30 +3,44 @@ import { SiteFooter } from "@/components/site-footer"
 import { DiscountBanner } from "@/components/discount-banner"
 import { CategoryCard } from "@/components/category-card"
 import {getAllCategories} from '@/lib/services/catogories.service'
+import { notFound } from "next/navigation"
+
+interface Category {
+  _id: string;
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+}
+
+const fetchCategories = async (): Promise<Category[]> => {
+    const categories = await getAllCategories();
+    return categories as Category[];
+};
+
 
 export default async function CategoriesPage() {
-  const categories = await getAllCategories()
+  const categories = await fetchCategories();
 
   return (
-    <div className="flex min-h-screen flex-col">
-     
+    <div className="flex min-h-screen flex-col bg-[#0D1F3C]/90 text-white">
+      
+      <DiscountBanner />
+      <SiteHeader/>
 
-      <main className="flex-1">
+      <main className="flex-1 i">
         <div className="container py-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2">Browse Categories</h1>
-            <p className="text-muted-foreground">Find the perfect scooter for your lifestyle and needs</p>
+          <div className="mb-8 px-10">
+            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">Browse Categories</h1>
+            <p className="text-white/70">Find the perfect scooter for your lifestyle and needs</p>
           </div>
 
-          {/* Categories Grid */}
-         {/* Categories Grid */}
+          
           {categories.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-10">
               {categories.map((category) => (
                 <CategoryCard
-                  // The _id is now guaranteed to be a serializable string/number after JSON.stringify
-                  key={category._id as string} 
+                  key={category._id}
                   name={category.name}
                   slug={category.slug}
                   description={category.description}
@@ -35,8 +49,8 @@ export default async function CategoriesPage() {
               ))}
             </div>
           ) : (
-             <div className="text-center py-12">
-              <p className="text-muted-foreground">No categories available</p>
+             <div className="text-center py-12 text-white/70">
+              <p>No categories available</p>
             </div>
           )}
         </div>

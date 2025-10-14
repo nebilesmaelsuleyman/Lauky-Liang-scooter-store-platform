@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Facebook, Instagram, Twitter, Mail,Youtube ,PhoneCall} from "lucide-react"
+import { Facebook, Instagram, Twitter, Mail, Youtube, PhoneCall } from "lucide-react"
 import { useState } from "react"
 
 export function SiteFooter() {
@@ -19,14 +19,15 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-[#0D1F3C] text-white">
-      {/* Newsletter Section */}
-      <div className="bg-[#0D1F3C]/90 py-16">
+      
+      {/* 1. Newsletter Section - Now WHITE/LIGHT background */}
+      <div className="bg-[#f8f8ff] py-16 border-b border-gray-200">
         <div className="container mx-auto text-center px-4">
-          <Mail className="mx-auto h-10 w-10 mb-4 text-green-500" />
-          <h3 className="font-serif text-2xl md:text-3xl font-bold mb-2">
+          <Mail className="mx-auto h-10 w-10 mb-4 text-green-600" />
+          <h3 className="font-serif text-2xl md:text-3xl font-bold mb-2 text-[#0D1F3C]">
             Subscribe to Our Newsletter
           </h3>
-          <p className="text-white/80 mb-6">
+          <p className="text-gray-600 mb-6">
             Get exclusive deals and updates on the latest scooters
           </p>
           <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
@@ -36,7 +37,8 @@ export function SiteFooter() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="flex-1"
+              // Input styling adjusted for light background
+              className="flex-1 border-gray-300 text-gray-800 placeholder:text-gray-400"
             />
             <Button type="submit" className="bg-green-600 hover:bg-green-500 text-white">
               Subscribe
@@ -45,8 +47,14 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Main Footer Content */}
-      <div className="container mx-auto py-16 px-4">
+      {/* 2. Main Footer Content - Applied Gradient from transparent to deep blue */}
+      <div 
+        className="container mx-auto py-16 px-4"
+        style={{
+          // Gradient starts transparent (so the light background shows through) and ends in the solid deep blue.
+          backgroundImage: `linear-gradient(to bottom, rgba(13, 31, 60, 0.0) 0%, #0D1F3C 100%)`
+        }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div>

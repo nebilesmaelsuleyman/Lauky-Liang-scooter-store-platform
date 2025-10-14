@@ -21,24 +21,24 @@ export default function Home() {
   const [allCategories, setAllCategories] = useState<Category[]>([]) // Needed for product card category lookup
   const [isLoading, setIsLoading] = useState(true)
   
-  // 2. Data Fetching Effect
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
 
-        // A. Fetch Featured Products (using the dedicated API route)
+
         const featuredRes = await fetch('/api/products/featured-products')
         const featuredData = await featuredRes.json()
         setFeaturedProducts(featuredData)
 
-        // B. Fetch ALL Categories (using the API route)
+
         const categoriesRes = await fetch('/api/categories')
         const categoriesData = await categoriesRes.json()
         
-        // Store all categories for product card lookup
+
         setAllCategories(categoriesData); 
-        // Display only the first 4 for the category grid section, matching the old mock slice
+
         setDisplayCategories(categoriesData.slice(0, 4)) 
 
       } catch (error) {
@@ -50,9 +50,9 @@ export default function Home() {
     fetchData()
   }, [])
 
-  // 3. Loading State
+ 
   if (isLoading) {
-    // Keeping this simple loading state for user feedback while data loads
+    
     return (
         <div className="flex min-h-screen flex-col items-center justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -76,11 +76,11 @@ export default function Home() {
       <main className="flex-1  container">
          {/* Hero Section */}
         <section className="relative bg-[#0D1F3C] text-white min-h-[80vh] flex items-center">
-      {/* Background Gradient for Depth */}
+     
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0D1F3C]/90 to-[#0D1F3C]/60" />
 
-      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-10 gap-10 py-20">
-        {/* Text Content */}
+      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-10 gap-10 py-10">
+        
         <div className="flex-1 text-center md:text-left space-y-6 max-w-xl">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
             <span className="text-green-500">Ride the Future</span> <br />

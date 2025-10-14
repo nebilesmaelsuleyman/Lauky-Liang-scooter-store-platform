@@ -10,78 +10,72 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { SlidersHorizontal } from "lucide-react"
+import { SlidersHorizontal, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
 
+// Assume these imports include the necessary property definitions (e.g., _id, name, price)
 import { Product } from "@/lib/models/productModel"
 import { Category } from "@/lib/models/categoryModel"
 
-// Define a max price for the slider and initial range
-
-
 export default function ProductsPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [priceRange, setPriceRange] = useState([0, 10000]) // Use MAX_PRICE
+  const [priceRange, setPriceRange] = useState([0, 10000]) 
   const [sortBy, setSortBy] = useState("All")
-  const [isLoading, setIsLoading] = useState(true); // State to handle loading
+  const [isLoading, setIsLoading] = useState(true); 
 
-  // State to hold real data from MongoDB APIs
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
-const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
+  const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
+
   const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories((prev) =>
       prev.includes(categoryId) ? prev.filter((id) => id !== categoryId) : [...prev, categoryId],
     )
   }
 
-  // Effect to fetch initial data for products and categories
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        // Fetch all products
         const resProducts = await fetch('/api/products')
         const dataProducts = await resProducts.json()
+        
+        // Calculate dynamic max price from fetched products
         const maxPrice = dataProducts.reduce(
-              (max: number, p: Product) => Math.max(max, p.price || 0)
-          );
+            (max: number, p: Product) => Math.max(max, p.price || 0), 
+            0
+        );
 
         setProducts(dataProducts);
+        // Set dynamic max price for the slider and reset the price range
+        setDynamicMaxPrice(maxPrice || 10000); 
+        setPriceRange([0, maxPrice || 10000]);
 
-        // Fetch all categories
+
         const resCategories = await fetch('/api/categories')
         const dataCategories = await resCategories.json()
         setCategories(dataCategories)
       } catch (error) {
         console.error("Failed to fetch data:", error);
-        // Handle error state if necessary
       } finally {
         setIsLoading(false);
       }
     };
     fetchData();
-    // Removed the redundant second useEffect for categories
   }, [])
 
-  // Filter products based on categories and price range
   let filteredProducts = (Array.isArray(products)? products:[]).filter((product)=>{
-
     const categoryId = String(product.category); 
     
-    // Check if the product's category matches any selected category
     const categoryMatch =
       selectedCategories.length === 0 || selectedCategories.includes(categoryId); 
 
-    // Check if the product's price is within the selected range
     const priceMatch =
       product.price >= priceRange[0] && product.price <= priceRange[1];
       
     return categoryMatch && priceMatch;
   })
 
-
-  // Sort products
   filteredProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case "price-low":
@@ -91,7 +85,6 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
       case "name":
         return a.name.localeCompare(b.name)
       case "featured":
-        // Featured: put featured items first
         if (a.isFeatured && !b.isFeatured) return -1
         if (!a.isFeatured && b.isFeatured) return 1
         return 0
@@ -101,24 +94,23 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
     }
   })
 
-  // Loading State UI
   if (isLoading) {
     return (
         <div className="flex min-h-screen flex-col items-center justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            <p className="mt-4 text-primary">Loading products and filters...</p>
+            <Loader2 className="h-12 w-12 text-green-500 animate-spin" />
+            <p className="mt-4 text-green-500">Loading products and filters...</p>
         </div>
     );
   }
 
   const FilterContent = () => (
-     <div className="space-y-6">
+    // FIX: Ensure the inner content has a background and appropriate text color
+     <div className="space-y-6 text-gray-800"> 
       {/* Categories */}
       <div>
         <h3 className="font-semibold mb-4">Categories</h3>
         <div className="space-y-3">
           {categories.map((category) => {
-            // Category IDs are assumed to be strings after being returned from the API
             const categoryId = category._id as string;
             
             return (
@@ -142,18 +134,18 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
       </div>
 
       {/* Price Range */}
-      <div>
+      <div> 
         <h3 className="font-semibold mb-4">Price Range</h3>
         <div className="space-y-4">
           <Slider 
             min={0} 
-            max={dynamicMaxPrice} // Use constant
+            max={dynamicMaxPrice} 
             step={50} 
             value={priceRange} 
             onValueChange={setPriceRange} 
             className="w-full" 
           />
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="flex items-center justify-between text-sm text-gray-600">
             <span>${priceRange[0]}</span>
             <span>${priceRange[1]}</span>
           </div>
@@ -163,10 +155,10 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
       {/* Reset Filters */}
       <Button
         variant="outline"
-        className="w-full bg-transparent"
+        className="w-full" // Removed bg-transparent, button will use default white background
         onClick={() => {
           setSelectedCategories([])
-          setPriceRange([0, dynamicMaxPrice]) // Use constant
+          setPriceRange([0, dynamicMaxPrice]) 
         }}
       >
         Reset Filters
@@ -175,39 +167,41 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
   )
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader /> 
+    // Main container keeps the dark background
+    <div className="flex min-h-screen flex-col bg-[#0D1F3C]/90 text-white"> 
       <DiscountBanner />
+      <SiteHeader /> 
 
       <main className="flex-1">
         <div className="container py-8">
-          {/* Page Header */}
+          {/* Page Header - FIX: Text color adjusted for visibility against dark background */}
           <div className="mb-8">
-            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2">All Products</h1>
-            <p className="text-muted-foreground">Discover our complete collection of premium electric scooters</p>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">All Products</h1> 
+            <p className="text-white/70">Discover our complete collection of premium electric scooters</p>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Desktop Filters Sidebar */}
             <aside className="hidden lg:block w-64 flex-shrink-0">
-              <div className="sticky top-24 border rounded-lg p-6">
-                <h2 className="font-semibold text-lg mb-6">Filters</h2>
+              {/* FIX: Set background to white for the filter wrapper */}
+              <div className="sticky top-24 border rounded-lg p-6 bg-white shadow-lg"> 
+                <h2 className="font-semibold text-lg mb-6 text-gray-900">Filters</h2>
                 <FilterContent />
               </div>
             </aside>
 
             {/* Products Grid */}
             <div className="flex-1">
-              {/* Toolbar */}
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm text-muted-foreground">
+              {/* Toolbar - FIX: Text color adjusted for visibility */}
+              <div className="flex items-center justify-between mb-6 text-white/70">
+                <p className="text-sm">
                   Showing {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
                 </p>
 
                 <div className="flex items-center gap-4">
-                  {/* Sort */}
+                  {/* Sort Select: Will inherit white background from shadcn defaults */}
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] text-gray-900 bg-white">
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
@@ -222,13 +216,15 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
                   {/* Mobile Filter Button */}
                   <Sheet>
                     <SheetTrigger asChild className="lg:hidden">
-                      <Button variant="outline" size="icon">
+                      {/* FIX: Button background explicitly set to white */}
+                      <Button variant="outline" size="icon" className="bg-white"> 
                         <SlidersHorizontal className="h-4 w-4" />
                       </Button>
                     </SheetTrigger>
-                    <SheetContent side="left" className="w-[300px]">
+                    {/* SheetContent default background is usually white */}
+                    <SheetContent side="left" className="w-[300px] bg-white"> 
                       <SheetHeader>
-                        <SheetTitle>Filters</SheetTitle>
+                        <SheetTitle className="text-gray-900">Filters</SheetTitle>
                       </SheetHeader>
                       <div className="mt-6">
                         <FilterContent />
@@ -242,6 +238,7 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
               {filteredProducts.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProducts.map((product) => (
+                    // ProductCard component should be designed to look good on a dark background
                     <ProductCard
                       key={String(product._id)}
                       id={String(product._id)}
@@ -250,20 +247,20 @@ const [dynamicMaxPrice, setDynamicMaxPrice] = useState(10000)
                       price={product.price}
                       compareAtPrice={product.compareAtPrice}
                       image={product.images[0]}
-                      // Use the fetched 'categories' state instead of 'mockCategories'
                       category={categories.find((c) => c._id === product.category)?.name || ""}
                       isFeatured={product.isFeatured}
                     />
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground mb-4">No products found matching your filters</p>
+                <div className="text-center py-12 text-white/70">
+                  <p className="mb-4">No products found matching your filters</p>
                   <Button
                     variant="outline"
+                    className="bg-white text-gray-900 hover:bg-gray-100"
                     onClick={() => {
                       setSelectedCategories([])
-                      setPriceRange([0, dynamicMaxPrice]) // Use constant
+                      setPriceRange([0, dynamicMaxPrice]) 
                     }}
                   >
                     Clear Filters

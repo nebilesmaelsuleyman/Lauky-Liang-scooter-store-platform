@@ -1,4 +1,3 @@
-
 "use client"
 
 import Image from "next/image"
@@ -10,16 +9,14 @@ import { ProductCard } from "@/components/product-card"
 import { ShoppingCart, Heart, Share2, Zap, Battery, Gauge, Weight } from "lucide-react"
 import { useCart } from "@/contexts/cart-context"
 
-// ⚠️ ASSUMPTION: Import your actual types from your application
 import { ProductLean } from "@/lib/types/product" 
 interface CategoryLean { 
   _id: string; 
   name: string; 
   description: string;
-  // ... other fields needed for breadcrumb/UI
 } 
 
-// Define Props structure to match what is passed from the Server Component
+
 interface Props {
   product: ProductLean
   category: CategoryLean | null
@@ -37,7 +34,6 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
   const handleAddToCart = () => {
     addItem({
-      // Use as string to satisfy TypeScript after JSON serialization
       productId: product._id as string, 
       name: product.name,
       price: product.price,
@@ -45,22 +41,21 @@ export default function ProductDetailClient({ product, category, relatedProducts
     })
   }
 
-  // NOTE: Assuming your ProductLean has a 'specifications' property with the correct shape
   const specs = product.specifications || {};
-  const motorPower = specs.motor || ""; // Use a fallback for motor power
+  const motorPower = specs.motor || "";
 
   return (
-    <div className="container py-8">
-      {/* Breadcrumb */}
+    <div className="container py-8 " >
+
       <div className="text-sm text-muted-foreground mb-6">
         <span>Home</span> / <span>Products</span> / 
         <span>{category?.name || 'Uncategorized'}</span> /{" "}
         <span className="text-foreground">{product.name}</span>
       </div>
 
-      {/* Product Details */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-        {/* Image Gallery */}
+        {/* Image Gallery - No changes */}
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
             <Image
@@ -95,15 +90,17 @@ export default function ProductDetailClient({ product, category, relatedProducts
           )}
         </div>
 
-        {/* Product Info */}
-        <div className="space-y-6">
+        {/* Product Info - MINIMIZED CARDS & PRICE */}
+        <div className="space-y-5"> {/* Reduced spacing */}
           <div>
-            <p className="text-sm text-muted-foreground mb-2">{category?.name}</p>
-            <h1 className="font-serif text-4xl font-bold mb-4 text-balance">{product.name}</h1>
+            <p className="text-sm text-muted-foreground mb-1">{category?.name}</p>
+            {/* Reduced Title Size */}
+            <h1 className="font-serif text-3xl font-bold mb-3 text-balance">{product.name}</h1> 
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-4xl font-bold">${product.price}</span>
+              {/* Reduced Price Font Size */}
+              <span className="text-3xl font-bold">${product.price}</span> 
               {product.compareAtPrice && (
-                <span className="text-xl text-muted-foreground line-through">${product.compareAtPrice}</span>
+                <span className="text-lg text-muted-foreground line-through">${product.compareAtPrice}</span>
               )}
             </div>
             {product.isFeatured && (
@@ -114,57 +111,63 @@ export default function ProductDetailClient({ product, category, relatedProducts
           <Separator />
 
           <div>
-            <h3 className="font-semibold mb-2">Description</h3>
-            <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+            <h3 className="font-semibold mb-2 text-lg">Description</h3>
+            <p className="text-muted-foreground text-sm leading-normal">{product.description}</p>
           </div>
 
           <Separator />
 
-          {/* Specifications */}
+          {/* Specifications - MINIMIZED CARDS */}
           <div>
-            <h3 className="font-semibold mb-4">Specifications</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Gauge className="h-5 w-5 text-accent" />
+            <h3 className="font-semibold mb-3 text-lg">Key Specifications</h3>
+            <div className="grid grid-cols-2 gap-3"> {/* Reduced gap */}
+              {/* Spec Card 1 */}
+              <Card className="hover:shadow-md transition-shadow">
+                {/* Reduced padding */}
+                <CardContent className="p-3 flex items-center gap-3"> 
+                  {/* Reduced circle size */}
+                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Gauge className="h-4 w-4 text-accent" /> {/* Reduced icon size */}
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Max Speed</p>
-                    <p className="font-semibold">{specs.maxSpeed}</p>
+                    <p className="font-semibold text-sm">{specs.maxSpeed}</p> {/* Reduced font size */}
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Battery className="h-5 w-5 text-accent" />
+              {/* Spec Card 2 */}
+              <Card className="hover:shadow-md transition-shadow">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Battery className="h-4 w-4 text-accent" />
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Range</p>
-                    <p className="font-semibold">{specs.range}</p>
+                    <p className="font-semibold text-sm">{specs.range}</p>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Zap className="h-5 w-5 text-accent" />
+              {/* Spec Card 3 */}
+              <Card className="hover:shadow-md transition-shadow">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Zap className="h-4 w-4 text-accent" />
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Motor Power</p>
-                    <p className="font-semibold">{motorPower}</p> 
+                    <p className="font-semibold text-sm">{motorPower}</p> 
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Weight className="h-5 w-5 text-accent" />
+              {/* Spec Card 4 */}
+              <Card className="hover:shadow-md transition-shadow">
+                <CardContent className="p-3 flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Weight className="h-4 w-4 text-accent" />
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">Weight</p>
-                    <p className="font-semibold">{specs.weight}</p>
+                    <p className="font-semibold text-sm">{specs.weight}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -173,7 +176,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
-          {/* Stock Status */}
+          {/* Stock Status - No changes */}
           <div>
             {product.stock > 0 ? (
               <p className="text-sm text-green-600 font-medium">In Stock ({product.stock} available)</p>
@@ -182,7 +185,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
             )}
           </div>
 
-          {/* Actions */}
+          {/* Actions - No changes */}
           <div className="flex gap-3">
             <Button size="lg" className="flex-1" onClick={handleAddToCart} disabled={product.stock === 0}>
               <ShoppingCart className="mr-2 h-5 w-5" />
@@ -196,7 +199,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
             </Button>
           </div>
 
-          {/* Additional Info */}
+          {/* Additional Info - No changes */}
           <Card className="bg-muted/50">
             <CardContent className="p-4 space-y-2 text-sm">
               <p className="flex items-center gap-2">
@@ -213,7 +216,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
         </div>
       </div>
 
-      {/* Related Products */}
+      {/* Related Products - No changes */}
       {relatedProducts.length > 0 && (
         <div className="mt-12">
           <h2 className="font-serif text-3xl font-bold mb-6">You May Also Like</h2>
@@ -227,7 +230,6 @@ export default function ProductDetailClient({ product, category, relatedProducts
                 price={rp.price}
                 compareAtPrice={rp.compareAtPrice}
                 image={rp.images[0]}
-                // Use optional chaining for category name
                 category={category?.name || "Uncategorized"} 
                 isFeatured={rp.isFeatured}
               />

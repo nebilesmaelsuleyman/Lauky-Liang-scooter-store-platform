@@ -28,7 +28,8 @@ export function SiteHeader() {
             className="h-10 w-auto md:h-12 lg:h-14 object-contain"
           />
         </Link> */}
-          <span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span>
+        <Link href='/'><span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span></Link>
+          
 
         {/* Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">
