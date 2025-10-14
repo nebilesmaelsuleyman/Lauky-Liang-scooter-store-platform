@@ -26,7 +26,7 @@ export default function EditProductPage({ params }:Props) {
 
   const [categories, setCategories] = useState<Category[]>([])
   const [specifications, setSpecifications] = useState<Array<{ key: string; value: string }>>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     name: "",
@@ -277,7 +277,7 @@ setLoading(false)
                   <Select
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
-                  >gjy5ty
+                  >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>

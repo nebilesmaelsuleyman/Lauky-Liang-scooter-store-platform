@@ -13,6 +13,8 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import {toast} from 'sonner'
+import { useRouter } from 'next/navigation'; // Use 'next/router' for Pages Router
+import { useConfirm } from '@/components/use-confirm';
 
 export default function AdminProductsPage() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -23,7 +25,7 @@ export default function AdminProductsPage() {
   const [stockFilter, setStockFilter] = useState<string>("all")
   const [sortBy, setSortBy] = useState<string>("name")
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
-  
+  const router = useRouter();
 
   useEffect(() => {
     Promise.all([fetch("/api/products").then((res) => res.json()), fetch("/api/categories").then((res) => res.json())])
@@ -38,24 +40,23 @@ export default function AdminProductsPage() {
       })
   }, [])
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return
+const handleDelete = async (id: string) => {
+    // Await the user's action from the modal
+    const isConfirmed = await confirm(
+        "Confirm Deletion",
 
+    );
+
+    if (!isConfirmed) return; // User clicked 'Cancel'
+
+    // Proceed with API call if confirmed...
     try {
-      const response = await fetch(`/api/products/${id}`, {
-        method: "DELETE",
-      })
-
-      if (!response.ok) throw new Error("Failed to delete product")
-
-      setProducts(products.filter((p) => p._id !== id))
-      toast.success("✅ Product deleted successfully")
-
+        await fetch(`/api/products/${id}`, { method: 'DELETE' });
+        // ... handle success ...
     } catch (error) {
-      toast.error("Failed to delete product")
+        // ... handle error ...
     }
-  }
-
+}
   const handleExport = () => {
     const dataStr = JSON.stringify(products, null, 2)
     const dataBlob = new Blob([dataStr], { type: "application/json" })
@@ -135,12 +136,12 @@ export default function AdminProductsPage() {
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
-          <Link href="/admin/products/bulk-import">
+          {/* <Link href="/admin/products/bulk-import">
             <Button variant="outline">
               <Upload className="mr-2 h-4 w-4" />
               Import
             </Button>
-          </Link>
+          </Link> */}
           <Link href="/admin/products/new">
             <Button>
               <Plus className="mr-2 h-4 w-4" />

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { LayoutDashboard, Package, ShoppingCart, Users, Settings, BarChart3, Tags } from "lucide-react"
+import { Button } from "./ui/button"
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -11,8 +12,7 @@ const navigation = [
   { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
   { name: "Customers", href: "/admin/customers", icon: Users },
   { name: "Categories", href: "/admin/categories", icon: Tags },
-  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  { name: "Settings", href: "/admin/settings", icon: Settings },
+ 
 ]
 
 export function AdminSidebar(){
@@ -49,7 +49,7 @@ export function AdminSidebar(){
           href="/"
           className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
         >
-          <span>← Back to Store</span>
+         <Button variant="secondary"> Back to Store</Button>
         </Link>
       </div>
 

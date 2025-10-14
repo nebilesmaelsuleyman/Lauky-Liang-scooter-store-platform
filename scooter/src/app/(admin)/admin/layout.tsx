@@ -1,4 +1,5 @@
 import { AdminSidebar } from "@/components/admin-sidebar"
+import { ConfirmationProvider } from '@/components/use-confirm';
 export default function DashboardLayout({children}: {children: React.ReactNode}) {
 
     return (
@@ -6,7 +7,11 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
       <AdminSidebar />
    
       <main className="lg:pl-64">
-        <div className="container py-8">{children}</div>
+        <div className="container py-8">
+          <ConfirmationProvider>
+                {children}
+          </ConfirmationProvider>
+          </div>
       </main>
     </div>
   )

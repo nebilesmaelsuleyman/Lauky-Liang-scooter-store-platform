@@ -2,7 +2,7 @@
 import bcrypt from "bcryptjs";
 import User, { IUser } from "@/lib/models/userModel";
 import connectDB from "@/lib/db/connectDB";
-
+import { NextResponse } from 'next/server'
 
 
     
@@ -51,4 +51,60 @@ import connectDB from "@/lib/db/connectDB";
       email: user.email,
     };
   }
+
+
+export async function getAllUsers() {
+  // Ensure the database connection is established
+  await connectDB();
+
+  try {
+    
+    const users = await User.find().lean();
+
+    if (!users || users.length === 0) {
+      return NextResponse.json({ users: [] }, { status: 200 });
+    }
+
+    return NextResponse.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    
+    
+    return NextResponse.json(
+      { ok: false, message: 'Failed to retrieve users due to a server error.' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function updateUser(id: string, data: any) {
+  await connectDB();
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      id, 
+      data, 
+      { new: true, runValidators: true }
+    ).lean();
+
+    if (!updatedUser) {
+      return NextResponse.json(
+        { message: 'User not found.' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(updatedUser);
+
+  } catch (error) {
+    console.error('Error updating user:', error);
+
+    const status = (error as any).name === 'ValidationError' ? 400 : 500;
+    
+    return NextResponse.json(
+      { message: 'Failed to update user due to a server error.' },
+      { status: status }
+    );
+  }
+}
 

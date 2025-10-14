@@ -42,7 +42,7 @@ export default async function CategoriesPage() {
         </div>
       </main>
 
-      {/* <SiteFooter /> */}
+      <SiteFooter />
     </div>
   )
 }
