@@ -1,5 +1,5 @@
 "use client"
-
+import ClientOnlySlider from '@/components/clientonlySlider'
 import {SiteHeader} from '@/components/site-header'
 import {SiteFooter} from '@/components/site-footer'
 import {Button} from '@/components/ui/button'
@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react' // <-- Add hooks
 import { Product } from "@/lib/models/productModel" // <-- Add type
 import { Category } from "@/lib/models/categoryModel" // <-- Add type
 import AutoImageSlider from '@/components/AuthoImageSlider'
+import FullBackgroundSlider from '@/components/BackgroundImageSlider'
+
 export default function Home() {
   // 1. State for real data, replacing mock data initialization
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
@@ -60,7 +62,14 @@ export default function Home() {
         </div>
     );
   }
-  
+  const BACKGROUND_IMAGES = [
+  { src: '/images/electric-scooter-side-view.jpg', alt: 'Electric scooter on the road' },
+  { src: '/images/high-end-electric-scooter.jpg', alt: 'Modern urban scooter' },
+  { src: '/images/Natike.png', alt: 'Scooter in city landscape' },
+]
+
+// Interval between slides (milliseconds)
+const SLIDE_INTERVAL = 5000
 
   return (
      
@@ -75,22 +84,28 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1  container">
          {/* Hero Section */}
-        <section className="relative bg-[#0D1F3C] text-white min-h-[80vh] flex items-center">
-     
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#0D1F3C]/90 to-[#0D1F3C]/60" />
+         <section className="relative text-white min-h-screen flex items-center overflow-hidden">
+      {/* Full Background Slider */}
+      <FullBackgroundSlider images={BACKGROUND_IMAGES} interval={SLIDE_INTERVAL} />
 
-      <div className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between px-6 md:px-10 gap-10 py-10">
-        
-        <div className="flex-1 text-center md:text-left space-y-6 max-w-xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-            <span className="text-green-500">Ride the Future</span> <br />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+
+      {/* Content Layer */}
+      <div className="container mx-auto relative z-10 flex items-center justify-center px-6 md:px-10 py-10 min-h-screen">
+        <div className="flex-1 text-center space-y-8 max-w-4xl p-6 sm:p-10 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
+            <span className="text-green-400 drop-shadow-lg">Ride the Future</span> <br />
             of Urban Mobility
           </h1>
-          <p className="text-lg sm:text-xl text-white/90">
-            Discover premium electric scooters designed for modern commuters. Elegant design meets high performance in every ride.
+
+          <p className="text-lg sm:text-xl text-white/90 drop-shadow-md max-w-2xl mx-auto">
+            Discover premium electric scooters designed for modern commuters.
+            Elegant design meets high performance in every ride.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center md:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
+            {/* Button 1: Shop Now */}
             <Link href="/products">
               <Button
                 size="lg"
@@ -101,123 +116,22 @@ export default function Home() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
+
+            {/* Button 2: Browse Categories */}
             <Link href="/categories">
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto border-white text-green-700 hover:bg-white hover:text-[#0D1F3C] font-medium"
+                className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-[#0D1F3C] font-medium"
               >
                 Browse Categories
               </Button>
             </Link>
           </div>
         </div>
-
-        {/* Hero Image */}
-        <div className="md:w-1/2 relative w-full max-w-lg min-h-[400px] md:min-h-[500px]">
-           <AutoImageSlider />
-        </div>
-
       </div>
     </section>
-  
 
-         {/* Features Section */}
-       <section className="py-24 md:py-32 bg-gray-50 dark:bg-zinc-900 min-h-[50vh]">
-  <div className="container px-4 md:px-6">
-    {/* Optional: Add a title/heading for the section if it doesn't already have one */}
-    {/* <div className="text-center mb-16 max-w-3xl mx-auto">
-      <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl">
-        Why Choose Our <span className='text-green-600 dark:text-green-500'>Electric Boards</span>?
-      </h2>
-      <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">
-        Experience the next generation of personal transportation.
-      </p>
-    </div> */}
-
-    <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
-      {/* Card 1: High Performance */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Zap className="h-8 w-8 text-green-600 dark:text-green-400" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            High <span className='text-green-600 dark:text-green-400'>Performance</span>
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Powerful motors delivering speeds up to 40 mph with exceptional range. Experience the thrill of power.
-          </p>
-        </div>
-      </div>
-
-      {/* Card 2: Built to Last (Durability) */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            <span className='text-green-600 dark:text-green-400'>Built to</span> Last
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Premium materials and rigorous testing ensure unparalleled durability and safety for every ride.
-          </p>
-        </div>
-      </div>
-
-      {/* Card 3: Eco Friendly */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Leaf className="h-8 w-8 text-green-600 dark:text-green-400" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            Eco <span className='text-green-600 dark:text-green-400'>Friendly</span>
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Zero emissions and an energy-efficient design contribute to a cleaner, greener tomorrow.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-         {/* Featured Products */}
-        <section className="py-8 p-8 bg-gradient-to-b">
-          <div className="container">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2"> Top Scooters</h2>
-                <p className="text-muted-foreground">Our most popular models loved by riders</p>
-              </div>
-              <Link href="/products">
-                <Button variant="secondary">
-                  View All
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Using the fetched featuredProducts state */}
-              {featuredProducts.map((product) => (
-                <ProductCard
-                  key={String(product._id)}
-                  id={String(product._id)}
-                  name={product.name}
-                  slug={product.slug}
-                  price={product.price}
-                  compareAtPrice={product.compareAtPrice}
-                  image={product.images[0]}
-                  // Lookup category name from the fetched allCategories state
-                  category={allCategories.find((c) => c._id === product.category)?.name || ""}
-                  isFeatured={product.isFeatured}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Categories Grid */}
         <section className="py-16 bg-muted/30">

@@ -94,10 +94,11 @@ export function SiteFooter() {
           <div>
             <h4 className="font-semibold mb-4">Service</h4>
             <ul className="space-y-2 text-sm text-white/70">
-              <li><Link href="#" className="hover:text-green-500 transition-colors">Customer Support</Link></li>
+              <li><Link href="/service/support" className="hover:text-green-500 transition-colors">Customer Support</Link></li>
               <li><Link href="/faq" className="hover:text-green-500 transition-colors">Service Center</Link></li>
               <li><Link href="/shipping" className="hover:text-green-500 transition-colors">Find A Store</Link></li>
               <li><Link href="/returns" className="hover:text-green-500 transition-colors">Returns</Link></li>
+              <li><Link href="/service/warranty" className="hover:text-green-500 transition-colors">Warrenty</Link></li>
             </ul>
           </div>
 
