@@ -21,16 +21,10 @@ export default async function ProductDetailPage({ params }: Props) {
   // Destructure for cleaner access in the server component
   const { product, category, relatedProduct } = data;
 
-  // Assuming you have a way to fetch the DiscountBanner data
-  // For now, let's use a simplified structure or remove the prop if dynamic data isn't ready.
-  const mockDiscountBanner = { title: "Summer Sale", description: "Up to 50% Off", discountPercentage: 50 };
-
+ 
   return (
     <div className="flex min-h-screen flex-col">
       <DiscountBanner
-        title={mockDiscountBanner.title}
-        description={mockDiscountBanner.description}
-        discountPercentage='10'
       />
       <SiteHeader />
 

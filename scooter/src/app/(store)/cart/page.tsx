@@ -10,16 +10,36 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useCart } from "@/contexts/cart-context"
+import { loadStripe } from '@stripe/stripe-js';
+import {useState} from 'react'
 
-export default function CartPage() {
+export default  function CartPage() {
   const router = useRouter()
   const { items, updateQuantity, removeItem, subtotal } = useCart()
+  const [loading, setLoading]= useState(false);
 
-  const handleCheckout = () => {
-    if (items.length > 0) {
-      router.push("/checkout")
+
+  const   handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('api/checkout',{
+        method:'POST',
+        headers:{"content-Type":"application/json"},
+        body:JSON.stringify({items})
+      })
+      const data = await res.json()
+      if(data.url)window.location.href= data.url
+
+    } catch (error) {
+      console.error(error);
+      alert('something went wrong')
+      
+    }finally{
+      setLoading(false)
     }
-  }
+   
+  };
+
 
   const shipping = subtotal > 0 ? (subtotal > 1000 ? 0 : 50) : 0
   const tax = subtotal * 0.08
@@ -96,7 +116,7 @@ export default function CartPage() {
                 ))}
               </div>
 
-              {/* Order Summary */}
+              
               <div className="lg:col-span-1">
                 <Card className="sticky top-24">
                   <CardContent className="p-6">
@@ -110,18 +130,18 @@ export default function CartPage() {
                         <span className="text-muted-foreground">Shipping</span>
                         <span className="font-medium">{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</span>
                       </div>
-                      <div className="flex justify-between text-sm">
+                      {/* <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Tax</span>
                         <span className="font-medium">${tax.toFixed(2)}</span>
-                      </div>
+                      </div> */}
                       <Separator />
                       <div className="flex justify-between">
                         <span className="font-semibold text-lg">Total</span>
                         <span className="font-bold text-xl">${total.toFixed(2)}</span>
                       </div>
                     </div>
-                    <Button className="w-full mt-6" size="lg" onClick={handleCheckout}>
-                      Proceed to Checkout
+                    <Button className="w-full mt-6" size="lg" onClick={handleCheckout} disabled={loading}>
+                     {loading ?"Redirecting ...":"proceed to checkout"}
                     </Button>
                     <Link href="/products">
                       <Button variant="outline" className="w-full mt-3 bg-transparent">
