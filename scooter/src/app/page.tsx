@@ -13,7 +13,6 @@ import {CategoryCard} from '@/components/category-card'
 import { useEffect, useState } from 'react' // <-- Add hooks
 import { Product } from "@/lib/models/productModel" // <-- Add type
 import { Category } from "@/lib/models/categoryModel" // <-- Add type
-import AutoImageSlider from '@/components/AuthoImageSlider'
 import FullBackgroundSlider from '@/components/BackgroundImageSlider'
 
 export default function Home() {
@@ -134,66 +133,66 @@ const SLIDE_INTERVAL = 5000
 
 
      {/* Features Section */}
-       <section className="py-24 md:py-32 bg-gray-50 dark:bg-zinc-900 min-h-[50vh]">
-  <div className="container px-4 md:px-6">
-    {/* Optional: Add a title/heading for the section if it doesn't already have one */}
-    <div className="text-center mb-16 max-w-3xl mx-auto">
-      <h2 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-5xl">
-        Why Choose Our <span className='text-green-600 dark:text-green-500'>Electric Boards</span>?
-      </h2>
-      <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">
-        Experience the next generation of personal transportation.
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
-      {/* Card 1: High Performance */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Zap className="h-8 w-8 text-green-600 dark:text-green-400" />
+      <section className="py-24 md:py-32 bg-gray-950 min-h-[50vh]">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Section Heading */}
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              Why Choose Our <span className='text-green-400'>Electric Boards</span>?
+            </h2>
+            <p className="mt-4 text-xl text-gray-400">
+              Experience the next generation of personal transportation.
+            </p>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            High <span className='text-green-600 dark:text-green-400'>Performance</span>
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Powerful motors delivering speeds up to 40 mph with exceptional range. Experience the thrill of power.
-          </p>
-        </div>
-      </div>
 
-      {/* Card 2: Built to Last (Durability) */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            <span className='text-green-600 dark:text-green-400'>Built to</span> Last
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Premium materials and rigorous testing ensure unparalleled durability and safety for every ride.
-          </p>
-        </div>
-      </div>
+          <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
+            {/* Card 1: High Performance */}
+            <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+              <div className="flex flex-col items-center text-center space-y-5">
+                <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
+                  <Zap className="h-8 w-8 text-green-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">
+                  High <span className='text-green-400'>Performance</span>
+                </h3>
+                <p className="text-gray-300 text-lg">
+                  Powerful motors delivering speeds up to 40 mph with exceptional range. Experience the thrill of power.
+                </p>
+              </div>
+            </div>
 
-      {/* Card 3: Eco Friendly */}
-      <div className="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-zinc-700">
-        <div className="flex flex-col items-center text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-800/50 flex items-center justify-center shadow-md">
-            <Leaf className="h-8 w-8 text-green-600 dark:text-green-400" />
+            {/* Card 2: Built to Last (Durability) */}
+            <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+              <div className="flex flex-col items-center text-center space-y-5">
+                <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
+                  <Shield className="h-8 w-8 text-green-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">
+                  <span className='text-green-400'>Built to</span> Last
+                </h3>
+                <p className="text-gray-300 text-lg">
+                  Premium materials and rigorous testing ensure unparalleled durability and safety for every ride.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3: Eco Friendly */}
+            <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
+              <div className="flex flex-col items-center text-center space-y-5">
+                <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
+                  <Leaf className="h-8 w-8 text-green-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white">
+                  Eco <span className='text-green-400'>Friendly</span>
+                </h3>
+                <p className="text-gray-300 text-lg">
+                  Zero emissions and an energy-efficient design contribute to a cleaner, greener tomorrow.
+                </p>
+              </div>
+            </div>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-50">
-            Eco <span className='text-green-600 dark:text-green-400'>Friendly</span>
-          </h3>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Zero emissions and an energy-efficient design contribute to a cleaner, greener tomorrow.
-          </p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
          {/* Featured Products */}
         <section className="py-8 p-8 bg-gradient-to-b">
