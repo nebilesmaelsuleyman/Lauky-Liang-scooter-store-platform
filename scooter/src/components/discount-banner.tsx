@@ -4,8 +4,8 @@ import { useState } from "react";
 import { X } from "lucide-react"
 import {Button} from '@/components/ui/button'
 export function DiscountBanner({
-    title='spring sale',
-    description= 'Limited Time offer',
+    title='LuckyLiang Discoun',
+    description= 'Enjoy a special offer on all products',
     discountPercentage='10'
 }){
 

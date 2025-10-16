@@ -168,16 +168,16 @@ export default function ProductsPage() {
 
   return (
     // Main container keeps the dark background
-    <div className="flex min-h-screen flex-col bg-[#0D1F3C]/90 text-white"> 
+    <div className="flex min-h-screen flex-col  text-white"> 
       <DiscountBanner />
       <SiteHeader /> 
 
       <main className="flex-1">
-        <div className="container py-8">
+        <div className="container py-8 px-8">
           {/* Page Header - FIX: Text color adjusted for visibility against dark background */}
           <div className="mb-8">
-            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">All Products</h1> 
-            <p className="text-white/70">Discover our complete collection of premium electric scooters</p>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-gray-800">All Products</h1> 
+            <p className="text-gray-500">Discover our complete collection of premium electric scooters</p>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">

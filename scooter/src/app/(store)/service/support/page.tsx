@@ -2,7 +2,7 @@
 import {SiteFooter} from '@/components/site-footer'
 import { useState } from 'react'
 import Link from 'next/link'
-
+import Image from 'next/image'
 export default function SupportPage() {
   const faqData = [
     {
@@ -61,22 +61,39 @@ export default function SupportPage() {
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-6 md:px-10 py-12 space-y-16">
         {/* Global Service Network / Map */}
-        <section className="space-y-6">
-          <h2 className="text-4xl font-bold text-green-400 mb-4">Global Service Network</h2>
-          <p className="text-gray-200">Headquarters, Warehouse, and Manufacturers across the globe</p>
-          <div className="relative w-full h-80 md:h-[400px] bg-gray-700 rounded-lg overflow-hidden">
-            {/* Replace with interactive map if needed */}
-            <img
-              src="/images/map.png"
-              alt="Global service network"
-              className="w-full h-full object-cover object-center opacity-80"
-            />
-            {/* Example markers */}
-            <span className="absolute top-1/4 left-1/3 bg-green-400 text-black px-2 py-1 rounded">Dubai HQ</span>
-            <span className="absolute top-1/2 left-2/3 bg-green-400 text-black px-2 py-1 rounded">Warehouse</span>
-            <span className="absolute bottom-1/4 right-1/4 bg-green-400 text-black px-2 py-1 rounded">Manufacturers</span>
-          </div>
-        </section>
+       <section className="space-y-6">
+  <h2 className="text-4xl font-bold text-green-400 mb-4">Global Service Network</h2>
+  <p className="text-gray-200">
+    Our factories and service locations across the globe:
+  </p>
+
+  {/* Map Image */}
+  <div className="relative w-full h-80 md:h-[400px] bg-gray-700 rounded-lg overflow-hidden">
+    <Image
+      src="/images/map.png"
+      alt="Global service network"
+      fill
+      className="object-cover object-center opacity-80"
+      priority
+    />
+  </div>
+
+  {/* Locations */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+    <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+      <h3 className="text-xl font-semibold text-green-400 mb-2">Headquarters</h3>
+      <p className="text-gray-200">Dubai</p>
+    </div>
+    <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+      <h3 className="text-xl font-semibold text-green-400 mb-2">Warehouse</h3>
+      <p className="text-gray-200">Dubai</p>
+    </div>
+    <div className="p-4 bg-white/5 rounded-lg border border-white/10">
+      <h3 className="text-xl font-semibold text-green-400 mb-2">Manufacturers</h3>
+      <p className="text-gray-200">China</p>
+    </div>
+  </div>
+</section>
 
         {/* FAQ Section */}
         <section className="space-y-8">

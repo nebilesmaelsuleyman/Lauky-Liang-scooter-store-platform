@@ -1,7 +1,6 @@
-"use client"
+'use client'
 
 import type React from "react"
-
 import Link from "next/link"
 import Image from "next/image"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -36,35 +35,45 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
   }
 
   return (
-    <Card className="group overflow-hidden transition-all hover:shadow-lg">
-      <Link href={`/products/${slug}`}>
-        <div className="relative aspect-square overflow-hidden bg-muted">
+    <Card className="group overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
+      <Link href={`/products/${slug}`} className="relative block">
+        <div className="relative aspect-square overflow-hidden bg-muted rounded-t-2xl">
           <Image
             src={image || "/placeholder.svg"}
             alt={name}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
+          {/* Gradient overlay for better badge readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+
+          {/* Badges */}
           {discountPercentage > 0 && (
-            <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground">
+            <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground shadow-lg">
               -{discountPercentage}%
             </Badge>
           )}
-          {isFeatured && <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground">Featured</Badge>}
+          {isFeatured && (
+            <Badge className="absolute top-3 left-3 bg-accent text-accent-foreground shadow-lg">
+              Featured
+            </Badge>
+          )}
         </div>
       </Link>
+
       <CardContent className="p-4">
         <Link href={`/products/${slug}`}>
-          <p className="text-xs text-muted-foreground mb-1">{category}</p>
-          <h3 className="font-semibold text-lg mb-2 line-clamp-1 group-hover:text-accent transition-colors">{name}</h3>
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold">${price}</span>
+          <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">{category}</p>
+          <h3 className="font-semibold text-lg mb-2 line-clamp-1 group-hover:text-green-400 transition-colors duration-300">{name}</h3>
+          <div className="flex items-center gap-3">
+            <span className="text-xl font-bold ">${price}</span>
             {compareAtPrice && <span className="text-sm text-muted-foreground line-through">${compareAtPrice}</span>}
           </div>
         </Link>
       </CardContent>
+
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full" size="sm" onClick={handleAddToCart}>
+        <Button className="w-full bg-primary hover:bg-green-500 text-white font-semibold" size="sm" onClick={handleAddToCart}>
           <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart
         </Button>

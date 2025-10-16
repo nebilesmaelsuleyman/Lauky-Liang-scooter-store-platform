@@ -104,7 +104,7 @@ export async function getFeaturedProducts(): Promise<ProductLean[]> {
   try {
     
     const products = await Product.find({ isFeatured: true })
-      .limit(6) 
+      .limit(8) 
       .sort({ createdAt: -1 }) 
       .lean<ProductLean[]>();
 
