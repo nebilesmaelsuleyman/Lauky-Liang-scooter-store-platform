@@ -35,9 +35,9 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
   }
 
   return (
-    <Card className="group overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
+    <Card className=" overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300">
       <Link href={`/products/${slug}`} className="relative block">
-        <div className="relative aspect-square overflow-hidden bg-muted rounded-t-2xl">
+        <div className=" aspect-square overflow-hidden bg-muted rounded-t-2xl">
           <Image
             src={image || "/placeholder.svg"}
             alt={name}
@@ -49,7 +49,7 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
 
           {/* Badges */}
           {discountPercentage > 0 && (
-            <Badge className="absolute top-3 right-3 bg-destructive text-destructive-foreground shadow-lg">
+            <Badge className="absolute top-3 right-3 bg-green-300 text-destructive-foreground shadow-lg">
               -{discountPercentage}%
             </Badge>
           )}

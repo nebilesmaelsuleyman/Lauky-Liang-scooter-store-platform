@@ -25,26 +25,25 @@ interface Category {
 
 
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  
+  const slug= await params.slug
   const [categoryResult, productsResult] = await Promise.all([
-    getCategoryBySlug(params.slug),
-    getProductsByCategorySlug(params.slug),
+    getCategoryBySlug(slug),
+    getProductsByCategorySlug(slug),
   ])
 
   const category: Category | null = categoryResult as Category;
   const products: Product[] = productsResult.products as Product[];
-
   if (!category) {
     notFound()
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col ">
     <SiteHeader/>
       <main className="flex-1">
-        <div className="container py-8">
+        <div className="container py-8 px-10">
           <div className="mb-8">
-            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2">{category.name}</h1>
+            <h1 className="font-sanserif text-3xl md:text-4xl font-bold mb-2 text-green-700">{category.name}</h1>
             <p className="text-muted-foreground">{category.description}</p>
           </div>
 

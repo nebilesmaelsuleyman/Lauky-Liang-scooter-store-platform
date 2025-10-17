@@ -6,16 +6,33 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ProductCard } from "@/components/product-card"
-import { ShoppingCart, Heart, Share2, Zap, Battery, Gauge, Weight } from "lucide-react"
 import { useCart } from "@/contexts/cart-context"
 
-import { ProductLean } from "@/lib/types/product" 
-interface CategoryLean { 
-  _id: string; 
-  name: string; 
-  description: string;
-} 
+import {
+  ShoppingCart,
+  Heart,
+  Share2,
+  Zap,
+  Battery,
+  Gauge,
+  Weight,
+  Package,
+  Shield,
+  Disc,
+  Lock,
+  Bike,
+  Frame,
+  Cable,
+  SlidersHorizontal,
+} from "lucide-react"
 
+import { ProductLean } from "@/lib/types/product"
+
+interface CategoryLean {
+  _id: string
+  name: string
+  description: string
+}
 
 interface Props {
   product: ProductLean
@@ -23,9 +40,7 @@ interface Props {
   relatedProducts: ProductLean[]
 }
 
-
 export default function ProductDetailClient({ product, category, relatedProducts }: Props) {
-  
   const { addItem } = useCart()
 
   const discountPercentage = product.compareAtPrice
@@ -34,28 +49,48 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
   const handleAddToCart = () => {
     addItem({
-      productId: product._id as string, 
+      productId: product._id as string,
       name: product.name,
       price: product.price,
       image: product.images[0],
     })
   }
 
-  const specs = product.specifications || {};
-  const motorPower = specs.motor || "";
+  const specs = product.specifications || {}
+
+  // 🧩 Specification map
+  const SPEC_MAP: Record<
+    string,
+    { label: string; icon: React.ElementType }
+  > = {
+    maxSpeed: { label: "Max Speed", icon: Gauge },
+    range: { label: "Range", icon: Battery },
+    motor: { label: "Motor Power", icon: Zap },
+    weight: { label: "Weight", icon: Weight },
+    maxLoad: { label: "Max Load", icon: Package },
+    batteryCapacity: { label: "Battery Capacity", icon: Battery },
+    chargingTime: { label: "Charging Time", icon: Zap },
+    display: { label: "Display", icon: Gauge },
+    braking: { label: "Braking System", icon: Disc },
+    antiTheftSystem: { label: "Anti-Theft System", icon: Lock },
+    tire: { label: "Tire Type", icon: Bike },
+    frame: { label: "Frame Material", icon: Frame },
+    shiftLevel: { label: "Shift Level", icon: SlidersHorizontal },
+    suspensionFork: { label: "Suspension Fork", icon: Cable },
+  }
 
   return (
-    <div className="container py-8 " >
-
+    <div className="container py-8 px-10">
+      {/* Breadcrumb */}
       <div className="text-sm text-muted-foreground mb-6">
-        <span>Home</span> / <span>Products</span> / 
-        <span>{category?.name || 'Uncategorized'}</span> /{" "}
+        <span>Home</span> / <span>Products</span> /{" "}
+        <span>{category?.name || "Uncategorized"}</span> /{" "}
         <span className="text-foreground">{product.name}</span>
       </div>
 
-     
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-        {/* Image Gallery - No changes */}
+      {/* Main content */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 ">
+        {/* Image Gallery */}
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
             <Image
@@ -90,17 +125,18 @@ export default function ProductDetailClient({ product, category, relatedProducts
           )}
         </div>
 
-        
-        <div className="space-y-5"> 
+        {/* Product Info */}
+        <div className="space-y-5">
+          {/* Title & Price */}
           <div>
             <p className="text-sm text-muted-foreground mb-1">{category?.name}</p>
-            
-            <h1 className="font-serif text-3xl font-bold mb-3 text-balance">{product.name}</h1> 
+            <h1 className="font-serif text-3xl font-bold mb-3 text-balance">{product.name}</h1>
             <div className="flex items-center gap-3 mb-4">
-             
-              <span className="text-3xl font-bold">${product.price}</span> 
+              <span className="text-3xl font-bold">${product.price}</span>
               {product.compareAtPrice && (
-                <span className="text-lg text-muted-foreground line-through">${product.compareAtPrice}</span>
+                <span className="text-lg text-muted-foreground line-through">
+                  ${product.compareAtPrice}
+                </span>
               )}
             </div>
             {product.isFeatured && (
@@ -110,6 +146,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
+          {/* Description */}
           <div>
             <h3 className="font-semibold mb-2 text-lg">Description</h3>
             <p className="text-muted-foreground text-sm leading-normal">{product.description}</p>
@@ -117,104 +154,72 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
-         
+          {/* 🧩 Dynamic Key Specifications */}
           <div>
             <h3 className="font-semibold mb-3 text-lg">Key Specifications</h3>
-            <div className="grid grid-cols-2 gap-3"> 
-              
-              <Card className="hover:shadow-md transition-shadow">
-                
-                <CardContent className="p-3 flex items-center gap-3"> 
-                  
-                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Gauge className="h-4 w-4 text-accent" /> 
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Max Speed</p>
-                    <p className="font-semibold text-sm">{specs.maxSpeed}</p> 
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-md transition-shadow">
-                <CardContent className="p-3 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Battery className="h-4 w-4 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Range</p>
-                    <p className="font-semibold text-sm">{specs.range}</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-md transition-shadow">
-                <CardContent className="p-3 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Zap className="h-4 w-4 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Motor Power</p>
-                    <p className="font-semibold text-sm">{motorPower}</p> 
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-md transition-shadow">
-                <CardContent className="p-3 flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Weight className="h-4 w-4 text-accent" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Weight</p>
-                    <p className="font-semibold text-sm">{specs.weight}</p>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="grid grid-cols-2 gap-3">
+              {Object.entries(specs)
+                .filter(([_, value]) => value && value.trim() !== "")
+                .map(([key, value]) => {
+                  const spec = SPEC_MAP[key]
+                  if (!spec) return null
+                  const Icon = spec.icon
+                  return (
+                    <Card key={key} className="hover:shadow-md transition-shadow">
+                      <CardContent className="p-3 flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-accent/10 flex items-center justify-center">
+                          <Icon className="h-4 w-4 text-accent" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">{spec.label}</p>
+                          <p className="font-semibold text-sm">{value}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
             </div>
           </div>
 
           <Separator />
 
-
+          {/* Stock */}
           <div>
             {product.stock > 0 ? (
-              <p className="text-sm text-green-600 font-medium">In Stock ({product.stock} available)</p>
+              <p className="text-sm text-green-600 font-medium">
+                In Stock ({product.stock} available)
+              </p>
             ) : (
               <p className="text-sm text-destructive font-medium">Out of Stock</p>
             )}
           </div>
 
-
+          {/* Buttons */}
           <div className="flex gap-3">
             <Button size="lg" className="flex-1" onClick={handleAddToCart} disabled={product.stock === 0}>
               <ShoppingCart className="mr-2 h-5 w-5" />
               Add to Cart
             </Button>
-            <Button size="lg" variant="outline">
-              <Heart className="h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline">
-              <Share2 className="h-5 w-5" />
-            </Button>
           </div>
 
-
+          {/* Info Card */}
           <Card className="bg-muted/50">
             <CardContent className="p-4 space-y-2 text-sm">
               <p className="flex items-center gap-2">
-                <span className="font-semibold">✓</span> Free shipping on all orders
+                <span className="font-semibold">✓</span> Fast shipping on all orders
               </p>
               <p className="flex items-center gap-2">
-                <span className="font-semibold">✓</span> 30-day money-back guarantee
+                <span className="font-semibold">✓</span> customer Service
               </p>
               <p className="flex items-center gap-2">
-                <span className="font-semibold">✓</span>  warranty included
+                <span className="font-semibold">✓</span> Warranty included
               </p>
             </CardContent>
           </Card>
         </div>
       </div>
 
+      {/* Related Products */}
       {relatedProducts.length > 0 && (
         <div className="mt-12">
           <h2 className="font-serif text-3xl font-bold mb-6">You May Also Like</h2>
@@ -228,7 +233,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
                 price={rp.price}
                 compareAtPrice={rp.compareAtPrice}
                 image={rp.images[0]}
-                category={category?.name || "Uncategorized"} 
+                category={category?.name || "Uncategorized"}
                 isFeatured={rp.isFeatured}
               />
             ))}

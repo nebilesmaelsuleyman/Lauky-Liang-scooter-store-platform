@@ -15,13 +15,21 @@ export interface Product extends Document {
   required: true,
 },
   specifications: {
-    maxSpeed: string
-    range: string
-    weight: string
-    maxLoad: string
-    batteryCapacity: string
-    chargingTime: string
-    motor: string
+    maxSpeed?: string
+    range?: string
+    weight?: string
+    maxLoad?: string
+    batteryCapacity?: string
+    chargingTime?: string
+    motor?: string,
+    display?:string,
+    braking?:string,
+    antiTheftSystem ?:string,
+    tire?:string,
+    frame?:string,
+    shiftLevel?:string,
+    suspensionFork?:string
+
   }
   stock: number
   

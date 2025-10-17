@@ -40,17 +40,14 @@ export default  function CartPage() {
    
   };
 
-
-  const shipping = subtotal > 0 ? (subtotal > 1000 ? 0 : 50) : 0
-  const tax = subtotal * 0.08
-  const total = subtotal + shipping + tax
+  const total = subtotal 
 
   return (
     <div className="flex min-h-screen flex-col">
-      
+      <SiteHeader/>
 
       <main className="flex-1 bg-muted/30">
-        <div className="container py-8">
+        <div className="container py-8 px-10">
           <h1 className="font-serif text-3xl md:text-4xl font-bold mb-8">Shopping Cart</h1>
 
           {items.length === 0 ? (
@@ -72,7 +69,7 @@ export default  function CartPage() {
                   <Card key={item.productId}>
                     <CardContent className="p-6">
                       <div className="flex gap-4">
-                        <div className="relative h-24 w-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
+                        <div className="relative h-26 w-30 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
                           <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
                         </div>
                         <div className="flex-1">
@@ -128,7 +125,7 @@ export default  function CartPage() {
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Shipping</span>
-                        <span className="font-medium">{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</span>
+
                       </div>
                       {/* <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Tax</span>
@@ -160,6 +157,7 @@ export default  function CartPage() {
           )}
         </div>
       </main>
+      <SiteFooter/>
     </div>
   )
 }

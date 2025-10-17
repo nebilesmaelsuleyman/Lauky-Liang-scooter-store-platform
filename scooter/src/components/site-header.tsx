@@ -108,7 +108,7 @@ export function SiteHeader() {
               <span className="text-2xl">☰</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[250px] py-8 bg-[#0D1F3C] text-white">
+          <SheetContent side="right" className="w-[250px] py-8 bg-[#0D1F3C] text-white flex flex-col items-center">
             <nav className="flex flex-col space-y-4 mt-8">
               <Link href="/" className="text-lg font-medium hover:text-green-500">Home</Link>
               <Link href="/products" className="text-lg font-medium hover:text-green-500">All Products</Link>
@@ -135,14 +135,6 @@ export function SiteHeader() {
             </nav>
           </SheetContent>
         </Sheet>
-      </div>
-
-      {/* Mobile search bar */}
-      <div className="md:hidden border-t px-4 py-3 bg-[#0D1F3C]/90">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/70" />
-          <Input type="search" placeholder="Search products..." className="pl-10 w-full text-white placeholder-white/70" />
-        </div>
       </div>
     </header>
   )

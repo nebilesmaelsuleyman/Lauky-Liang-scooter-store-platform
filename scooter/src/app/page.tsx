@@ -10,16 +10,17 @@ import { DiscountBanner } from "@/components/discount-banner"
 import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
 import {CategoryCard} from '@/components/category-card'
-import { useEffect, useState } from 'react' // <-- Add hooks
-import { Product } from "@/lib/models/productModel" // <-- Add type
-import { Category } from "@/lib/models/categoryModel" // <-- Add type
+import { useEffect, useState } from 'react' 
+import { Product } from "@/lib/models/productModel" 
+import { Category } from "@/lib/models/categoryModel" 
 import FullBackgroundSlider from '@/components/BackgroundImageSlider'
+import VideoCarousel from '@/components/videoCarousel'
 
 export default function Home() {
   // 1. State for real data, replacing mock data initialization
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([])
   const [displayCategories, setDisplayCategories] = useState<Category[]>([])
-  const [allCategories, setAllCategories] = useState<Category[]>([]) // Needed for product card category lookup
+  const [allCategories, setAllCategories] = useState<Category[]>([]) 
   const [isLoading, setIsLoading] = useState(true)
   
   
@@ -67,31 +68,27 @@ export default function Home() {
   { src: '/images/Natike.png', alt: 'Scooter in city landscape' },
 ]
 
-// Interval between slides (milliseconds)
+
 const SLIDE_INTERVAL = 5000
 
   return (
      
     <div className="min-h-screen flex flex-col   ">
 
-        <DiscountBanner
-              title='spring sales'
-              description='limited time offer'
-              discountPercentage='10'
-            />
-            
+        <DiscountBanner/>  
+
       <SiteHeader />
-      <main className="flex-1  container">
+      <main className="flex-1  ">
          {/* Hero Section */}
          <section className="relative text-white min-h-screen flex items-center overflow-hidden">
       {/* Full Background Slider */}
       <FullBackgroundSlider images={BACKGROUND_IMAGES} interval={SLIDE_INTERVAL} />
 
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
+      
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-[0px]" />
 
       {/* Content Layer */}
-      <div className="container mx-auto relative z-10 flex items-center justify-center px-6 md:px-10 py-10 min-h-screen">
+      <div className="container  relative z-10 flex items-center justify-center px-6 md:px-10 py-10 min-h-screen">
         <div className="flex-1 text-center space-y-8 max-w-4xl p-6 sm:p-10 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl">
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
             <span className="text-green-400 drop-shadow-lg">Ride the Future</span> <br />
@@ -130,15 +127,13 @@ const SLIDE_INTERVAL = 5000
         </div>
       </div>
     </section>
-
-
      {/* Features Section */}
       <section className="py-24 md:py-32 bg-gray-950 min-h-[50vh]">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Heading */}
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Why Choose Our <span className='text-green-400'>Electric Boards</span>?
+              Why Choose Our <span className='text-green-400'>Electric Scooters</span>?
             </h2>
             <p className="mt-4 text-xl text-gray-400">
               Experience the next generation of personal transportation.
@@ -252,7 +247,9 @@ const SLIDE_INTERVAL = 5000
             </div>
           </div>
         </section>
-        
+        <>
+        <VideoCarousel/>
+        </>
             {/* CTA Section */}
         <section className="relative py-28">
   <img
