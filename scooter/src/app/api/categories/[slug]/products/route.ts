@@ -1,7 +1,7 @@
 // app/api/categories/[slug]/products/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getProductsByCategorySlug } from '@/lib/services/catogories.service'; // Import your service
+import { getProductsByCategorySlug, deleteCategoryBySlug } from '@/lib/services/catogories.service'; // Import your service
 
 /**
  * Handles GET requests to fetch all products for a given category slug.
@@ -48,3 +48,4 @@ export async function GET(
     );
   }
 }
+

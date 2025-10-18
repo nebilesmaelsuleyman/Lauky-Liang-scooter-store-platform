@@ -27,10 +27,35 @@ export default function AdminCategoriesClient({ initialCategories }: Props) {
     // Logic to open modal/navigate
   };
 
-  const handleDelete = (categoryId: string) => {
-    console.log("Delete category:", categoryId);
-    // Logic to call API and update categories state
-  };
+
+
+async function handleDelete(slug: string) {
+  try {
+    const res = await fetch(`/api/categories/${slug}`, {
+      method: "DELETE",
+    });
+
+    console.log("Response object:", res);
+
+    if (!res.ok) {
+      // Handle non-2xx HTTP responses
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData?.message || `Failed with status ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Category deleted successfully!");
+      setCategories((prev)=>prev.filter((cat)=>cat.slug !==slug))
+    } else {
+      alert("Failed to delete category: " + data.message);
+    }
+  } catch (error: any) {
+    console.error("Error deleting category:", error);
+    alert("An error occurred while deleting the category: " + error.message);
+  }
+}
 
 
   return (
@@ -76,13 +101,10 @@ export default function AdminCategoriesClient({ initialCategories }: Props) {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => handleEdit(category._id as string)}>
-                          <Edit className="mr-2 h-4 w-4" />
-                          Edit
-                        </DropdownMenuItem>
+                        
                         <DropdownMenuItem 
                           className="text-destructive"
-                          onClick={() => handleDelete(category._id as string)}
+                          onClick={() => handleDelete(category.slug as string)}
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
                           Delete

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // Assuming you named your services file 'category.service' previously
-import { createCategory, getAllCategories ,CategoryFormInput } from "@/lib/services/catogories.service"; 
+import { createCategory, getAllCategories ,CategoryFormInput ,deleteCategoryBySlug} from "@/lib/services/catogories.service"; 
 import connectDB from '@/lib/db/connectDB'
 
 export async function POST(request: Request) {

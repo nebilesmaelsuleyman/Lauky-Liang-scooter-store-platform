@@ -34,4 +34,22 @@ export const authOptions = {
     // optionally error, signOut, verifyRequest...
   },
   secret: process.env.NEXTAUTH_SECRET,
+  
+  callbacks:{
+    async jwt({token, user}:any){
+      if(user){
+        token.id= user._id?.toString?.()|| user.id
+
+      }
+      return token
+
+    },
+    async session({session, token}:any){
+      if(token && session.user){
+        session.user.id= token.id as string
+      }
+      return session
+    }
+
+  }
 };

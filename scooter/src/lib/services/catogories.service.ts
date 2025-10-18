@@ -88,6 +88,7 @@ export async function getProductsByCategorySlug(slug: string) {
 }
 
 export interface CategoryWithCount extends Category {
+  image: string;
   productCount: number;
 }
 
@@ -128,4 +129,26 @@ export async function getAdminCategoriesWithCount(): Promise<CategoryWithCount[]
 
 
   return JSON.parse(JSON.stringify(categoriesWithCount)) as CategoryWithCount[];
+}
+
+
+export async function deleteCategoryBySlug(slug: string) {
+  try {
+    await connectDB();
+
+    const deletedCategory = await CategoryModel.findOneAndDelete({ slug });
+          console.log("deleted category", deletedCategory)
+    if (!deletedCategory) {
+      return { success: false, message: "Category not found" };
+    }
+
+    return {
+      success: true,
+      message: "Category deleted successfully",
+      data: deletedCategory,
+    };
+  } catch (error: any) {
+    console.error("Error deleting category by slug:", error);
+    return { success: false, message: "Server error", error: error.message };
+  }
 }

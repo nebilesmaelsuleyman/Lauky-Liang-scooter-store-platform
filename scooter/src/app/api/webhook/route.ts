@@ -1,5 +1,6 @@
 import {NextResponse} from 'next/server';
 import Stripe from 'stripe'
+import { markOrderAsPaid, markOrderAsFailed } from "@/lib/services/order.service";
 
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -27,12 +28,15 @@ export async function POST(req:Request){
         case "checkout.session.completed":{
             const session= event.data.object as Stripe.Checkout.Session;
             console.log('payment successful',session.id);
+            await markOrderAsPaid(session.metadata?.orderId || session.id);
             break;
         }
         case "payment_intent.payment_failed":{
             const paymentIntent = event.data.object as Stripe.PaymentIntent;
             console.log('payment failed',paymentIntent.id)
-            break;
+            await markOrderAsFailed(paymentIntent.metadata?.orderId || paymentIntent.id);
+             break;
+        
         }
         default:
             console.log(`unhandled event type :${event.type}`)

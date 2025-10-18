@@ -21,12 +21,10 @@ const VIDEOS: VideoItem[] = [
   { src: 'https://www.youtube.com/shorts/I8CGW4l4ntU', title: 'YouTube video' },
 ]
 
-// --- Helper Functions ---
 
 const isYouTube = (url: string): boolean =>
   url.includes('youtube.com') || url.includes('youtu.be')
 
-// ✅ Converts Shorts / Watch / youtu.be to embeddable URL
 const getYouTubeEmbed = (url: string, isPlaying: boolean): string => {
   let videoId = ''
 

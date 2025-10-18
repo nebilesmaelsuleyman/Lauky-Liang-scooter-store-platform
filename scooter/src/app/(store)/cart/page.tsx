@@ -12,33 +12,47 @@ import { useRouter } from "next/navigation"
 import { useCart } from "@/contexts/cart-context"
 import { loadStripe } from '@stripe/stripe-js';
 import {useState} from 'react'
+import { useSession } from "next-auth/react"
+
 
 export default  function CartPage() {
   const router = useRouter()
   const { items, updateQuantity, removeItem, subtotal } = useCart()
   const [loading, setLoading]= useState(false);
+  const { data: session } = useSession()  
+  const userId= (session?.user as any)?.id
 
-
-  const   handleCheckout = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('api/checkout',{
-        method:'POST',
-        headers:{"content-Type":"application/json"},
-        body:JSON.stringify({items})
-      })
-      const data = await res.json()
-      if(data.url)window.location.href= data.url
-
-    } catch (error) {
-      console.error(error);
-      alert('something went wrong')
-      
-    }finally{
-      setLoading(false)
-    }
+  const handleCheckout = async () => {
+  if (!session) {
    
-  };
+    router.push("/auth/login")
+    return
+  }
+
+  const userId = (session.user as any)?.id
+  if (!userId) {
+    alert("User not found. Please log in again.")
+    router.push("/auth/login")
+    return
+  }
+
+  setLoading(true)
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items, userId })
+    })
+    const data = await res.json()
+    if (data.url) window.location.href = data.url
+  } catch (error) {
+    console.error(error)
+    alert("Something went wrong")
+  } finally {
+    setLoading(false)
+  }
+}
+
 
   const total = subtotal 
 

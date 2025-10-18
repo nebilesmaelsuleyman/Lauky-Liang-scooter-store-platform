@@ -5,6 +5,11 @@ import connectDB from "@/lib/db/connectDB";
 import { NextResponse } from 'next/server'
 
 
+interface CustomerDetails {
+  customerName: string;
+  customerEmail: string;
+}
+
     
   export async function signup(data: { name: string; email: string; password: string }) {
     await connectDB();
@@ -108,3 +113,24 @@ export async function updateUser(id: string, data: any) {
   }
 }
 
+export async function getCustomerDetails(userId: string): Promise<CustomerDetails | null> {
+    await connectDB();
+    
+    try {
+        const user = await User.findById(userId)
+            .select('name email')
+            .lean<IUser>(); 
+            
+        if (!user) {
+            return null;
+        }
+
+        return user
+            ? { customerName: user.name ?? "", customerEmail: user.email ?? "" }
+            : null;
+
+    } catch (error) {
+        console.error("Failed to fetch user details for order creation:", error);
+        return null;
+    }
+}

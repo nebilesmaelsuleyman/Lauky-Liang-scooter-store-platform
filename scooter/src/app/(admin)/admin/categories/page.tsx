@@ -24,10 +24,8 @@ export default async function AdminCategoriesPageWrapper() {
             <Plus className="mr-2 h-4 w-4" />
             Add Category
           </Link>
-         </Button> {/* ⬅️ MISSING CLOSING TAG ADDED HERE */}
+         </Button> 
       </div>
-
-      {/* Pass the fully loaded, serializable data to the Client Component */}
       <AdminCategoriesClient initialCategories={categoriesWithCount} />
     </div>
   );
