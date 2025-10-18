@@ -14,7 +14,7 @@ export function CategoryCard({ name, slug, description, image }: CategoryCardPro
   return (
     <Link href={`/categories/${slug}`}>
       
-      <Card className="px-2 group overflow-hidden relative transition-all duration-300 
+      <Card className="px-1 group overflow-hidden relative transition-all duration-300 
                      hover:shadow-2xl hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-background">
         
        

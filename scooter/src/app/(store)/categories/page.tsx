@@ -23,21 +23,21 @@ export default async function CategoriesPage() {
   const categories = await fetchCategories();
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0D1F3C]/90 text-white">
+    <div className="flex  min-h-screen flex-col bg-[#0D1F3C]/90 text-white">
       
       <DiscountBanner />
       <SiteHeader/>
 
-      <main className="flex-1 i">
-        <div className="container py-8">
-          <div className="mb-8 px-10">
+      <main className="flex-1 ">
+        <div className="container px-10  ">
+          <div className="mb-8 ">
             <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">Browse Categories</h1>
             <p className="text-white/70">Find the perfect scooter for your lifestyle and needs</p>
           </div>
 
           
           {categories.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
               {categories.map((category) => (
                 <CategoryCard
                   key={category._id}
