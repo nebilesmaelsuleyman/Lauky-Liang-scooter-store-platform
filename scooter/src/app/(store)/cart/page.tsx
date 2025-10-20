@@ -58,7 +58,7 @@ export default  function CartPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader/>
+      
 
       <main className="flex-1 bg-muted/30">
         <div className="container py-8 px-10">
@@ -77,7 +77,7 @@ export default  function CartPage() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Cart Items */}
+             
               <div className="lg:col-span-2 space-y-4">
                 {items.map((item) => (
                   <Card key={item.productId}>
@@ -141,10 +141,7 @@ export default  function CartPage() {
                         <span className="text-muted-foreground">Shipping</span>
 
                       </div>
-                      {/* <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Tax</span>
-                        <span className="font-medium">${tax.toFixed(2)}</span>
-                      </div> */}
+                     
                       <Separator />
                       <div className="flex justify-between">
                         <span className="font-semibold text-lg">Total</span>
@@ -171,7 +168,7 @@ export default  function CartPage() {
           )}
         </div>
       </main>
-      <SiteFooter/>
+     
     </div>
   )
 }

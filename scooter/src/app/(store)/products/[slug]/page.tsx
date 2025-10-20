@@ -23,9 +23,7 @@ export default async function ProductDetailPage({ params }: Props) {
  
   return (
     <div className="flex min-h-screen flex-col">
-      <DiscountBanner
-      />
-      <SiteHeader />
+      
 
       <main className="flex-1">
        
@@ -36,7 +34,7 @@ export default async function ProductDetailPage({ params }: Props) {
         />
       </main>
 
-      <SiteFooter />
+      
     </div>
   )
 }

@@ -1,4 +1,4 @@
-// app/api/admin/orders/route.ts
+
 import { NextResponse } from 'next/server';
 import { getAdminOrders } from '@/lib/services/order.service';
 

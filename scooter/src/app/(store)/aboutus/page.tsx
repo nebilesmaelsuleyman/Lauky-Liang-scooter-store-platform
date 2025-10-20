@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
 
     <div className="flex flex-col min-h-screen bg-gray-950">
-      <SiteHeader/>
+     
       
       <section className="relative h-[65vh] flex items-center justify-center bg-gray-900 text-white overflow-hidden border-b border-green-700/50">
         <img
@@ -200,7 +200,7 @@ export default function AboutPage() {
           </Button>
         </div>
       </section>
-      <SiteFooter/>
+     
     </div>
   )
 }

@@ -1,41 +1,39 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, User } from 'lucide-react'; // <-- Import the User icon
+import { ShoppingCart, User } from 'lucide-react'; 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel, // <-- Optional: for a header in the dropdown
-  DropdownMenuSeparator, // <-- Optional: to separate items
+  DropdownMenuLabel, 
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 
 export default function Header() {
 
-    // Restructure main navigation for e-commerce clarity
+    
     const primaryNavLinks = [
         { href: "/", label: "Home" },
-        { href: '/shop/all', label: "All Products" }, // More descriptive than just 'products'
-        { href: "/about", label: "About Us" },
+        { href: '/shop/all', label: "All Products" }, 
     ];
 
-    // Placeholder for authentication state
-    const isAuthenticated =true;  // Replace with actual auth logic (e.g., from a context/hook)
-    const cartItemCount = 3; // Replace with actual cart item count
-
+   
+    const isAuthenticated =true;  
+    const cartItemCount = 3; 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
             <div className="container flex h-16 items-center justify-around ">
                 
-                {/* 1. Logo/Branding (Left) */}
+               
                 <Link href="/" className="flex items-center gap-5 bg-gray-100   "> 
                     <div className="text-2xl font-extrabold tracking-wider"> <Image src='/images/logo.png' alt='logo' width='300' height='300'></Image></div>
                 </Link>
 
-                {/* 2. Primary Navigation (Center) */}
+                
                 <nav className="hidden md:flex items-center gap-6  hover:text-emerald-800 hover:underline-offset-2">
-                    {/* Main Links */}
+                    
                     {primaryNavLinks.map((link) => (
                         <Link 
                             key={link.href} 
@@ -46,7 +44,7 @@ export default function Header() {
                         </Link>
                     ))}
 
-                    {/* Category Dropdown (for a key product focus) */}
+                   
                    
                     <DropdownMenu >
                         <DropdownMenuTrigger asChild>
@@ -71,10 +69,10 @@ export default function Header() {
                     
                 </nav>
 
-                {/* 3. Utility Icons (Right) */}
+                
                 <div className='flex items-center gap-2 md:gap-4 m-50'>
                     
-                    {/* User Account / Login Button */}
+                    
                     {isAuthenticated ? (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -91,14 +89,14 @@ export default function Header() {
                             </DropdownMenuContent>
                         </DropdownMenu>
                     ) : (
-                        // Login button for logged-out users
+                        
                         <Link href="/login" passHref legacyBehavior>
                            <Button variant='secondary' className="text-sm font-medium hover:text-foreground p-2 h-9 md:px-4">Login / Sign Up</Button>
                         </Link>
                     )}
 
 
-                    {/* Shopping Cart Button */}
+                    
                     <Link href="/cart" passHref >
                         <Button variant='secondary' size='icon' className='relative' aria-label={`View ${cartItemCount} items in cart`}>
                             <ShoppingCart className='h-5 w-5'/>

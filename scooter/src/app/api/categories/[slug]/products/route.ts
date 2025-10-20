@@ -1,15 +1,11 @@
-// app/api/categories/[slug]/products/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getProductsByCategorySlug, deleteCategoryBySlug } from '@/lib/services/catogories.service'; // Import your service
 
-/**
- * Handles GET requests to fetch all products for a given category slug.
- * URL: /api/categories/[slug]/products
- */
+
 export async function GET(
   request: NextRequest,
-  // The 'params' object contains the dynamic slug segment
+  
   { params }: { params: { slug: string } } 
 ) {
   const categorySlug = params.slug;
@@ -19,13 +15,12 @@ export async function GET(
   }
 
   try {
-    // Call your service function
+    
     const result = await getProductsByCategorySlug(categorySlug);
 
-    // Check if the service returned no products (e.g., slug was invalid)
+    
     if (!result.products || result.products.length === 0) {
-      // You can return 404 if the slug didn't match a category, or 200 with an empty array.
-      // Returning 200 with an empty array is often safer for APIs.
+      
       if (!result.categoryName) {
          return NextResponse.json(
             { message: `Category with slug "${categorySlug}" not found.` },
@@ -34,7 +29,7 @@ export async function GET(
       }
     }
     
-    // Success: Return the products and category name
+   
     return NextResponse.json({
         categoryName: result.categoryName,
         products: result.products,

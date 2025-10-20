@@ -4,7 +4,9 @@ import "./globals.css";
 import { Toaster } from 'sonner'
 import { CartProvider } from "@/contexts/cart-context"
 import NextAuthSessionProvider from '@/contexts/session-provider'
-
+import {SiteHeader} from '@/components/site-header'
+import {SiteFooter} from '@/components/site-footer'
+import {DiscountBanner} from '@/components/discount-banner'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,13 +32,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}container items-center` }>
          <NextAuthSessionProvider>
-
-         
           <CartProvider>
-          
+            <DiscountBanner/>
+          <SiteHeader/>
               {children}
               <Toaster richColors position="top-right" />
-              
+              <SiteFooter/>
           </CartProvider>
         </NextAuthSessionProvider>
       </body>

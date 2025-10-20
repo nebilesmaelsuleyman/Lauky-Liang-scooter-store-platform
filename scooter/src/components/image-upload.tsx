@@ -36,11 +36,7 @@ export function ImageUpload({ value = [], onChange, setFiles, maxImages = 5, dis
       alert(`You can only upload up to ${maxImages} images`)
       return
     }
-
-    // send original files to parent
     if (setFiles) setFiles((prev: any) => [...prev, ...imageFiles])
-
-    // Convert files to data URLs for preview
     const newImages = await Promise.all(
       imageFiles.map((file) => {
         return new Promise<string>((resolve) => {

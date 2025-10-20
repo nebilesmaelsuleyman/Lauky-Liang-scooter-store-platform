@@ -9,35 +9,13 @@ export const metadata = {
 export default function ReturnPolicyPage() {
   return (
     <div className="min-h-screen bg-[#0D1F3C] text-white">
-      {/* 🔹 Header */}
-      <header className="bg-[#0B1A30] py-6 shadow-md">
-        <div className="container mx-auto px-6 md:px-10 flex justify-between items-center">
-          <Link
-              href="/"
-              className="text-green-400 hover:text-whtie transition"
-            >
-            Lucky Liang
-            </Link>
-          <nav className="space-x-4">
-            
-            <Link
-              href="/support"
-              className="text-green-400 font-semibold hover:text-green-300 transition"
-            >
-              Support
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      {/* 🔹 Main Content */}
       <main className="px-6 py-12 flex justify-center">
         <div className="max-w-3xl space-y-8">
           <h1 className="text-4xl font-bold text-green-400 mb-8 text-center">
             Return & Refund Policy
           </h1>
 
-          {/* Section 1 */}
+          
           <section>
             <h2 className="text-2xl font-semibold text-green-400 mb-4">
               1. Overview
@@ -89,7 +67,7 @@ export default function ReturnPolicyPage() {
             </p>
           </section>
 
-          {/* Section 2 */}
+        
           <section>
             <h2 className="text-2xl font-semibold text-green-400 mb-4">
               2. Damages and Issues
@@ -101,7 +79,7 @@ export default function ReturnPolicyPage() {
             </p>
           </section>
 
-          {/* Section 3 */}
+         
           <section>
             <h2 className="text-2xl font-semibold text-green-400 mb-4">
               3. Exceptions / Non-Returnable Items
@@ -113,7 +91,7 @@ export default function ReturnPolicyPage() {
             <p>3.2 We do not accept returns for items on sale.</p>
           </section>
 
-          {/* Section 4 */}
+          
           <section>
             <h2 className="text-2xl font-semibold text-green-400 mb-4">
               4. Exchanges
@@ -125,7 +103,7 @@ export default function ReturnPolicyPage() {
             </p>
           </section>
 
-          {/* Section 5 */}
+        
           <section>
             <h2 className="text-2xl font-semibold text-green-400 mb-4">
               5. Refunds

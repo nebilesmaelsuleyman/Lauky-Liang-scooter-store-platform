@@ -22,7 +22,7 @@ export default function ClientOnlySlider({ images, interval }: ClientOnlySliderP
     setMounted(true)
   }, [])
 
-  if (!mounted) return null // Render nothing on server
+  if (!mounted) return null 
 
   return <FullBackgroundSlider images={images} interval={interval} />
 }

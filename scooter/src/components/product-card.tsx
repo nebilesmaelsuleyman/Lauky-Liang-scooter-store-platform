@@ -44,10 +44,10 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          {/* Gradient overlay for better badge readability */}
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
 
-          {/* Badges */}
+          
           {discountPercentage > 0 && (
             <Badge className="absolute top-3 right-3 bg-green-300 text-destructive-foreground shadow-lg">
               -{discountPercentage}%

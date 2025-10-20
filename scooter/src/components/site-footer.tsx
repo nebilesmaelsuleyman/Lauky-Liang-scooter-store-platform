@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Facebook, Instagram, Twitter, Mail, Youtube } from "lucide-react"
 import { useState } from "react"
-import { toast } from "sonner" // optional for feedback
+import { toast } from "sonner" 
 
 export function SiteFooter() {
   const [email, setEmail] = useState("")
@@ -34,11 +34,10 @@ export function SiteFooter() {
       if (!res.ok) {
         toast.error(data.error || "Subscription failed.")
       } else {
-        toast.success("You're subscribed! 🎉")
+        toast.success("You're subscribed! ")
         setEmail("")
       }
     } catch (err) {
-      console.error("Subscription error:", err)
       toast.error("Network error. Please try again.")
     } finally {
       setLoading(false)
@@ -47,7 +46,7 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-[#0D1F3C] text-white">
-      {/* Newsletter Section */}
+
       <div className="bg-[#f8f8ff] py-16 border-b border-gray-200">
         <div className="container mx-auto text-center px-4">
           <Mail className="mx-auto h-10 w-10 mb-4 text-green-600" />
@@ -81,7 +80,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Main Footer */}
+      
       <div
         className="container mx-auto py-16 px-4"
         style={{

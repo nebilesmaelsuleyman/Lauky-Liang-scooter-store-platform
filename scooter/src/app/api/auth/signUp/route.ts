@@ -1,4 +1,4 @@
-// app/api/auth/signup/route.ts
+
 import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import connectDB from "@/lib/db/connectDB";
@@ -20,12 +20,12 @@ const { name, email, password } = await req.json();
 } catch (error) {
     console.error('Signup error:', error);
     
-    // Check for specific errors thrown by the service
+    
     if (error instanceof Error && (error as any).status === 409) {
       return NextResponse.json({ error: "User already exists" }, { status: 409 });
     }
     
-    // Handle generic errors (like database connection issues, hashing failure, etc.)
+    
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

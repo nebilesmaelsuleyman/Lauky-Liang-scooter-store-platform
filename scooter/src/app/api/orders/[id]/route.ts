@@ -13,14 +13,13 @@ export async function GET(
   }
 
   try {
-    // 1. Fetch data from your database service
+    
     const order = await getOrderByID(orderId);
 
     if (!order) {
       return NextResponse.json({ message: `Order with ID ${orderId} not found` }, { status: 404 });
     }
 
-    // 2. Return the data
     return NextResponse.json(order, { status: 200 });
 
   } catch (error) {

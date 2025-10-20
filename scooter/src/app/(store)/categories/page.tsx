@@ -25,8 +25,7 @@ export default async function CategoriesPage() {
   return (
     <div className="flex  min-h-screen flex-col bg-[#0D1F3C]/90 text-white mb-10">
       
-      <DiscountBanner />
-      <SiteHeader/>
+    
 
       <main className="flex-1 ">
         <div className="container px-10 mb-24 ">

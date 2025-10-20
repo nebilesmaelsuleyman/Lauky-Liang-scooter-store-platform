@@ -68,7 +68,7 @@ export default function AccountPage() {
 
   return (
      <div>
-      <SiteHeader/>
+      
     <div className="max-w-xl mx-auto mt-12 space-y-8 ">
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
@@ -112,7 +112,7 @@ export default function AccountPage() {
               />
             </div>
 
-            {/* Action and Message */}
+          
             <div className="flex flex-col items-start gap-3">
               <Button onClick={handlePasswordChange}>Update Password</Button>
               {message && (

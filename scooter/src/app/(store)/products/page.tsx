@@ -167,7 +167,7 @@ export default function ProductsPage() {
    
     <div className="flex min-h-screen flex-col  text-white"> 
       <DiscountBanner />
-      <SiteHeader /> 
+      
 
       <main className="flex-1">
         <div className="container py-8 px-8">
@@ -269,7 +269,7 @@ export default function ProductsPage() {
         </div>
       </main>
 
-      <SiteFooter />
+     
     </div>
   )
 }

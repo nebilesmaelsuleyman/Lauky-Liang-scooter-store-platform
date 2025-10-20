@@ -1,4 +1,4 @@
-// app/categories/[slug]/page.tsx
+
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { getCategoryBySlug, getProductsByCategorySlug } from "@/lib/services/catogories.service" 
@@ -39,7 +39,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   return (
     <div className="flex min-h-screen flex-col ">
-    <SiteHeader/>
+   
       <main className="flex-1">
         <div className="container py-8 px-10">
           <div className="mb-8">
@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
           )}
         </div>
       </main>
-<SiteFooter/>
+
     </div>
   )
 }

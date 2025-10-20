@@ -5,27 +5,14 @@ import Link from 'next/link'
 export default function WarrantyPage() {
   return (
     <div className="min-h-screen bg-[#0D1F3C] text-white flex flex-col">
-      {/* Header */}
-      <header className="bg-[#0B1A30] py-6 shadow-md">
-        <div className="container mx-auto px-6 md:px-10 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-green-400">LuckyLiang</h1>
-          <nav className="space-x-4">
-            <Link href="/" className="text-white hover:text-green-400 transition">
-              Home
-            </Link>
-            <Link href="/warranty" className="text-green-400 font-semibold">
-              Warranty
-            </Link>
-          </nav>
-        </div>
-      </header>
+      
 
-      {/* Main Content */}
+     
       <main className="flex-1 container mx-auto px-6 md:px-10 py-12">
         <div className="max-w-4xl mx-auto space-y-10">
           <h2 className="text-4xl font-bold text-green-400 mb-6">Warranty Policy</h2>
 
-          {/* Overview Section */}
+         
           <section className="space-y-4">
             <h3 className="text-2xl font-semibold border-b border-green-500 pb-2">1 Overview</h3>
             <ol className="list-decimal list-inside space-y-2 text-gray-200">
@@ -38,7 +25,7 @@ export default function WarrantyPage() {
             </ol>
           </section>
 
-          {/* Process Section */}
+       
           <section className="space-y-4">
             <h3 className="text-2xl font-semibold border-b border-green-500 pb-2">2 Process</h3>
             <ol className="list-decimal list-inside space-y-2 text-gray-200">
@@ -48,7 +35,6 @@ export default function WarrantyPage() {
             </ol>
           </section>
 
-          {/* Important Notice Section */}
           <section className="space-y-4">
             <h3 className="text-2xl font-semibold border-b border-green-500 pb-2">3 Important Notice</h3>
             <ol className="list-decimal list-inside space-y-2 text-gray-200">
@@ -59,8 +45,7 @@ export default function WarrantyPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <SiteFooter/>
+     
     </div>
   )
 }

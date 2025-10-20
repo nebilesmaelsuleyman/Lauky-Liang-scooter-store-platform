@@ -7,7 +7,7 @@ export async function PATCH(
 ) {
   const userId = params.id;
 
-  // 1. Get the update data from the request body
+  
   let dataToUpdate: any;
   try {
     dataToUpdate = await request.json();

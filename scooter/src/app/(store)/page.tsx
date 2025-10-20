@@ -74,19 +74,16 @@ const SLIDE_INTERVAL = 5000
      
     <div className="min-h-screen flex flex-col   ">
 
-        <DiscountBanner/>  
-
-      <SiteHeader />
       <main className="flex-1  ">
-         {/* Hero Section */}
+         
          <section className="relative text-white min-h-screen flex items-center overflow-hidden">
-      {/* Full Background Slider */}
+     
       <FullBackgroundSlider images={BACKGROUND_IMAGES} interval={SLIDE_INTERVAL} />
 
       
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[0px]" />
 
-      {/* Content Layer */}
+    
       <div className="container  relative z-10 flex items-center justify-center px-6 md:px-10 py-10 min-h-screen">
         <div className="flex-1 text-center space-y-8 max-w-4xl p-6 sm:p-10 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl">
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tighter">
@@ -100,7 +97,7 @@ const SLIDE_INTERVAL = 5000
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
-            {/* Button 1: Shop Now */}
+           
             <Link href="/products">
               <Button
                 size="lg"
@@ -112,7 +109,7 @@ const SLIDE_INTERVAL = 5000
               </Button>
             </Link>
 
-            {/* Button 2: Browse Categories */}
+            
             <Link href="/categories">
               <Button
                 size="lg"
@@ -126,10 +123,10 @@ const SLIDE_INTERVAL = 5000
         </div>
       </div>
     </section>
-     {/* Features Section */}
+   
       <section className="py-24 md:py-32 bg-gray-950 min-h-[50vh]">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Section Heading */}
+         
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
               Why Choose Our <span className='text-green-400'>Electric Scooters</span>?
@@ -140,7 +137,7 @@ const SLIDE_INTERVAL = 5000
           </div>
 
           <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
-            {/* Card 1: High Performance */}
+            
             <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
               <div className="flex flex-col items-center text-center space-y-5">
                 <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
@@ -155,7 +152,7 @@ const SLIDE_INTERVAL = 5000
               </div>
             </div>
 
-            {/* Card 2: Built to Last (Durability) */}
+            
             <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
               <div className="flex flex-col items-center text-center space-y-5">
                 <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
@@ -170,7 +167,7 @@ const SLIDE_INTERVAL = 5000
               </div>
             </div>
 
-            {/* Card 3: Eco Friendly */}
+          
             <div className="bg-gray-800 p-8 rounded-2xl shadow-xl hover:shadow-green-700/30 transition-all duration-300 transform hover:-translate-y-1 border border-gray-700">
               <div className="flex flex-col items-center text-center space-y-5">
                 <div className="w-16 h-16 rounded-full bg-green-900/40 flex items-center justify-center shadow-lg">
@@ -188,7 +185,7 @@ const SLIDE_INTERVAL = 5000
         </div>
       </section>
 
-         {/* Featured Products */}
+
         <section className="py-8 p-8 bg-gradient-to-b">
           <div className="container">
             <div className="flex items-center justify-between mb-8">
@@ -204,7 +201,7 @@ const SLIDE_INTERVAL = 5000
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {/* Using the fetched featuredProducts state */}
+               
               {featuredProducts.map((product) => (
                 <ProductCard
                   key={String(product._id)}
@@ -214,7 +211,7 @@ const SLIDE_INTERVAL = 5000
                   price={product.price}
                   compareAtPrice={product.compareAtPrice}
                   image={product.images[0]}
-                  // Lookup category name from the fetched allCategories state
+                  
                   category={allCategories.find((c) => c._id === product.category)?.name || ""}
                   isFeatured={product.isFeatured}
                 />
@@ -224,8 +221,6 @@ const SLIDE_INTERVAL = 5000
         </section>
 
 
-
-        {/* Categories Grid */}
         <section className="py-16 bg-muted/30">
           <div className="container">
             <div className="text-center mb-12">
@@ -233,7 +228,7 @@ const SLIDE_INTERVAL = 5000
               <p className="text-muted-foreground">Find the perfect scooter for your lifestyle</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Using the fetched displayCategories state */}
+              
               {displayCategories.map((category) => (
                 <CategoryCard
                   key={String(category._id)}
@@ -249,7 +244,7 @@ const SLIDE_INTERVAL = 5000
         <>
         <VideoCarousel/>
         </>
-            {/* CTA Section */}
+
         <section className="relative py-28">
   <img
     src="/images/all-terrain-electric-scooter.jpg"
@@ -272,7 +267,7 @@ const SLIDE_INTERVAL = 5000
 </section>
   
         </main>
-        <SiteFooter/>
+       
         </div>
     
   )

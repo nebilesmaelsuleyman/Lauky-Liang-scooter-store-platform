@@ -8,32 +8,18 @@ export const metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#0D1F3C] text-white">
-      {/* 🔹 Header */}
-      <header className="bg-[#0B1A30] py-6 shadow-md">
-        <div className="container mx-auto px-6 md:px-10 flex justify-between items-center">
-            <Link href="/"> <h1 className="text-2xl font-bold text-green-400">LuckyLiang</h1></Link>
-         
-          <nav className="space-x-4">
-            <Link
-              href="/support"
-              className="text-green-400 font-semibold hover:text-green-300 transition"
-            >
-              Support
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen  bg-[#0D1F3C] text-white">
+      
 
       <main className="px-6 py-12 flex justify-center">
         <div className="max-w-4xl space-y-10">
-          <h1 className="text-4xl font-bold text-green-400 text-center mb-10">
+          <h1 className="text-4xl font-bold text-green-600 text-center mb-10">
             Privacy Policy
           </h1>
 
        
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-600 mb-4">
               Overview
             </h2>
             <p className="mb-4">
@@ -60,9 +46,9 @@ export default function PrivacyPolicyPage() {
               For any questions, contact us at{" "}
               <a
                 href="mailto:support@luckyliang.com"
-                className="text-green-400 underline"
+                className="text-green-600 underline"
               >
-                support@luckyliang.com
+                luckyliangevuae.com
               </a>
               .
             </p>
@@ -70,11 +56,11 @@ export default function PrivacyPolicyPage() {
 
          
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-600 mb-4">
               I. How We Collect Personal Data
             </h2>
 
-            <h3 className="text-lg font-semibold text-green-300 mb-2">
+            <h3 className="text-lg font-semibold text-green-400 mb-2">
               Information You Provide
             </h3>
             <ul className="list-disc ml-6 mb-4 space-y-2">
@@ -96,7 +82,7 @@ export default function PrivacyPolicyPage() {
               </li>
             </ul>
 
-            <h3 className="text-lg font-semibold text-green-300 mb-2">
+            <h3 className="text-lg font-semibold text-green-500 mb-2">
               Information Automatically Collected
             </h3>
             <ul className="list-disc ml-6 mb-4 space-y-2">
@@ -115,9 +101,9 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          {/* Section II */}
+         
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-500 mb-4">
               II. Legal Basis for Processing (UAE & Applicable Laws)
             </h2>
             <p className="mb-4">
@@ -126,7 +112,7 @@ export default function PrivacyPolicyPage() {
               consent. For questions, contact{" "}
               <a
                 href="mailto:support@luckyliang.com"
-                className="text-green-400 underline"
+                className="text-green-600 underline"
               >
                 support@luckyliang.com
               </a>
@@ -134,9 +120,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* Section III */}
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-600 mb-4">
               III. How We Use Your Data
             </h2>
             <ul className="list-disc ml-6 space-y-2">
@@ -151,9 +136,8 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          {/* Section IV */}
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-600 mb-4">
               IV. How We Share Your Data
             </h2>
             <ul className="list-disc ml-6 space-y-2">
@@ -172,9 +156,9 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          {/* Section V */}
+       
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-500 mb-4">
               V. Data Security & Retention
             </h2>
             <p>
@@ -184,9 +168,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* Section VI */}
           <section>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4">
+            <h2 className="text-2xl font-semibold text-green-500 mb-4">
               VI. Your Rights
             </h2>
             <p className="mb-4">
@@ -198,7 +181,7 @@ export default function PrivacyPolicyPage() {
               Contact{" "}
               <a
                 href="mailto:support@luckyliang.com"
-                className="text-green-400 underline"
+                className="text-green-500 underline"
               >
                 support@luckyliang.com
               </a>{" "}
@@ -206,9 +189,8 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* Section VII–X (Summarized for readability) */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-green-400">
+            <h2 className="text-2xl font-semibold text-green-500">
               VII. Children’s Privacy
             </h2>
             <p>
@@ -216,7 +198,7 @@ export default function PrivacyPolicyPage() {
               knowingly collect their data.
             </p>
 
-            <h2 className="text-2xl font-semibold text-green-400">
+            <h2 className="text-2xl font-semibold text-green-500">
               VIII. International Transfers
             </h2>
             <p>
@@ -225,7 +207,7 @@ export default function PrivacyPolicyPage() {
               required.
             </p>
 
-            <h2 className="text-2xl font-semibold text-green-400">
+            <h2 className="text-2xl font-semibold text-green-500">
               IX. Updates to this Policy
             </h2>
             <p>
@@ -233,14 +215,14 @@ export default function PrivacyPolicyPage() {
               always be available on our website.
             </p>
 
-            <h2 className="text-2xl font-semibold text-green-400">
+            <h2 className="text-2xl font-semibold text-green-500">
               X. Contact
             </h2>
             <p>
               For privacy questions, reach us at{" "}
               <a
                 href="mailto:support@luckyliang.com"
-                className="text-green-400 underline"
+                className="text-green-500 underline"
               >
                 support@luckyliang.com
               </a>

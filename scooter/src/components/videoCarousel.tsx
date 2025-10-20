@@ -8,13 +8,13 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { PlayCircle, Loader2 } from 'lucide-react'
 
-// ✅ Define the type of each video item
+
 interface VideoItem {
   src: string
   title: string
 }
 
-// ✅ Example video list
+
 const VIDEOS: VideoItem[] = [
   { src: 'https://www.youtube.com/shorts/r8H-2jmnha8', title: 'YouTube Short ' },
   { src: 'https://www.youtube.com/shorts/EYnRWGHxfvw', title: 'YouTube Video ' },
@@ -40,7 +40,7 @@ const getYouTubeEmbed = (url: string, isPlaying: boolean): string => {
   return `https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&modestbranding=1&rel=0&enablejsapi=1`
 }
 
-// --- Slide Content ---
+
 interface VideoSlideContentProps {
   video: VideoItem
   isActive: boolean
@@ -83,7 +83,7 @@ const VideoSlideContent: React.FC<VideoSlideContentProps> = ({ video, isActive }
 
   return (
     <div className="relative w-full h-[500px] flex justify-center items-center bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
-      {/* Video Player */}
+     
       {isYoutubeVideo ? (
         isPlaying && (
           <iframe
@@ -113,7 +113,7 @@ const VideoSlideContent: React.FC<VideoSlideContentProps> = ({ video, isActive }
         />
       )}
 
-      {/* Overlay */}
+    
       {!isPlaying && (
         <div
           className="absolute inset-0 flex flex-col justify-center items-center bg-gray-800/80 hover:bg-gray-700/80 cursor-pointer transition-all duration-300 p-8"
@@ -125,14 +125,14 @@ const VideoSlideContent: React.FC<VideoSlideContentProps> = ({ video, isActive }
         </div>
       )}
 
-      {/* Loading Spinner */}
+     
       {isLoading && (
         <div className="absolute inset-0 flex justify-center items-center bg-gray-900/90 z-10">
           <Loader2 className="w-10 h-10 text-indigo-400 animate-spin" />
         </div>
       )}
 
-      {/* Tag */}
+    
       <div className="absolute top-4 left-4 bg-indigo-600/90 text-white text-xs font-mono tracking-wider px-3 py-1 rounded-full shadow-md z-20">
         {isYoutubeVideo ? 'YOUTUBE' : 'LOCAL MP4'}
       </div>
@@ -140,7 +140,7 @@ const VideoSlideContent: React.FC<VideoSlideContentProps> = ({ video, isActive }
   )
 }
 
-// --- Main Carousel ---
+
 export default function VideoCarousel(): JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0)
 
