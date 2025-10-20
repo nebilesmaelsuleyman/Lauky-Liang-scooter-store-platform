@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Card } from "@/components/ui/card" // Assuming shadcn/ui Card
+import { Card } from "@/components/ui/card" 
 import { ArrowRight } from "lucide-react"
 
 interface CategoryCardProps {
@@ -32,7 +32,7 @@ export function CategoryCard({ name, slug, description, image }: CategoryCardPro
 
           <div className="absolute bottom-15 left-0 right-0 p-5 text-white">
       
-            <h3 className="text-4xl font-sans font-extrabold mb-1 tracking-tight text-green-800">{name}</h3>
+            <h3 className="text-4xl font-sans font-extrabold mb-1 tracking-tight text-gray-300">{name}</h3>
             <p className="text-xs  mb-3 line-clamp-2 text-white/80">{description}</p>
         
             <div className="flex items-center text-sm font-semibold text-primary-foreground group-hover:gap-2 transition-all duration-300">

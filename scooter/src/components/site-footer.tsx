@@ -14,7 +14,7 @@ export function SiteFooter() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Subscribing:", email)
-    setEmail("")
+    setEmail('luckyliangevuae@gmail.com')
   }
 
   return (
@@ -97,11 +97,20 @@ export function SiteFooter() {
               <li><Link href="/service/support" className="hover:text-green-500 transition-colors">Customer Support</Link></li>
               <li><Link href="/faq" className="hover:text-green-500 transition-colors">Service Center</Link></li>
               <li><Link href="/shipping" className="hover:text-green-500 transition-colors">Find A Store</Link></li>
-              <li><Link href="/returns" className="hover:text-green-500 transition-colors">Returns</Link></li>
+              <li><Link href="/service/return" className="hover:text-green-500 transition-colors">Return</Link></li>
               <li><Link href="/service/warranty" className="hover:text-green-500 transition-colors">Warrenty</Link></li>
             </ul>
           </div>
 
+          <div>
+            <h4 className="font-semibold mb-4">Contact Us</h4>
+            <ul className="space-y-2 text-sm text-white/70">
+              <li><Link href="#" className="hover:text-green-500 transition-colors">+971 58 261 6899</Link></li>
+              <li><Link href="/#" className="hover:text-green-500 transition-colors">GK65A. Dragon Mart </Link></li>
+              <li><Link href="#" className="hover:text-green-500 transition-colors">2. Dubai, UAE</Link></li>
+
+            </ul>
+          </div>
           {/* Company */}
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
@@ -117,7 +126,7 @@ export function SiteFooter() {
       {/* Bottom Bar */}
       <div className="border-t border-white/20 py-6">
         <div className="container mx-auto text-center text-white/70 text-sm">
-          © {new Date().getFullYear()} ScootHub. All rights reserved.
+          © {new Date().getFullYear()} Lucky Liang. All rights reserved.
         </div>
       </div>
     </footer>
