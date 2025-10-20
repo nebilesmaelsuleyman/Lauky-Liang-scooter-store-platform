@@ -6,18 +6,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-
-// Assuming you have an Avatar component for a professional touch
-import { Avatar, AvatarFallback } from "@/components/ui/avatar" 
-
-
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {SiteHeader} from '@/components/site-header'
+import {SiteFooter} from '@/components/site-footer'
 export default function AccountPage() {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
-  const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [message, setMessage] = useState("")
 
-  // --- LOGIC (UNTOUCHED) ---
 
   useEffect(() => {
     fetch("/api/account")
@@ -27,20 +23,19 @@ export default function AccountPage() {
       })
   }, [])
 
+ 
   const handlePasswordChange = async () => {
-    if (!user) return
+    if (!user || !newPassword) return
     const res = await fetch("/api/account/update-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: user.email,
-        oldPassword,
         newPassword,
       }),
     })
     const data = await res.json()
     setMessage(data.message || data.error)
-    setOldPassword("")
     setNewPassword("")
   }
 
@@ -49,18 +44,16 @@ export default function AccountPage() {
     window.location.href = "/"
   }
 
-  // --- UI (PROFESSIONAL SHADCN/UI) ---
-
   if (!user) {
     return (
       <div className="max-w-xl mx-auto mt-20 p-6">
+       
         <Card>
           <CardHeader>
             <CardTitle>Loading Profile</CardTitle>
           </CardHeader>
           <CardContent>
             <p>Loading account info...</p>
-            {/* Consider adding a Skeleton component here for a better loading state */}
           </CardContent>
         </Card>
       </div>
@@ -74,12 +67,12 @@ export default function AccountPage() {
     .toUpperCase()
 
   return (
+     <div>
+      <SiteHeader/>
     <div className="max-w-xl mx-auto mt-12 space-y-8 ">
-      
       <Card>
         <CardHeader className="flex flex-row items-center gap-4">
           <Avatar className="h-16 w-16">
-            
             <AvatarFallback className="text-xl bg-primary text-primary-foreground">
               {initials}
             </AvatarFallback>
@@ -91,14 +84,13 @@ export default function AccountPage() {
         </CardHeader>
         <Separator />
         <CardContent className="pt-6 flex justify-end">
-          
           <Button variant="outline" onClick={handleLogout}>
             Logout
           </Button>
         </CardContent>
       </Card>
 
-      {/* Security/Password Change Card */}
+     
       <Card>
         <CardHeader>
           <CardTitle>Security Settings</CardTitle>
@@ -108,19 +100,7 @@ export default function AccountPage() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
-            {/* Current Password Field */}
-            <div className="grid gap-2">
-              <Label htmlFor="oldPassword">Current Password</Label>
-              <Input
-                id="oldPassword"
-                type="password"
-                placeholder="••••••••"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            </div>
-
-            {/* New Password Field */}
+            
             <div className="grid gap-2">
               <Label htmlFor="newPassword">New Password</Label>
               <Input
@@ -148,6 +128,8 @@ export default function AccountPage() {
           </div>
         </CardContent>
       </Card>
+    </div>
+     
     </div>
   )
 }

@@ -66,8 +66,8 @@ export function ProductCard({ id, name, slug, price, compareAtPrice, image, cate
           <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">{category}</p>
           <h3 className="font-semibold text-lg mb-2 line-clamp-1 group-hover:text-green-400 transition-colors duration-300">{name}</h3>
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold ">${price}</span>
-            {compareAtPrice && <span className="text-sm text-muted-foreground line-through">${compareAtPrice}</span>}
+            <span className="text-xl font-bold ">د.إ{price}</span>
+            د.إ{compareAtPrice && <span className="text-sm text-muted-foreground line-through">د.إ{compareAtPrice}</span>}
           </div>
         </Link>
       </CardContent>

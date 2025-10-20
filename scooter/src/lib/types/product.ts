@@ -2,15 +2,15 @@ import { Types } from "mongoose"
 
 export interface ProductLean {
   _id: Types.ObjectId | string
-  name: string
-  slug: string
-  description: string
-  shortDescription: string
-  price: number
+  name?: string
+  slug?: string
+  description?: string
+  shortDescription?: string
+  price?: number
   compareAtPrice?: number
-  images: string[]
-  category: string
-  specifications: {
+  images?: string[]
+  category?: string
+  specifications?: {
     maxSpeed: string
     range: string
     weight: string
@@ -36,10 +36,10 @@ export interface ProductLean {
       EnergyRecovery?:string,
       Wheelbase?:string
   }
-  stock: number
-  isActive: boolean
-  isFeatured: boolean
-  tags: string[]
+  stock?: number
+  isActive?: boolean
+  isFeatured?: boolean
+  tags?: string[]
   createdAt: Date
   updatedAt: Date
   createdBy: Types.ObjectId | string

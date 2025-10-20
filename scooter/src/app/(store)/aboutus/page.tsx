@@ -9,15 +9,15 @@ import {SiteHeader} from '@/components/site-header'
 
 export default function AboutPage() {
   return (
-    // Updated main wrapper to dark background
+
     <div className="flex flex-col min-h-screen bg-gray-950">
       <SiteHeader/>
-      {/* Hero Section */}
+      
       <section className="relative h-[65vh] flex items-center justify-center bg-gray-900 text-white overflow-hidden border-b border-green-700/50">
         <img
-          src="/images/commuter-electric-scooter-city.jpg"
+          src="/images/DS01-07.jpg"
           alt="LuckyLiang E-Bikes"
-          // Replaced 'fill' with standard image classes for full coverage
+
           className="absolute inset-0 w-full h-full object-cover opacity-30" 
           
         />
@@ -31,7 +31,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission, Vision, Values */}
+    
       <section className="py-24 bg-gradient-to-b from-gray-950 to-gray-900">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-12 text-white">
@@ -82,10 +82,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-    {/* Company Story */}
+ 
 <section className="py-24 bg-gray-900">
   <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-    {/* Text Content */}
+ 
     <div className="bg-gray-800 p-8 rounded-2xl shadow-2xl border border-gray-700 transition-all duration-500 hover:bg-gray-700/70 hover:scale-[1.02]">
       <h2 className="text-4xl font-extrabold mb-4 text-white tracking-tight">
         About <span className="text-green-400">LuckyLiang</span>
@@ -101,12 +101,12 @@ export default function AboutPage() {
       </p>
     </div>
 
-    {/* Image Side */}
+   
     <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl hover:scale-[1.03] transition-transform duration-500 border-2 border-gray-700">
       <img
-        src="/images/fast-performance-electric-scooter.jpg"
+        src="/images/U03-04(1).jpg"
         alt="LuckyLiang factory and riders"
-        // Replaced 'fill' with standard image classes for full coverage
+
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -115,7 +115,7 @@ export default function AboutPage() {
 </section>
 
 
-      {/* Why Choose LuckyLiang */}
+   
       <section className="py-24 bg-gray-950">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-12 text-white">
@@ -159,7 +159,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Community Section */}
+    
       <section className="py-24 bg-gray-800 text-center relative overflow-hidden border-t border-b border-green-700/50">
         <div className="absolute inset-0 bg-[url('/images/community-bg.jpg')] bg-cover bg-center opacity-10"></div>
         <div className="relative z-10 max-w-3xl mx-auto px-6">
@@ -181,7 +181,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Contact / Feedback Section */}
+     
       <section className="py-16 bg-gray-900 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-4 text-white">Let’s Grow Together</h2>
@@ -193,7 +193,7 @@ export default function AboutPage() {
             variant="outline"
             size="lg"
             asChild
-            // Inverted the outline button colors for dark mode
+
             className="border-green-600 text-green-400 hover:bg-green-900/40 hover:text-green-300 transition-colors"
           >
             <a href="#">support@luckyliang.com</a>

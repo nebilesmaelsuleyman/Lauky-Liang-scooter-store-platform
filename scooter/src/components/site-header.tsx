@@ -31,7 +31,7 @@ export function SiteHeader() {
         <Link href='/'><span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span></Link>
           
 
-        {/* Navigation Links */}
+     
         <nav className="hidden md:flex items-center space-x-8">
           {["/products","/categories","/aboutus"].map((href, idx) => {
             const label = href === "/products" ? "All Products" : href === "/categories" ? "Categories" : "About Us"
@@ -45,17 +45,9 @@ export function SiteHeader() {
               </Link>
             )
           })}
-          {isLoggedIn && (
-            <Link
-              href="/account"
-              className="text-white/90 hover:text-green-500 transition-colors font-medium text-sm"
-            >
-              Account
-            </Link>
-          )}
         </nav>
 
-        {/* Right Side Actions */}
+       
         <div className="hidden md:flex items-center space-x-3">
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="relative text-white/90 hover:text-green-500">
@@ -101,7 +93,6 @@ export function SiteHeader() {
           )}
         </div>
 
-        {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
             <Button variant="ghost" size="icon" className="text-white/90 hover:text-green-500">

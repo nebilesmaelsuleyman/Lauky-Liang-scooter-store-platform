@@ -12,6 +12,7 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast} from "sonner"
+import { Value } from "@radix-ui/react-select"
 
 interface Specification {
   key: string
@@ -27,19 +28,15 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
   const [specifications, setSpecifications] = useState<Specification[]>([])
   const [formData, setFormData] = useState({
     name: "",
-    slug: "",
-    shortDescription: "",
     description: "",
     price: "",
     compareAtPrice: "",
     category: "",
     stock: "",
-    sku: "",
     isFeatured: false,
-    discount: "",
   })
 
-  // Fetch product and categories on mount
+  
   useEffect(() => {
     Promise.all([
       fetch(`/api/products/${params.id}`).then((res) => res.json()),
@@ -48,16 +45,13 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
       .then(([product, categoriesData]) => {
         setFormData({
           name: product.name || "",
-          slug: product.slug || "",
-          shortDescription: product.shortDescription || "",
           description: product.description || "",
           price: product.price?.toString() || "",
           compareAtPrice: product.compareAtPrice?.toString() || "",
           category: product.category || "",
           stock: product.stock?.toString() || "",
-          sku: product.sku || "",
           isFeatured: product.isFeatured || false,
-          discount: product.discount?.toString() || "",
+
         })
 
         if (product.specifications) {
@@ -159,50 +153,35 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            {/* Product Info */}
+
             <Card>
               <CardHeader>
                 <CardTitle>Product Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/** Name, slug, shortDescription, description */}
+
                 <div className="space-y-2">
                   <Label>Product Name</Label>
                   <Input
                     value={formData.name}
-                    placeholder="Product Name"
+                    placeholder={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>URL Slug</Label>
-                  <Input
-                    value={formData.slug}
-                    placeholder="URL Slug"
-                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>Short Description</Label>
-                  <Input
-                    value={formData.shortDescription}
-                    placeholder="Short Description"
-                    onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
-                  />
-                </div>
+               
                 <div className="space-y-2">
                   <Label>Full Description</Label>
                   <Textarea
                     rows={6}
                     value={formData.description}
-                    placeholder="Full Description"
+                    placeholder={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   />
                 </div>
               </CardContent>
             </Card>
 
-            {/* Specifications */}
+          
             <Card>
               <CardHeader>
                 <CardTitle>Specifications</CardTitle>
@@ -234,9 +213,9 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
             </Card>
           </div>
 
-          {/* Sidebar */}
+         
           <div className="space-y-6">
-            {/* Pricing, Organization, Inventory */}
+            
             <Card>
               <CardHeader>
                 <CardTitle>Pricing</CardTitle>
@@ -254,12 +233,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                   value={formData.compareAtPrice}
                   onChange={(e) => setFormData({ ...formData, compareAtPrice: e.target.value })}
                 />
-                <Input
-                  type="number"
-                  placeholder={formData.discount || "Discount %"}
-                  value={formData.discount}
-                  onChange={(e) => setFormData({ ...formData, discount: e.target.value })}
-                />
+
               </CardContent>
             </Card>
 
@@ -287,7 +261,7 @@ export default function EditProductPage({ params }: { params: { id: string } }) 
                   checked={formData.isFeatured}
                   onCheckedChange={(checked) => setFormData({ ...formData, isFeatured: checked as boolean })}
                 >
-                  Featured Product
+                 Featured Product
                 </Checkbox>
               </CardContent>
             </Card>
