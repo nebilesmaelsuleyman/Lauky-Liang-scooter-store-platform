@@ -32,8 +32,8 @@ export function CategoryCard({ name, slug, description, image }: CategoryCardPro
 
           <div className="absolute bottom-15 left-0 right-0 p-5 text-white">
       
-            <h3 className="text-4xl font-sans font-extrabold mb-1 tracking-tight">{name}</h3>
-            <p className="text-xs text-white/80 mb-3 line-clamp-2">{description}</p>
+            <h3 className="text-4xl font-sans font-extrabold mb-1 tracking-tight text-green-800">{name}</h3>
+            <p className="text-xs  mb-3 line-clamp-2 text-white/80">{description}</p>
         
             <div className="flex items-center text-sm font-semibold text-primary-foreground group-hover:gap-2 transition-all duration-300">
               <span>View Collection</span> 

@@ -46,7 +46,7 @@ const FullBackgroundSlider: React.FC<FullBackgroundSliderProps> = ({ images, int
             className="object-cover object-center"
           />
 
-          {/* CTA Overlay */}
+          
           <div className="absolute inset-0 flex flex-col items-center justify-end pb-16 bg-gradient-to-t from-black/40 via-transparent to-transparent">
             {image.link && (
               <Link

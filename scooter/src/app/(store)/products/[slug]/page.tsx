@@ -6,19 +6,19 @@ import ProductDetailClient from "./productDetailClient"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { DiscountBanner } from "@/components/discount-banner"
-// NOTE: Remove mock data imports like mockDiscountBanner
 
 interface Props {
   params: { slug: string }
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  // 1. Fetch data from the database
-  const data = await getProductBySlug(params.slug)
+  
+  const {slug}= await params
+  const data = await getProductBySlug(slug)
 
   if (!data) return notFound()
   
-  // Destructure for cleaner access in the server component
+
   const { product, category, relatedProduct } = data;
 
  

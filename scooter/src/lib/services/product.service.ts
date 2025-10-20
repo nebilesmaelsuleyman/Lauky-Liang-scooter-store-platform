@@ -16,12 +16,11 @@ export async function getAllproducts(): Promise<ProductLean[]> {
   await connectDB();
 
   try {
-    // Fetch ALL products, sorting them by creation date
+
     const products = await Product.find()
       .sort({ createdAt: -1 }) 
       .lean<ProductLean[]>();
 
-    // Serialize the array for API safety
     const serializedProducts = JSON.parse(JSON.stringify(products));
 
     return serializedProducts as ProductLean[];
@@ -125,7 +124,7 @@ export async function updateProduct(id:string,data:any){
     await connectDB()
     const product = await Product.findByIdAndUpdate(id, data ,{new:true}).lean()
     if(!product)return NextResponse.json({message:"no product with this id"},{status:404})
-
+        console.log("updated data from the service",product)
       return NextResponse.json(product,{status: 200})
   }catch(error){
     console.error('Error updating product',error)

@@ -29,6 +29,15 @@ export interface Product extends Document {
     frame?:string,
     shiftLevel?:string,
     suspensionFork?:string
+    ECU?:string,
+    MaxTorque?:string,
+    ClimbingAbility?:string,
+    TireTubeless?:string,
+    Controller?:string,
+    Odometer?:string
+    Charger?:string,
+    EnergyRecovery?:string,
+    Wheelbase?:string
 
   }
   stock: number
@@ -59,6 +68,23 @@ const ProductSchema = new Schema<Product>(
       batteryCapacity: String,
       chargingTime: String,
       motor: String,
+      display:String,
+      braking:String,
+      antiTheftSystem :String,
+      tire:String,
+      frame:String,
+      shiftLevel:String,
+      suspensionFork:String,
+      ECU:String,
+      MaxTorque:String,
+      ClimbingAbility:String,
+      TireTubeless:String,
+      Controller:String,
+      WaterProof:String,
+      Odomoeter:String,
+      Charger:String,
+    EnergyRecovery:String,
+    Wheelbase:String
     },
     stock: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },

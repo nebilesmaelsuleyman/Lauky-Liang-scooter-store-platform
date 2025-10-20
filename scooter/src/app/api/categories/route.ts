@@ -5,7 +5,7 @@ import connectDB from '@/lib/db/connectDB'
 
 export async function POST(request: Request) {
   try {
-    await connectDB()
+    
     const data: CategoryFormInput = await request.json();
 
     
@@ -28,8 +28,7 @@ export async function POST(request: Request) {
     );
 
   } catch (error) {
-    console.error(" Error creating category:", error);
-
+   
    
     if (error && typeof error === 'object' && 'code' in error && error.code === 11000) {
       return NextResponse.json(
@@ -49,13 +48,11 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-     await connectDB();
-    
+
     const categories = await getAllCategories(); 
-    console.log("list of categories",categories)
     return NextResponse.json(categories, { status: 200 });
   } catch (error) {
-    console.error(" Error fetching categories:", error);
+
     return NextResponse.json(
       { message: "Failed to fetch categories", error: (error as Error).message },
       { status: 500 }

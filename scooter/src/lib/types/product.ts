@@ -18,6 +18,23 @@ export interface ProductLean {
     batteryCapacity?: string
     chargingTime?: string
     motor?: string
+    display?:string,
+      braking?:string,
+      antiTheftSystem? :string,
+      tire?:string,
+      frame?:string,
+      shiftLevel?:string,
+      suspensionFork?:string,
+      ECU?:string,
+      MaxTorque?:string,
+      ClimbingAbility?:string,
+      TireTubeless?:string,
+      Controller?:string,
+      WaterProof?:string,
+      Odometer?:string,
+      Charger?:string,
+      EnergyRecovery?:string,
+      Wheelbase?:string
   }
   stock: number
   isActive: boolean

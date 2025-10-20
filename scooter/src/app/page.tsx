@@ -1,13 +1,11 @@
 "use client"
-import ClientOnlySlider from '@/components/clientonlySlider'
+
 import {SiteHeader} from '@/components/site-header'
 import {SiteFooter} from '@/components/site-footer'
 import {Button} from '@/components/ui/button'
 import { ArrowRight, ShoppingCart,Shield,Leaf,Zap ,Truck} from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { DiscountBanner } from "@/components/discount-banner"
-import { Card, CardContent } from '@/components/ui/card'
 import {ProductCard} from '@/components/product-card'
 import {CategoryCard} from '@/components/category-card'
 import { useEffect, useState } from 'react' 
@@ -63,9 +61,10 @@ export default function Home() {
     );
   }
   const BACKGROUND_IMAGES = [
-  { src: '/images/electric-scooter-side-view.jpg', alt: 'Electric scooter on the road' },
-  { src: '/images/high-end-electric-scooter.jpg', alt: 'Modern urban scooter' },
-  { src: '/images/Natike.png', alt: 'Scooter in city landscape' },
+  { src: '/images/j1.jpg', alt: 'Electric scooter on the road' },
+  { src: '/images/U03-04(1).jpg', alt: 'Modern urban scooter' },
+  { src: '/images/DS01-05.jpg', alt: 'Scooter in city landscape' },
+  { src: '/images/DS01-06.jpg', alt: 'Scooter in city landscape' },
 ]
 
 

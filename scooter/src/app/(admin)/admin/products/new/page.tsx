@@ -14,18 +14,13 @@ import { ArrowLeft, Save, Loader2 } from "lucide-react" // Added Loader2
 import Link from "next/link"
 import { toast } from "sonner"
 
-// ----------------------------------------------------------------
-// 1. DATA INTERFACE & CLOUDINARY HELPER (Unchanged)
-// ----------------------------------------------------------------
 
-// Define the Category interface based on your expected API response
 interface Category {
   _id: string;
   name: string;
   slug: string;
 }
 
-// --- Cloudinary Upload Helper ---
 async function uploadToCloudinary(files: File[]) {
   const urls: string[] = []
 
@@ -45,7 +40,8 @@ async function uploadToCloudinary(files: File[]) {
     }
 
     const data = await res.json()
-    urls.push(data.secure_url)
+    const optimizedUrl = data.secure_url.replace("/upload/", "/upload/f_auto,q_auto,w_1000/")
+    urls.push(optimizedUrl)
   }
   return urls
 }
@@ -56,9 +52,9 @@ export default function NewProductPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [imageFiles, setImageFiles] = useState<File[]>([])
   
-  // New State for Categories
+
   const [categories, setCategories] = useState<Category[]>([])
-  const [isCategoriesLoading, setIsCategoriesLoading] = useState(true) // New Loading State
+  const [isCategoriesLoading, setIsCategoriesLoading] = useState(true) 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -66,7 +62,7 @@ export default function NewProductPage() {
     description: "",
     price: "",
     compareAtPrice: "",
-    category: "", // Holds Category _id
+    category: "", 
     stock: "",
     images: [] as string[],
     specifications: {
@@ -78,15 +74,28 @@ export default function NewProductPage() {
       chargingTime: "",
       motor: "",
       brakes: "",
+      display:"",
+      braking:"",
+      antiTheftSystem:"",
+      tire:"",
+      frame:"",
+      shiftLevel:"",
+      suspensionFork:"",
+      ECU:"",
+      MaxTorque:"",
+    ClimbingAbility:"",
+    TireTubeless:"",
+    Controller:"",
+    WaterProof:"",
+    Odometer:"",
+    Charger:"",
+    EnergyRecovery:"",
+    Wheelbase:"",
     },
     isActive: true,
     isFeatured: false,
   })
 
-
-  // ----------------------------------------------------------------
-  // 2. DATA FETCHING (ADDED)
-  // ----------------------------------------------------------------
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -110,14 +119,12 @@ export default function NewProductPage() {
   }, [])
 
 
-  // ----------------------------------------------------------------
-  // 3. HANDLERS
-  // ----------------------------------------------------------------
+
   const handleNameChange = (name: string) => {
     setFormData((prev) => ({
       ...prev,
       name,
-      // Automatic slug generation logic moved here
+     
       slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
     }))
   }
@@ -127,7 +134,7 @@ export default function NewProductPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Basic Validation (ensure category is selected)
+   
     if (!formData.category) {
         toast.error("Please select a category.")
         setIsSubmitting(false)
@@ -137,20 +144,20 @@ export default function NewProductPage() {
     let loadingToastId: string | number = toast.loading("Uploading images and submitting product...")
 
     try {
-      // 1. Upload Images
+   
       const imageUrls = await uploadToCloudinary(imageFiles)
 
-      // 2. Prepare Payload
+     
       const payload = { 
         ...formData, 
         images: imageUrls,
-        // Convert string numbers to actual numbers for API if needed
+       
         price: parseFloat(formData.price),
         compareAtPrice: formData.compareAtPrice ? parseFloat(formData.compareAtPrice) : undefined,
         stock: parseInt(formData.stock, 10),
       }
 
-      // 3. POST to API
+    
       const response = await fetch("/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -174,9 +181,7 @@ export default function NewProductPage() {
     }
   }
 
-  // ----------------------------------------------------------------
-  // 4. RENDER
-  // ----------------------------------------------------------------
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
@@ -196,7 +201,7 @@ export default function NewProductPage() {
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Basic Information Cards... (unchanged) */}
+          
             <Card>
               <CardHeader>
                 <CardTitle>Basic Information</CardTitle>
@@ -237,7 +242,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Product Images Card... (unchanged) */}
+          
             <Card>
               <CardHeader>
                 <CardTitle>Product Images</CardTitle>
@@ -253,7 +258,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Specifications Card... (unchanged) */}
+          
             <Card>
               <CardHeader>
                 <CardTitle>Specifications</CardTitle>
@@ -280,7 +285,7 @@ export default function NewProductPage() {
             </Card>
           </div>
 
-          {/* Sidebar */}
+       
           <div className="space-y-6">
             
             <Card>
@@ -315,7 +320,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Organization Card (MODIFIED) */}
+            
             <Card>
               <CardHeader>
                 <CardTitle>Organization</CardTitle>
@@ -326,7 +331,7 @@ export default function NewProductPage() {
                   <Select
                     value={formData.category}
                     onValueChange={(value) => setFormData({ ...formData, category: value })}
-                    disabled={isCategoriesLoading || categories.length === 0 || isSubmitting} // Disable when loading or submitting
+                    disabled={isCategoriesLoading || categories.length === 0 || isSubmitting} 
                     required
                   >
                     <SelectTrigger>
@@ -348,7 +353,7 @@ export default function NewProductPage() {
                       ))}
                     </SelectContent>
                   </Select>
-                  {/* Optional loading indicator */}
+                  
                   {isCategoriesLoading && (
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ProductCard } from "@/components/product-card"
 import { useCart } from "@/contexts/cart-context"
+import { useState } from "react"
 
 import {
   ShoppingCart,
@@ -42,6 +43,7 @@ interface Props {
 
 export default function ProductDetailClient({ product, category, relatedProducts }: Props) {
   const { addItem } = useCart()
+  const [selectedImage, setSelectedImage]=useState(product.images[0]|| "/placeholder.svg")
 
   const discountPercentage = product.compareAtPrice
     ? Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)
@@ -55,10 +57,11 @@ export default function ProductDetailClient({ product, category, relatedProducts
       image: product.images[0],
     })
   }
+  
 
   const specs = product.specifications || {}
 
-  // 🧩 Specification map
+  
   const SPEC_MAP: Record<
     string,
     { label: string; icon: React.ElementType }
@@ -94,14 +97,14 @@ export default function ProductDetailClient({ product, category, relatedProducts
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
             <Image
-              src={product.images[0] || "/placeholder.svg"}
-              alt={product.name}
+              src={selectedImage}
+              alt={selectedImage}
               fill
               className="object-cover"
               priority
             />
             {discountPercentage > 0 && (
-              <Badge className="absolute top-4 right-4 bg-destructive text-destructive-foreground text-lg px-3 py-1">
+              <Badge className="absolute top-4 right-4 bg-green-300 text-destructive-foreground text-lg px-3 py-1">
                 -{discountPercentage}%
               </Badge>
             )}
@@ -111,7 +114,10 @@ export default function ProductDetailClient({ product, category, relatedProducts
               {product.images.slice(1, 5).map((img, idx) => (
                 <div
                   key={idx}
-                  className="relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer"
+                  onClick={()=>setSelectedImage(img)}
+                  className={`relative aspect-square overflow-hidden rounded-lg bg-muted cursor-pointer border-2 transition-all ${
+            selectedImage === img ? "border-primary" : "border-transparent"
+          }`}
                 >
                   <Image
                     src={img || "/placeholder.svg"}

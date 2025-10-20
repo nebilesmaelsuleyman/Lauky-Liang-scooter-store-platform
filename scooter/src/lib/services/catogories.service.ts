@@ -4,7 +4,6 @@ import CategoryModel from '@/lib/models/categoryModel';
 import Product from '@/lib/models/productModel';
 import slugify from 'slugify';
 
-// --- Interfaces (Defined here for completeness) ---
 interface Category {
   _id: string;
   name: string;
@@ -54,12 +53,14 @@ export async function createCategory(data: CategoryFormInput): Promise<Category>
 }
 
 export async function getAllCategories(): Promise<Category[]> {
+  await connectDB()
   const categories = await CategoryModel.find().lean<Category[]>();
   const serializedCategories = JSON.parse(JSON.stringify(categories));
   return serializedCategories as Category[];
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
+  await connectDB()
   const category = await CategoryModel.findOne({ slug })
     .select('name slug description')
     .lean<Category>();
@@ -137,7 +138,7 @@ export async function deleteCategoryBySlug(slug: string) {
     await connectDB();
 
     const deletedCategory = await CategoryModel.findOneAndDelete({ slug });
-          console.log("deleted category", deletedCategory)
+
     if (!deletedCategory) {
       return { success: false, message: "Category not found" };
     }

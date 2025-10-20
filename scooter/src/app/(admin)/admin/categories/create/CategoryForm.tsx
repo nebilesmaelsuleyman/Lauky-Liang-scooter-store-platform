@@ -191,12 +191,12 @@ export default function NewCategoryPageClient() {
               </CardHeader>
               <CardContent>
                 <ImageUpload
-                  // ImageUpload expects an array, so we wrap the single URL
+
                   value={formData.image ? [formData.image] : []}
-                  // Update the single URL state based on the array result
+                  
                   onChange={(images) => setFormData({ ...formData, image: images[0] || '' })}
-                  maxImages={1} // Restrict to only one image
-                  setFiles={setImageFile} // Track the original File for upload
+                  maxImages={1} 
+                  setFiles={setImageFile}
                   disabled={isSubmitting}
                 />
               </CardContent>

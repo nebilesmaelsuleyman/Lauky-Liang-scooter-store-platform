@@ -3,7 +3,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { DiscountBanner } from "@/components/discount-banner"
 import { CategoryCard } from "@/components/category-card"
 import {getAllCategories} from '@/lib/services/catogories.service'
-import { notFound } from "next/navigation"
+
 
 interface Category {
   _id: string;
@@ -23,21 +23,21 @@ export default async function CategoriesPage() {
   const categories = await fetchCategories();
 
   return (
-    <div className="flex  min-h-screen flex-col bg-[#0D1F3C]/90 text-white">
+    <div className="flex  min-h-screen flex-col bg-[#0D1F3C]/90 text-white mb-10">
       
       <DiscountBanner />
       <SiteHeader/>
 
       <main className="flex-1 ">
-        <div className="container px-10  ">
-          <div className="mb-8 ">
+        <div className="container px-10 mb-24 ">
+          <div className="mb-16 ">
             <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">Browse Categories</h1>
             <p className="text-white/70">Find the perfect scooter for your lifestyle and needs</p>
           </div>
 
           
           {categories.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6 ">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6">
               {categories.map((category) => (
                 <CategoryCard
                   key={category._id}

@@ -18,7 +18,7 @@ const navigation = [
 export function AdminSidebar(){
     const pathname =usePathname()
     return (
-        <aside className='hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 border-r bg-card'>
+        <aside className=' lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 border-r bg-card'>
             <div className=" flex items-center h-16 px-6 border-b">
                  <Link href="/admin" className="font-serif text-2xl font-bold">
                     Lucky Liang Admin
