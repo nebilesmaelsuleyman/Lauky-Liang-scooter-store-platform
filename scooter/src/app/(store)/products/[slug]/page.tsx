@@ -1,4 +1,3 @@
-// src/app/(store)/products/[slug]/page.tsx
 
 import { notFound } from "next/navigation"
 import { getProductBySlug } from "@/lib/services/product.service" // Your database service
@@ -29,7 +28,7 @@ export default async function ProductDetailPage({ params }: Props) {
       <SiteHeader />
 
       <main className="flex-1">
-        {/* Pass ALL fetched data to the Client Component */}
+       
         <ProductDetailClient 
           product={product} 
           category={category} 

@@ -52,9 +52,9 @@ export default function ProductDetailClient({ product, category, relatedProducts
   const handleAddToCart = () => {
     addItem({
       productId: product._id as string,
-      name: product.name,
-      price: product.price,
-      image: product.images[0],
+      name: product.name ?? "",
+      price: product.price ?? "",
+      image: product.images[0] ,
     })
   }
   
@@ -84,16 +84,16 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
   return (
     <div className="container py-8 px-10">
-      {/* Breadcrumb */}
+      
       <div className="text-sm text-muted-foreground mb-6">
         <span>Home</span> / <span>Products</span> /{" "}
         <span>{category?.name || "Uncategorized"}</span> /{" "}
         <span className="text-foreground">{product.name}</span>
       </div>
 
-      {/* Main content */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 ">
-        {/* Image Gallery */}
+        
         <div className="space-y-4">
           <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
             <Image
@@ -131,17 +131,17 @@ export default function ProductDetailClient({ product, category, relatedProducts
           )}
         </div>
 
-        {/* Product Info */}
+      
         <div className="space-y-5">
-          {/* Title & Price */}
+          
           <div>
             <p className="text-sm text-muted-foreground mb-1">{category?.name}</p>
             <h1 className="font-serif text-3xl font-bold mb-3 text-balance">{product.name}</h1>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold">${product.price}</span>
+              <span className="text-3xl font-bold">د.إ {product.price}</span>
               {product.compareAtPrice && (
                 <span className="text-lg text-muted-foreground line-through">
-                  ${product.compareAtPrice}
+                  د.إ {product.compareAtPrice}
                 </span>
               )}
             </div>
@@ -152,7 +152,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
-          {/* Description */}
+         
           <div>
             <h3 className="font-semibold mb-2 text-lg">Description</h3>
             <p className="text-muted-foreground text-sm leading-normal">{product.description}</p>
@@ -160,7 +160,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
-          {/* 🧩 Dynamic Key Specifications */}
+         
           <div>
             <h3 className="font-semibold mb-3 text-lg">Key Specifications</h3>
             <div className="grid grid-cols-2 gap-3">
@@ -189,7 +189,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
 
           <Separator />
 
-          {/* Stock */}
+          
           <div>
             {product.stock > 0 ? (
               <p className="text-sm text-green-600 font-medium">
@@ -200,7 +200,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
             )}
           </div>
 
-          {/* Buttons */}
+          
           <div className="flex gap-3">
             <Button size="lg" className="flex-1" onClick={handleAddToCart} disabled={product.stock === 0}>
               <ShoppingCart className="mr-2 h-5 w-5" />
@@ -208,7 +208,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
             </Button>
           </div>
 
-          {/* Info Card */}
+         
           <Card className="bg-muted/50">
             <CardContent className="p-4 space-y-2 text-sm">
               <p className="flex items-center gap-2">
@@ -225,7 +225,7 @@ export default function ProductDetailClient({ product, category, relatedProducts
         </div>
       </div>
 
-      {/* Related Products */}
+      
       {relatedProducts.length > 0 && (
         <div className="mt-12">
           <h2 className="font-serif text-3xl font-bold mb-6">You May Also Like</h2>

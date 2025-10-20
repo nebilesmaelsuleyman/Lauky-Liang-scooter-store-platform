@@ -12,8 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { SlidersHorizontal, Loader2 } from "lucide-react"
 import { useEffect, useState } from "react"
-
-// Assume these imports include the necessary property definitions (e.g., _id, name, price)
 import { Product } from "@/lib/models/productModel"
 import { Category } from "@/lib/models/categoryModel"
 
@@ -39,15 +37,14 @@ export default function ProductsPage() {
       try {
         const resProducts = await fetch('/api/products')
         const dataProducts = await resProducts.json()
-        
-        // Calculate dynamic max price from fetched products
+     
         const maxPrice = dataProducts.reduce(
             (max: number, p: Product) => Math.max(max, p.price || 0), 
             0
         );
 
         setProducts(dataProducts);
-        // Set dynamic max price for the slider and reset the price range
+        
         setDynamicMaxPrice(maxPrice || 10000); 
         setPriceRange([0, maxPrice || 10000]);
 
@@ -104,9 +101,9 @@ export default function ProductsPage() {
   }
 
   const FilterContent = () => (
-    // FIX: Ensure the inner content has a background and appropriate text color
+
      <div className="space-y-6 text-gray-800"> 
-      {/* Categories */}
+     
       <div>
         <h3 className="font-semibold mb-4">Categories</h3>
         <div className="space-y-3">
@@ -133,7 +130,7 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Price Range */}
+  
       <div> 
         <h3 className="font-semibold mb-4">Price Range</h3>
         <div className="space-y-4">
@@ -146,16 +143,16 @@ export default function ProductsPage() {
             className="w-full" 
           />
           <div className="flex items-center justify-between text-sm text-gray-600">
-            <span>${priceRange[0]}</span>
-            <span>${priceRange[1]}</span>
+            <span>د.إ {priceRange[0]}</span>
+            <span>د.إ {priceRange[1]}</span>
           </div>
         </div>
       </div>
 
-      {/* Reset Filters */}
+    
       <Button
         variant="outline"
-        className="w-full" // Removed bg-transparent, button will use default white background
+        className="w-full" 
         onClick={() => {
           setSelectedCategories([])
           setPriceRange([0, dynamicMaxPrice]) 
@@ -167,39 +164,39 @@ export default function ProductsPage() {
   )
 
   return (
-    // Main container keeps the dark background
+   
     <div className="flex min-h-screen flex-col  text-white"> 
       <DiscountBanner />
       <SiteHeader /> 
 
       <main className="flex-1">
         <div className="container py-8 px-8">
-          {/* Page Header - FIX: Text color adjusted for visibility against dark background */}
+         
           <div className="mb-8">
             <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-gray-800">All Products</h1> 
             <p className="text-gray-500">Discover our complete collection of premium electric scooters</p>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Desktop Filters Sidebar */}
+            
             <aside className="hidden lg:block w-64 flex-shrink-0">
-              {/* FIX: Set background to white for the filter wrapper */}
+
               <div className="sticky top-24 border rounded-lg p-6 bg-white shadow-lg"> 
                 <h2 className="font-semibold text-lg mb-6 text-gray-900">Filters</h2>
                 <FilterContent />
               </div>
             </aside>
 
-            {/* Products Grid */}
+          
             <div className="flex-1">
-              {/* Toolbar - FIX: Text color adjusted for visibility */}
+             
               <div className="flex items-center justify-between mb-6 text-white/70">
                 <p className="text-sm">
                   Showing {filteredProducts.length} {filteredProducts.length === 1 ? "product" : "products"}
                 </p>
 
                 <div className="flex items-center gap-4">
-                  {/* Sort Select: Will inherit white background from shadcn defaults */}
+
                   <Select value={sortBy} onValueChange={setSortBy}>
                     <SelectTrigger className="w-[180px] text-gray-900 bg-white">
                       <SelectValue placeholder="Sort by" />
@@ -213,15 +210,15 @@ export default function ProductsPage() {
                     </SelectContent>
                   </Select>
 
-                  {/* Mobile Filter Button */}
+                
                   <Sheet>
                     <SheetTrigger asChild className="lg:hidden">
-                      {/* FIX: Button background explicitly set to white */}
+
                       <Button variant="outline" size="icon" className="bg-white"> 
                         <SlidersHorizontal className="h-4 w-4" />
                       </Button>
                     </SheetTrigger>
-                    {/* SheetContent default background is usually white */}
+
                     <SheetContent side="left" className="w-[300px] bg-white"> 
                       <SheetHeader>
                         <SheetTitle className="text-gray-900">Filters</SheetTitle>
@@ -234,11 +231,11 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              {/* Products Grid */}
+             
               {filteredProducts.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredProducts.map((product) => (
-                    // ProductCard component should be designed to look good on a dark background
+
                     <ProductCard
                       key={String(product._id)}
                       id={String(product._id)}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react"
 import {Button} from '@/components/ui/button'
 export function DiscountBanner({
-    title='LuckyLiang Discoun',
+    title='LuckyLiang Discount',
     description= 'Enjoy a special offer on all products',
     discountPercentage='10'
 }){
@@ -17,7 +17,7 @@ export function DiscountBanner({
       <div className="container py-3">
         <div className="flex items-center justify-center gap-2 text-center">
           <p className="text-sm font-medium">
-            <span className="font-bold">{title}:</span> {description} - Get {discountPercentage}% off on all scooters!
+            <span className="font-bold">{title}:</span> {description} - Get up to {discountPercentage}% off on all scooters!
           </p>
         </div>
       </div>

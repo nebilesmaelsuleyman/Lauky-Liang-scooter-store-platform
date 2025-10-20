@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ImageUpload } from "@/components/image-upload"
-import { ArrowLeft, Save, Loader2 } from "lucide-react" // Added Loader2
+import { ArrowLeft, Save, Loader2 } from "lucide-react" 
 import Link from "next/link"
 import { toast } from "sonner"
 
@@ -199,7 +199,7 @@ export default function NewProductPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid gap-6 lg:grid-cols-3">
-          {/* Main Content */}
+        
           <div className="lg:col-span-2 space-y-6">
           
             <Card>
@@ -375,7 +375,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Status Card... (unchanged) */}
+         
             <Card>
               <CardHeader>
                 <CardTitle>Status</CardTitle>
@@ -404,7 +404,7 @@ export default function NewProductPage() {
               </CardContent>
             </Card>
 
-            {/* Actions */}
+
             <div className="flex flex-col gap-2">
               <Button type="submit" disabled={isSubmitting} className="w-full">
                 {isSubmitting ? (

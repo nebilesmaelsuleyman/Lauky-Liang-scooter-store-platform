@@ -7,15 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-// REMOVED: import { Checkbox } from "@/components/ui/checkbox" 
+
 import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react';
-import { Loader2 , Eye, EyeOff } from "lucide-react" // Import for the loading icon
+import { Loader2 , Eye, EyeOff } from "lucide-react" 
 
-// FIX 1: Remove 'async' from the component function signature.
-// Client components must be synchronous.
+
 export default function SignupPage() { 
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -43,7 +42,7 @@ export default function SignupPage() {
     setError('')
     
     try {
-      // API call is correctly placed here, inside the submit handler
+     
       const res = await fetch('/api/auth/signUp', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -54,11 +53,11 @@ export default function SignupPage() {
 
       if (!res.ok) {
         setError(data.error || "Signup failed");
-        // No need for setLoading(false) here, as it's in the finally block
+       
         return
       }
 
-      // Automatically sign in the user after successful registration
+
       const signInRes = await signIn('credentials', {
         redirect: false,
         email: formData.email,
@@ -66,11 +65,11 @@ export default function SignupPage() {
       })
 
       if (!signInRes?.error) {
-        router.push('/') // Success: Redirect to home
+        router.push('/') 
       } else {
-        // Fallback: If sign-in failed, redirect to the login page
+       
         setError("Account created, but automatic login failed. Please sign in.");
-        router.push('/auth/login') // Assuming /auth/login is your sign-in page
+        router.push('/auth/login')
       }
 
     } catch (error) {
@@ -88,8 +87,8 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="text-center pb-4"> {/* Adjusted padding */}
-          <Link href="/" className="mx-auto mb-3 inline-block"> {/* Adjusted margin */}
+        <CardHeader className="text-center pb-4">
+          <Link href="/" className="mx-auto mb-3 inline-block"> 
             <span className="font-serif text-3xl font-bold">Lucky Liang</span>
           </Link>
           <CardTitle>Create Account</CardTitle>
@@ -98,14 +97,14 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6"> {/* Increased vertical space */}
+          <form onSubmit={handleSubmit} className="space-y-6"> 
             
-            {/* Full Name Input */}
+            
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <Input
                 id="name"
-                name="name" // Added name attribute for clarity
+                name="name" 
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="John Doe"
@@ -113,12 +112,12 @@ export default function SignupPage() {
               />
             </div>
 
-            {/* Email Input */}
+            
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                name="email" // Added name attribute
+                name="email" 
                 type="email"
                 placeholder="john@example.com"
                 value={formData.email}
@@ -127,12 +126,12 @@ export default function SignupPage() {
               />
             </div>
 
-            {/* Password Input */}
+            
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative"><Input
                 id="password"
-                name="password" // Added name attribute
+                name="password" 
                 type={showPassword ? "text":"password"}
                 placeholder="••••••••"
                 value={formData.password}
@@ -164,7 +163,7 @@ export default function SignupPage() {
             </Button>
           </form>
 
-          <div className="relative my-8"> {/* Increased margin */}
+          <div className="relative my-8"> 
             <Separator />
             <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
               OR
