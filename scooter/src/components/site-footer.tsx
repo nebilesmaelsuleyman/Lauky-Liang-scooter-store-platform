@@ -20,7 +20,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-[#0D1F3C] text-white">
       
-      {/* 1. Newsletter Section - Now WHITE/LIGHT background */}
+
       <div className="bg-[#f8f8ff] py-16 border-b border-gray-200">
         <div className="container mx-auto text-center px-4">
           <Mail className="mx-auto h-10 w-10 mb-4 text-green-600" />
@@ -37,7 +37,7 @@ export function SiteFooter() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              // Input styling adjusted for light background
+
               className="flex-1 border-gray-300 text-gray-800 placeholder:text-gray-400"
             />
             <Button type="submit" className="bg-green-600 hover:bg-green-500 text-white">
@@ -47,16 +47,15 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* 2. Main Footer Content - Applied Gradient from transparent to deep blue */}
       <div 
         className="container mx-auto py-16 px-4"
         style={{
-          // Gradient starts transparent (so the light background shows through) and ends in the solid deep blue.
+
           backgroundImage: `linear-gradient(to bottom, rgba(13, 31, 60, 0.0) 0%, #0D1F3C 100%)`
         }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6">
+       
           <div>
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Image
@@ -79,7 +78,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Shop */}
+        
           <div>
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-white/70">
@@ -116,8 +115,8 @@ export function SiteFooter() {
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-sm text-white/70">
               <li><Link href="/aboutus" className="hover:text-green-500 transition-colors">About Us</Link></li>
-              <li><Link href="/privacy" className="hover:text-green-500 transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-green-500 transition-colors">Terms of Service</Link></li>
+              <li><Link href="/service/privacy" className="hover:text-green-500 transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/service/termsofservice" className="hover:text-green-500 transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
