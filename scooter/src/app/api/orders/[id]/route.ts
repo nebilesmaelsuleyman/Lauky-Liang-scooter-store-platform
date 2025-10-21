@@ -36,10 +36,10 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
     const result = await deleteOrderById(id);
     return NextResponse.json(result);
   } catch (error) {
