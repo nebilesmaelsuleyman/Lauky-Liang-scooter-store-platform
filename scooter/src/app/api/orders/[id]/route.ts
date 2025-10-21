@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getOrderByID } from '@/lib/services/order.service';
+import { getOrderByID, deleteOrderById } from '@/lib/services/order.service';
 
 
 export async function GET(
@@ -27,6 +27,25 @@ export async function GET(
     return NextResponse.json(
       { message: 'Internal Server Error' },
       { status: 500 }
+    );
+  }
+}
+
+
+
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const { id } = params;
+    const result = await deleteOrderById(id);
+    return NextResponse.json(result);
+  } catch (error) {
+    return NextResponse.json(
+      { message: (error as Error).message },
+      { status: 400 }
     );
   }
 }

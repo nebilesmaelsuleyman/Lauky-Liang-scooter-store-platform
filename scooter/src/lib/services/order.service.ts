@@ -164,3 +164,16 @@ export async function getUserOrders(userId: string): Promise<typeof Order[]> {
 
   return orders;
 }
+
+
+export async function deleteOrderById(orderId: string) {
+  await connectDB();
+  const order = await Order.findById(orderId);
+
+  if (!order) {
+    throw new Error("Order not found");
+  }
+
+  await Order.findByIdAndDelete(orderId);
+  return { success: true };
+}

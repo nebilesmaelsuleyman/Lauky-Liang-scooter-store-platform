@@ -74,7 +74,7 @@ export default function AdminOrdersPage() {
     }
   }, []);
 
-  // Debounced effect for fetching data
+ 
   useEffect(() => {
     const handler = setTimeout(() => {
       fetchOrders(searchQuery);
@@ -85,14 +85,21 @@ export default function AdminOrdersPage() {
     };
   }, [searchQuery, fetchOrders]);
 
-  const handleAction = (orderId: string, action: string) => {
-    // 💡 Implement navigation or API calls for actions here
-    console.log(`Action: ${action} on Order: ${orderId}`);
-    if (action === "view") {
-        // e.g., router.push(`/admin/orders/${orderId}`);
+  const handleAction = async (orderId: string, action: string) => {
+  if (action === "cancel") {
+    if (!confirm("Are you sure you want to delete this order?")) return;
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Failed to delete order");
+      setOrders((prev) => prev.filter((order) => order._id !== orderId));
+    } catch (err) {
+      console.error(err);
+      alert("Error deleting order");
     }
- 
-  };
+  }
+};
 
   return (
     <div className="space-y-6">
@@ -168,29 +175,21 @@ export default function AdminOrdersPage() {
                       <TableCell className="font-medium">${order.total.toFixed(2)}</TableCell>
                       <TableCell>
                         <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreVertical className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => handleAction(order._id, "view")}>
-                              <Eye className="mr-2 h-4 w-4" />
-                              View Details
-                            </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleAction(order._id, "ship")}>
-                              <Truck className="mr-2 h-4 w-4" />
-                              Mark as Shipped
-                            </DropdownMenuItem>
-                            <DropdownMenuItem 
-                              className="text-destructive" 
-                              onClick={() => handleAction(order._id, "cancel")}
-                            >
-                              <X className="mr-2 h-4 w-4" />
-                              Cancel Order
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="ghost" size="icon">
+      <MoreVertical className="h-4 w-4" />
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end">
+    <DropdownMenuItem 
+      className="text-destructive" 
+      onClick={() => handleAction(order._id, "cancel")}
+    >
+      <X className="mr-2 h-4 w-4" />
+      Delete Order
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
                       </TableCell>
                     </TableRow>
                   ))

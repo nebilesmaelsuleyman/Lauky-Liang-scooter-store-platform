@@ -8,7 +8,7 @@ import type { AuthOptions, SessionStrategy } from "next-auth";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
-  session:{strategy: "jwt" as SessionStrategy}, // or "database" depending on your preference
+  session:{strategy: "jwt" as SessionStrategy}, 
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -27,11 +27,11 @@ export const authOptions = {
       
       },
     }),
-    // You can add OAuth providers here (Google, GitHub) if needed
+   
   ],
   pages: {
     signIn: "/auth/signin",
-    // optionally error, signOut, verifyRequest...
+   
   },
   secret: process.env.NEXTAUTH_SECRET,
   
