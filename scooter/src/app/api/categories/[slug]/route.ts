@@ -3,11 +3,14 @@ import { deleteCategoryBySlug } from '@/lib/services/catogories.service'; // Imp
 
 
 type Params = { params: { slug: string } };
-export async function DELETE(_req: Request, { params }: Params) {
-  const { slug } = params;
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await context.params;
+
   if (!slug) {
-    console.log("no slug")
-    return NextResponse.json({ success: false, message: "Missing slug" }, { status: 400 });
+    return NextResponse.json({ message: 'Category slug is required' }, { status: 400 });
   }
   const result = await deleteCategoryBySlug(slug);
   if (!result.success) {
