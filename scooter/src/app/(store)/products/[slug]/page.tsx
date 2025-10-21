@@ -2,9 +2,6 @@
 import { notFound } from "next/navigation"
 import { getProductBySlug } from "@/lib/services/product.service" // Your database service
 import ProductDetailClient from "./productDetailClient" 
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { DiscountBanner } from "@/components/discount-banner"
 
 interface Props {
   params: { slug: string }

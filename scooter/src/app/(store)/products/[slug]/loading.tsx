@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 export default function ProductDetailLoading() {
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader />
+   
       <main className="flex-1">
         <div className="container py-8">
           <Skeleton className="h-4 w-64 mb-6" />
@@ -32,7 +32,7 @@ export default function ProductDetailLoading() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+     
     </div>
   )
 }

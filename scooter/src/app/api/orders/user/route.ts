@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/db/authOptions";
+import { authOptions } from "@/lib/db/auth.config";
 import Order from "@/lib/models/orderModel";
 import  connectDB  from "@/lib/db/connectDB";
 

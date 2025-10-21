@@ -1,11 +1,12 @@
-import {MongoClient} from 'mongodb'
+import { MongoClient } from 'mongodb';
 
-const uri= process.env.MONGODB_URI
+const uri = process.env.MONGODB_URI;
 
 if (!uri) throw new Error("Please add MONGODB_URI to .env.local");
 const options = {};
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
+
 if (process.env.NODE_ENV === "development") {
   // @ts-ignore global augmentation for dev HMR caching
   if (!(global as any)._mongoClientPromise) {

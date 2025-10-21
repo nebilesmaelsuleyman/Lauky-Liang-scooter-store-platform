@@ -17,12 +17,11 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if(!credentials?.email || !credentials?.password){
-          console.log("login fail: missing email or password in credentials")
-          return null
-        }
+        if(!credentials?.email || !credentials?.password)return null
+
+        
         const loggedInuser= await login(credentials)
-        console.log("logged in user form authoptions",loggedInuser)
+        
         return loggedInuser
       
       },
@@ -30,7 +29,7 @@ export const authOptions = {
    
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/login",
    
   },
   secret: process.env.NEXTAUTH_SECRET,
@@ -39,6 +38,7 @@ export const authOptions = {
     async jwt({token, user}:any){
       if(user){
         token.id= user._id?.toString?.()|| user.id
+        token.role=user.role 
 
       }
       return token
@@ -46,7 +46,8 @@ export const authOptions = {
     },
     async session({session, token}:any){
       if(token && session.user){
-        session.user.id= token.id as string
+        session.user.id= token.id as string;
+        session.user.role=token.role 
       }
       return session
     }
