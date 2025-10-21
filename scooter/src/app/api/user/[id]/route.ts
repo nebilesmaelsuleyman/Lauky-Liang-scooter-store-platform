@@ -2,10 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updateUser } from '@/lib/services/user.service';
 
 export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: Promise<{ userId: string }> }
 ) {
-  const userId = params.id;
+  
+    const { userId } = await context.params;
 
   
   let dataToUpdate: any;

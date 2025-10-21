@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { id } = await context.params
-    await connectDB();
+    
 
     if (!id) {
       return NextResponse.json({ message: "Product ID is required" }, { status: 400 });
@@ -65,11 +65,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
-    await connectDB();
+    const { id } = await context.params;
+    
 
     if (!id) {
       return NextResponse.json({ message: "Product ID is required" }, { status: 400 });

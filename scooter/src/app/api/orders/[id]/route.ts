@@ -1,15 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextResponse,NextRequest } from 'next/server';
 import { getOrderByID, deleteOrderById } from '@/lib/services/order.service';
 
 
 export async function GET(
-  request: Request,
-  { params }: { params: { orderId: string } }
+  request: NextResponse,
+  context: { params: Promise<{ orderId: string }> }
 ) {
-  const { orderId } = params;
+  const {orderId } = await context.params; // 👈 await params since it’s a Promise
 
   if (!orderId) {
-    return NextResponse.json({ message: 'Missing orderId' }, { status: 400 });
+    return NextResponse.json({ message: 'order id  is required' }, { status: 400 });
   }
 
   try {
