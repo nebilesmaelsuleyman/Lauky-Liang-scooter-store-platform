@@ -1,6 +1,6 @@
 
 import { NextResponse } from 'next/server';
-import { getAdminOrders } from '@/lib/services/order.service';
+import { getAdminOrders} from '@/lib/services/order.service';
 
 
 export async function GET(request: Request) {
@@ -19,3 +19,5 @@ export async function GET(request: Request) {
     );
   }
 }
+
+

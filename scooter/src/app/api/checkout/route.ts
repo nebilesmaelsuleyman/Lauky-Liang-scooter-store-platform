@@ -41,7 +41,7 @@ const customer = await getCustomerDetails(userId);
       mode: "payment",
       line_items: items.map((item: any) => ({
         price_data: {
-          currency: "usd",
+          currency: "aed",
           product_data: {
             name: item.name,
             images: item.image ? [item.image] : [],

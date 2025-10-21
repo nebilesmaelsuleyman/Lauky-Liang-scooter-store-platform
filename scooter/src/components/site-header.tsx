@@ -1,8 +1,7 @@
 "use client"
 
 import Link from "next/link"
-
-import {  ShoppingCart, User, ChevronDown } from "lucide-react"
+import { ShoppingCart, User, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
@@ -17,10 +16,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#0D1F3C]/90 backdrop-blur-md border-b border-white/20">
       <div className="container flex h-16 items-center justify-between px-4 md:px-10">
-    
-        <Link href='/'><span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span></Link>
 
-      
+       
+        <Link href='/'>
+          <span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span>
+        </Link>
+
+       
         <nav className="hidden md:flex items-center space-x-8">
           {["/products","/categories","/aboutus"].map((href, idx) => {
             const label = href === "/products" ? "All Products" : href === "/categories" ? "Categories" : "About Us"
@@ -35,7 +37,7 @@ export function SiteHeader() {
             )
           })}
 
-       
+          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-1 text-white/90 hover:text-green-500 font-medium text-sm transition-colors">
@@ -44,9 +46,9 @@ export function SiteHeader() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-white text-gray-900 rounded-md shadow-md">
               <DropdownMenuItem asChild>
-                <Link href="/service/support" className="w-full hover:text-green-600">support</Link>
+                <Link href="/service/support" className="w-full hover:text-green-600">Support</Link>
               </DropdownMenuItem>
-               <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild>
                 <Link href="/service/warranty" className="w-full hover:text-green-600">Warranty</Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -57,9 +59,19 @@ export function SiteHeader() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          
+          {isLoggedIn && (
+            <Link
+              href="/order"
+              className="text-white/90 hover:text-green-500 transition-colors font-medium text-sm"
+            >
+              My Orders
+            </Link>
+          )}
         </nav>
 
-       
+
         <div className="hidden md:flex items-center space-x-3">
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="relative text-white/90 hover:text-green-500">
@@ -105,7 +117,7 @@ export function SiteHeader() {
           )}
         </div>
 
-        
+      
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
             <Button variant="ghost" size="icon" className="text-white/90 hover:text-green-500">
@@ -119,11 +131,10 @@ export function SiteHeader() {
               <Link href="/categories" className="text-lg font-medium hover:text-green-500">Categories</Link>
               <Link href="/aboutus" className="text-lg font-medium hover:text-green-500">About Us</Link>
 
-              
               <div className="flex flex-col space-y-2 mt-4 border-t border-white/20 pt-3">
                 <span className="text-sm text-white/70 uppercase tracking-wide">Support</span>
-                <Link href="/service/support" className="hover:text-green-500 text-base">support</Link>
-                 <Link href="/service/warranty" className="hover:text-green-500 text-base">Warranty</Link>
+                <Link href="/service/support" className="hover:text-green-500 text-base">Support</Link>
+                <Link href="/service/warranty" className="hover:text-green-500 text-base">Warranty</Link>
                 <Link href="/service/return" className="hover:text-green-500 text-base">Return Policy</Link>
                 <Link href="/service/privacy" className="hover:text-green-500 text-base">Privacy Policy</Link>
               </div>

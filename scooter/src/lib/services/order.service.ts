@@ -27,6 +27,7 @@ export async function markOrderAsPaid(sessionId: string) {
   }
 
   order.paymentStatus = PaymentStatus.PAID;
+  console.log(order, "order payment paid")
   await order.save()  
   
 
@@ -135,7 +136,7 @@ export async function getAdminOrders(searchQuery: string = ''): Promise<AdminOrd
       .select('orderNumber customerName customerEmail createdAt status paymentStatus totalAmount')
       .lean();
     return orders.map(order => ({
-      _id: order._id.toString(),
+      _id: String(order._id ?? ""),
       orderNumber: order.orderNumber,
       customer: order.customerName,
       email: order.customerEmail,
@@ -148,4 +149,18 @@ export async function getAdminOrders(searchQuery: string = ''): Promise<AdminOrd
     console.error("Database error fetching admin orders:", error);
     throw new Error("Failed to fetch orders from database.");
   }
+}
+
+export async function getUserOrders(userId: string): Promise<typeof Order[]> {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    throw new Error("Invalid userId");
+  }
+
+  const orders = await Order.find({ userId })
+    .sort({ createdAt: -1 })
+    .populate("items.productId", "name price") 
+    .exec();
+    console.log('get usersOrders ',orders)
+
+  return orders;
 }
