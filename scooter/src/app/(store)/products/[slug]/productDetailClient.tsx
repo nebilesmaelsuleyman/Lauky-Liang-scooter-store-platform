@@ -138,10 +138,10 @@ export default function ProductDetailClient({ product, category, relatedProducts
             <p className="text-sm text-muted-foreground mb-1">{category?.name}</p>
             <h1 className="font-serif text-3xl font-bold mb-3 text-balance">{product.name}</h1>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold">د.إ {product.price}</span>
+              <span className="text-3xl font-bold">AED{product.price}</span>
               {product.compareAtPrice && (
                 <span className="text-lg text-muted-foreground line-through">
-                  د.إ {product.compareAtPrice}
+                  AED{product.compareAtPrice}
                 </span>
               )}
             </div>

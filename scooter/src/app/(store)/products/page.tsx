@@ -143,8 +143,8 @@ export default function ProductsPage() {
             className="w-full" 
           />
           <div className="flex items-center justify-between text-sm text-gray-600">
-            <span>د.إ {priceRange[0]}</span>
-            <span>د.إ {priceRange[1]}</span>
+            <span>AED {priceRange[0]}</span>
+            <span>AED { priceRange[1]}</span>
           </div>
         </div>
       </div>

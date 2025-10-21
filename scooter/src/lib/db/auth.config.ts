@@ -1,8 +1,7 @@
-// lib/authOptions.ts
+
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "./mongodbClient";
 import CredentialsProvider from "next-auth/providers/credentials";
-
 import { login} from '@/lib/services/user.service'
 import type { AuthOptions, SessionStrategy } from "next-auth";
 
