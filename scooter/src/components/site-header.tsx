@@ -16,8 +16,6 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#0D1F3C]/90 backdrop-blur-md border-b border-white/20">
       <div className="container flex h-16 items-center justify-between px-4 md:px-10">
-
-       
         <Link href='/'>
           <span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span>
         </Link>
