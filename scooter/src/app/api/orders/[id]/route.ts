@@ -3,7 +3,7 @@ import { getOrderByID, deleteOrderById } from '@/lib/services/order.service';
 
 
 export async function GET(
-  request: NextResponse,
+  request: NextRequest,
   context: { params: Promise<{ orderId: string }> }
 ) {
   const {orderId } = await context.params; // 👈 await params since it’s a Promise
