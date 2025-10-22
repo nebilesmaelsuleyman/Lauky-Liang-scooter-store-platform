@@ -23,15 +23,15 @@ export default async function CategoriesPage() {
   const categories = await fetchCategories();
 
   return (
-    <div className="flex  min-h-screen flex-col bg-[#0D1F3C]/90 text-white mb-10">
+    <div className="flex  min-h-screen flex-col  text-green-700 mb-10">
       
     
 
       <main className="flex-1 ">
-        <div className="container px-10 mb-24 ">
+        <div className="container px-10 mb-24 mt-10 ">
           <div className="mb-16 ">
-            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-white">Browse Categories</h1>
-            <p className="text-white/70">Find the perfect scooter for your lifestyle and needs</p>
+            <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-green-700">Browse Categories</h1>
+            <p>Find the perfect scooter for your lifestyle and needs</p>
           </div>
 
           

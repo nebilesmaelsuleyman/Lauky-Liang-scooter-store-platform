@@ -190,11 +190,11 @@ const SLIDE_INTERVAL = 5000
           <div className="container">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold mb-2"> Top Scooters</h2>
+                <h2 className="font-sanserif text-3xl md:text-4xl font-bold mb-2 items-center text-green-700"> Top Scooters</h2>
                 <p className="text-muted-foreground">Our most popular models loved by riders</p>
               </div>
               <Link href="/products">
-                <Button variant="secondary">
+                <Button variant="outline">
                   View All
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

@@ -17,7 +17,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 w-full bg-[#0D1F3C]/90 backdrop-blur-md border-b border-white/20">
       <div className="container flex h-16 items-center justify-between px-4 md:px-10">
         <Link href='/'>
-          <span className="hidden md:inline text-xl font-semibold text-white tracking-tight">Lucky Liang</span>
+          <img src='/images/logo.png'></img>
         </Link>
 
        
@@ -34,8 +34,6 @@ export function SiteHeader() {
               </Link>
             )
           })}
-
-          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button className="flex items-center gap-1 text-white/90 hover:text-green-500 font-medium text-sm transition-colors">
