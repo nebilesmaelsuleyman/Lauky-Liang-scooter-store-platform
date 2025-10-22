@@ -2,13 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { updateUser } from '@/lib/services/user.service';
 
 export async function PATCH(
-  request: Request,
-  context: { params: Promise<{ userId: string }> }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> } // ✅ must match folder name
 ) {
-  
-    const { userId } = await context.params;
+  const { id } = await context.params; // ✅ destructure correct param name
 
-  
   let dataToUpdate: any;
   try {
     dataToUpdate = await request.json();
@@ -19,6 +17,14 @@ export async function PATCH(
     );
   }
 
-  const response = await updateUser(userId, dataToUpdate);
-  return response;
+  try {
+    const response = await updateUser(id, dataToUpdate);
+    return response;
+  } catch (error) {
+    console.error(`Error updating user ${id}:`, error);
+    return NextResponse.json(
+      { message: 'Failed to update user.' },
+      { status: 500 }
+    );
+  }
 }

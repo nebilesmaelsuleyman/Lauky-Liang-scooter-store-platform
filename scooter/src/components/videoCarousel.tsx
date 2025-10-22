@@ -121,7 +121,7 @@ const VideoSlideContent: React.FC<VideoSlideContentProps> = ({ video, isActive }
         >
           <PlayCircle className="w-20 h-20 text-indigo-400 hover:text-indigo-300 transition-colors duration-300 drop-shadow-lg" />
           <p className="mt-4 text-xl font-semibold text-white">Click to Play: {video.title}</p>
-          <p className="text-sm text-gray-300 mt-1">(Local videos auto-advance)</p>
+          <p className="text-sm text-gray-300 mt-1">(witness our products quality)</p>
         </div>
       )}
 

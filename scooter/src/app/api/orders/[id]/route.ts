@@ -1,48 +1,41 @@
-import { NextResponse,NextRequest } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { getOrderByID, deleteOrderById } from '@/lib/services/order.service';
-
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ orderId: string }> }
+  context: { params: Promise<{ id: string }> } // ✅ match folder name
 ) {
-  const {orderId } = await context.params; // 👈 await params since it’s a Promise
+  const { id } = await context.params; // ✅ match folder param
 
-  if (!orderId) {
-    return NextResponse.json({ message: 'order id  is required' }, { status: 400 });
+  if (!id) {
+    return NextResponse.json({ message: 'Order ID is required' }, { status: 400 });
   }
 
   try {
-    
-    const order = await getOrderByID(orderId);
+    const order = await getOrderByID(id);
 
     if (!order) {
-      return NextResponse.json({ message: `Order with ID ${orderId} not found` }, { status: 404 });
+      return NextResponse.json({ message: `Order with ID ${id} not found` }, { status: 404 });
     }
 
     return NextResponse.json(order, { status: 200 });
-
   } catch (error) {
-    console.error(`Error fetching order ${orderId}:`, error);
-    return NextResponse.json(
-      { message: 'Internal Server Error' },
-      { status: 500 }
-    );
+    console.error(`Error fetching order ${id}:`, error);
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
 
-
-
-
 export async function DELETE(
-  req: Request,
-    context: { params: Promise<{ id: string }> }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
+
   try {
-    const { id } = await context.params;
     const result = await deleteOrderById(id);
     return NextResponse.json(result);
   } catch (error) {
+    console.error(`Error deleting order ${id}:`, error);
     return NextResponse.json(
       { message: (error as Error).message },
       { status: 400 }
