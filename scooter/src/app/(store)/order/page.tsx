@@ -73,13 +73,13 @@ export default function OrdersPage() {
                           <span>
                             {item.productId.name || "Product"} × {item.quantity}
                           </span>
-                          <span className="font-medium">AED{item.price}</span>
+                          <span className="font-medium">{item.price} AED</span>
                         </div>
                       ))}
                       <Separator />
                       <div className="flex justify-between text-sm font-semibold pt-1">
                         <span>Total</span>
-                        <span>AED{order.totalAmount}</span>
+                        <span>{order.totalAmount} AED</span>
                       </div>
                     </div>
                   </CardContent>

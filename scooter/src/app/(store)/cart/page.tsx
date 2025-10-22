@@ -89,7 +89,7 @@ export default  function CartPage() {
                           <div className="flex justify-between">
                             <div>
                               <h3 className="font-semibold">{item.name}</h3>
-                              <p className="text-sm text-muted-foreground mt-1">AED{item.price} each</p>
+                              <p className="text-sm text-muted-foreground mt-1">{item.price} AED each</p>
                             </div>
                             <Button variant="ghost" size="icon" onClick={() => removeItem(item.productId)}>
                               <Trash2 className="h-4 w-4" />
@@ -116,7 +116,7 @@ export default  function CartPage() {
                               </Button>
                             </div>
                             <div className="text-right">
-                              <p className="font-bold text-lg">AED{(item.price * item.quantity).toFixed(2)}</p>
+                              <p className="font-bold text-lg">{(item.price * item.quantity).toFixed(2)} AED</p>
                             </div>
                           </div>
                         </div>
@@ -134,7 +134,7 @@ export default  function CartPage() {
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Subtotal</span>
-                        <span className="font-medium">AED{subtotal.toFixed(2)}</span>
+                        <span className="font-medium">{subtotal.toFixed(2)} AED</span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Shipping</span>
@@ -144,7 +144,7 @@ export default  function CartPage() {
                       <Separator />
                       <div className="flex justify-between">
                         <span className="font-semibold text-lg">Total</span>
-                        <span className="font-bold text-xl">AED{total.toFixed(2)}</span>
+                        <span className="font-bold text-xl">{total.toFixed(2)} AED</span>
                       </div>
                     </div>
                     <Button className="w-full mt-6" size="lg" onClick={handleCheckout} disabled={loading}>
@@ -157,7 +157,7 @@ export default  function CartPage() {
                     </Link>
                     {subtotal < 1000 && subtotal > 0 && (
                       <p className="text-xs text-muted-foreground text-center mt-4">
-                        Add AED{(1000 - subtotal).toFixed(2)} more for free shipping
+                        Add {(1000 - subtotal).toFixed(2)} AED  more for free shipping
                       </p>
                     )}
                   </CardContent>

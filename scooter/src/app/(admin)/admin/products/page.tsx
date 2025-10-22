@@ -136,12 +136,7 @@ const handleDelete = async (id: string) => {
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
-          {/* <Link href="/admin/products/bulk-import">
-            <Button variant="outline">
-              <Upload className="mr-2 h-4 w-4" />
-              Import
-            </Button>
-          </Link> */}
+         
           <Link href="/admin/products/new">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
@@ -284,7 +279,7 @@ const handleDelete = async (id: string) => {
                           </div>
                         </TableCell>
                         <TableCell>{category?.name}</TableCell>
-                        <TableCell>${product.price.toFixed(2)}</TableCell>
+                        <TableCell>{product.price.toFixed(2)} AED</TableCell>
                         <TableCell>
                           <span className={product.stock < 10 ? "text-destructive" : ""}>{product.stock} units</span>
                         </TableCell>

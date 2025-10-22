@@ -28,7 +28,7 @@ export default async function CategoriesPage() {
     
 
       <main className="flex-1 ">
-        <div className="container px-10 mb-24 mt-10 ">
+        <div className="container px-10 mb-16 mt-10 ">
           <div className="mb-16 ">
             <h1 className="font-serif text-3xl md:text-4xl font-bold mb-2 text-green-700">Browse Categories</h1>
             <p>Find the perfect scooter for your lifestyle and needs</p>
