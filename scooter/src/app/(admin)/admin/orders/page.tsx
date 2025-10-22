@@ -129,7 +129,7 @@ export default function AdminOrdersPage() {
                   <TableHead>Order Number</TableHead>
                   <TableHead>Customer</TableHead>
                   <TableHead>Date</TableHead>
-                  <TableHead>Status</TableHead>
+                 
                   <TableHead>Payment</TableHead>
                   <TableHead>Total</TableHead>
                   <TableHead className="w-[80px]"></TableHead>
@@ -166,9 +166,7 @@ export default function AdminOrdersPage() {
                         </div>
                       </TableCell>
                       <TableCell>{new Date(order.date).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <Badge className={getStatusColor(order.status)}>{order.status}</Badge>
-                      </TableCell>
+                     
                       <TableCell>
                         <Badge className={getPaymentStatusColor(order.paymentStatus)}>{order.paymentStatus}</Badge>
                       </TableCell>

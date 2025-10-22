@@ -54,12 +54,13 @@ interface CustomerDetails {
       id: user._id.toString(),
       name: user.name,
       email: user.email,
+      role: user.role || "user",
     };
   }
 
 
 export async function getAllUsers() {
-  // Ensure the database connection is established
+  
   await connectDB();
 
   try {
