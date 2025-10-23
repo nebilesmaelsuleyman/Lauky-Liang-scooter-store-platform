@@ -2,7 +2,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Lucky Liang Scooters",
+  title: "Lucky Liang E-Scooters",
   description: "Premium E-Scooters in Dubai",
     icons: {
     icon: "/favicon.ico", 

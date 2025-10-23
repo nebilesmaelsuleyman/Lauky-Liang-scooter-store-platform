@@ -3,8 +3,21 @@
 import { CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useSearchParams } from "next/navigation"
+import { useCart } from "@/contexts/cart-context"
+import { useEffect } from "react"
 
 export default function SuccessPage() {
+  const {clearCart} =useCart()
+  const searchParams= useSearchParams()
+  const sessionId= searchParams.get("session_id")
+
+  useEffect(()=>{
+    if(sessionId){
+      clearCart()
+    }
+  },[sessionId, clearCart])
+
   return (
 
     <main className="min-h-screen flex flex-col items-center justify-center bg-gray-900 px-4 py-12">
