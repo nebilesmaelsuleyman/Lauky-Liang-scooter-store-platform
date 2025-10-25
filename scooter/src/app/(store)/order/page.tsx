@@ -15,7 +15,7 @@ export default function OrdersPage() {
   const userId = (session?.user as any)?.id;
 
   useEffect(() => {
-    if (!userId) {
+    if (userId) {
       fetch("/api/orders/user")
         .then((res) => res.json())
         .then((data) => {
