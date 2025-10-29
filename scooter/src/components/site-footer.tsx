@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Instagram, Twitter, Mail, Youtube } from "lucide-react";
-// import { FaTiktok } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
 
 import { useState } from "react";
 import { toast } from "sonner";
@@ -106,19 +106,43 @@ export function SiteFooter() {
                             Premium electric scooters for modern urban living.
                             Quality, performance, and style.
                         </p>
-                        <div className="flex space-x-4">
-                            {[Youtube, Facebook, Instagram, Twitter].map(
-                                (Icon, idx) => (
-                                    <Link
-                                        key={idx}
-                                        href="#"
-                                        className="text-green-500 hover:text-white/90 transition-colors"
-                                    >
-                                        <Icon className="h-5 w-5" />
-                                    </Link>
-                                )
-                            )}
-                        </div>
+                         <div className="flex space-x-4">
+      <Link
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-green-500 hover:text-white/90 transition-colors"
+      >
+        <Youtube className="h-5 w-5" />
+      </Link>
+
+      <Link
+        href="https://www.facebook.com/profile.php?id=61572963972101"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-green-500 hover:text-white/90 transition-colors"
+      >
+        <Facebook className="h-5 w-5" />
+      </Link>
+
+      <Link
+        href="https://www.instagram.com/luckyliangev?igsh=M2ZpeHZhbjIwcWgy"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-green-500 hover:text-white/90 transition-colors"
+      >
+        <Instagram className="h-5 w-5" />
+      </Link>
+
+      <Link
+        href="https://vm.tiktok.com/ZMAgdFBam/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-green-500 hover:text-white/90 transition-colors"
+      >
+        <FaTiktok className="h-5 w-5" />
+      </Link>
+    </div>
                     </div>
 
                     <div>

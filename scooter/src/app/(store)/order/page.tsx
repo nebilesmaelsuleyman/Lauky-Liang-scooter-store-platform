@@ -12,6 +12,7 @@ export default function OrdersPage() {
   const { data: session, status } = useSession();
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [clearing, setClearing] = useState(false);
   const userId = (session?.user as any)?.id;
 
   useEffect(() => {
@@ -25,6 +26,28 @@ export default function OrdersPage() {
     }
   }, [userId]);
 
+  async function handleClearOrders() {
+    if (!confirm("Are you sure you want to clear all your orders?")) return;
+
+    setClearing(true);
+    try {
+      const res = await fetch("/api/orders/clear", { method: "DELETE" });
+      const data = await res.json();
+
+      if (data.success) {
+        alert("All orders cleared successfully!");
+        setOrders([]); // clear UI
+      } else {
+        alert(data.error || "Something went wrong while clearing orders.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to clear orders.");
+    } finally {
+      setClearing(false);
+    }
+  }
+
   if (status === "loading") return <p>Loading session...</p>;
   if (!session) return <p>Please login to see your orders.</p>;
 
@@ -32,7 +55,19 @@ export default function OrdersPage() {
     <div className="flex min-h-screen flex-col">
       <main className="flex-1 bg-muted/30">
         <div className="container py-6">
-          <h1 className="font-serif text-3xl md:text-4xl font-bold mb-6">My Orders</h1>
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="font-serif text-3xl md:text-4xl font-bold">My Orders</h1>
+
+            {orders.length > 0 && (
+              <Button
+                variant="destructive"
+                onClick={handleClearOrders}
+                disabled={clearing}
+              >
+                {clearing ? "Clearing..." : "Clear All Orders"}
+              </Button>
+            )}
+          </div>
 
           {loading ? (
             <p>Loading orders...</p>
@@ -71,7 +106,7 @@ export default function OrdersPage() {
                       {order.items.map((item: any, index: number) => (
                         <div key={index} className="flex justify-between text-sm">
                           <span>
-                            {item.productId.name || "Product"} × {item.quantity}
+                            {item.productId?.name ?? "Unknown Product"} × {item.quantity}
                           </span>
                           <span className="font-medium">{item.price} AED</span>
                         </div>
