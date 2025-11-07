@@ -117,7 +117,7 @@ export function SiteFooter() {
       </Link>
 
       <Link
-        href="https://www.facebook.com/profile.php?id=61572963972101"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         className="text-green-500 hover:text-white/90 transition-colors"
@@ -126,7 +126,7 @@ export function SiteFooter() {
       </Link>
 
       <Link
-        href="https://www.instagram.com/luckyliangev?igsh=M2ZpeHZhbjIwcWgy"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         className="text-green-500 hover:text-white/90 transition-colors"
@@ -135,7 +135,7 @@ export function SiteFooter() {
       </Link>
 
       <Link
-        href="https://vm.tiktok.com/ZMAgdFBam/"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
         className="text-green-500 hover:text-white/90 transition-colors"
@@ -216,7 +216,7 @@ export function SiteFooter() {
                                     href="#"
                                     className="hover:text-green-500 transition-colors"
                                 >
-                                    +971 58 261 6899
+                                    +9******
                                 </Link>
                             </li>
                             <li>
@@ -224,7 +224,7 @@ export function SiteFooter() {
                                     href="https://www.google.com/maps/place/Lucky+Liang,+GK65A.+Dragon+mart+2+-+near+nestco+supermarket+front+gate+-+Dubai+International+City+-+Dubai+-+United+Arab+Emirates/data=!4m2!3m1!1s0x3e5f61a64cecc8ab:0xbf9d9e6203ce56f1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI1LjM4LjIYACDXggMqqwEsOTQyNTk1NTAsOTQyNjc3MjcsOTQyODQ0NjAsOTQyMjMyOTksOTQyMTY0MTMsOTQyODA1NzYsOTQyMTI0OTYsOTQyNjc3ODcsOTQyODUwNTEsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTc1MjMsOTQyMTg2NTMsOTQyMjk4MzksOTQyNjI3MzMsNDcwODQzOTMsOTQyMTMyMDAsOTQyNTgzMjVCAlBL&skid=286bf9fc-e0c3-4a92-8b80-c74ab54066cb"
                                     className="hover:text-green-500 transition-colors"
                                 >
-                                    GK65A, Dragon Mart
+                                    GK********
                                 </Link>
                             </li>
                             <li>
@@ -272,7 +272,7 @@ export function SiteFooter() {
 
             <div className="border-t border-white/20 py-6 mt-30 mb-0">
                 <div className="container mx-auto text-center text-white/70 text-sm">
-                    © {new Date().getFullYear()} Lucky Liang. All rights
+                    © {new Date().getFullYear()} LScootHub. All rights
                     reserved.
                 </div>
             </div>

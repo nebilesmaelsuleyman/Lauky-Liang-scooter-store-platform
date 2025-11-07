@@ -26,7 +26,8 @@ export function SiteHeader() {
         <header className="sticky top-0 z-50 w-full bg-black/90 backdrop-blur-md border-b border-white/20">
             <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-10">
                 <Link href="/">
-                    <img src="/images/logo.png"></img>
+                    <span className='text-4xl text-white'>ScootHub</span>
+                    {/* <img src="/images/logo.png"></img> */}
                 </Link>
 
                 <nav className="hidden md:flex items-center space-x-8">

@@ -63,12 +63,12 @@ export default function Home() {
         );
     }
     const BACKGROUND_IMAGES = [
-        { src: "/images/j1.jpg", alt: "Electric scooter on the road" },
+        { src: "/images/j1.jpg", alt: "Modern urban scooter" },
         { src: "/images/U03-04(1).jpg", alt: "Modern urban scooter" },
         { src: "/images/DS01-05.jpg", alt: "Scooter in city landscape" },
-        { src: "/images/L2.png", alt: "Electric scooter on the road" },
           { src: "/images/L5.jpg", alt: "Electric scooter on the road" },
         { src: "/images/DS01-06.jpg", alt: "Scooter in city landscape" },
+        { src: "/images/L2a.jpg", alt: "Scooter in city landscape" },
     ];
 
     const SLIDE_INTERVAL = 5000;

@@ -11,7 +11,7 @@ export default withAuth(
     console.log('Token Exists:', !!token);
     console.log('Token Role:', token?.role);
     if (
-      request.nextUrl.pathname.startsWith('/admin') && 
+      request.nextUrl.pathname.startsWith('/protected') && 
       token?.role !== 'admin'
     ) {
 
@@ -27,7 +27,7 @@ export default withAuth(
       
       authorized: ({ token, req }) => {
         
-        if (req.nextUrl.pathname.startsWith('/protected') || req.nextUrl.pathname.startsWith('/admin')) {
+        if (req.nextUrl.pathname.startsWith('/protected') ) {
             return !!token; 
         }
         
@@ -44,6 +44,6 @@ export const config = {
   
   matcher: [
     '/protected/:path*',
-    '/admin/:path*',
+   
   ],
 };

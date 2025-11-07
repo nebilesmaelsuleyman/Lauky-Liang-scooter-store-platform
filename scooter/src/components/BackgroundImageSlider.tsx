@@ -43,7 +43,7 @@ const FullBackgroundSlider: React.FC<FullBackgroundSliderProps> = ({ images, int
             fill
             priority={index === 0}
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-contain mx-auto"
           />
 
           
